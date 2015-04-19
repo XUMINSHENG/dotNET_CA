@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    class CompanyHR
+    public class CompanyHR
     {
         [Key]
         [Required]

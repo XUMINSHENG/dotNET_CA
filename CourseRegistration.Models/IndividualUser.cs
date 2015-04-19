@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    class IndividualUser
+    public class IndividualUser
     {
         public Participant Participant { get; set; }
     }
