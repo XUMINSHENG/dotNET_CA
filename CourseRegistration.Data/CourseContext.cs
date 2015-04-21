@@ -16,6 +16,9 @@ namespace CourseRegistration.Data
         {
         }
 
+        public DbSet<Staff> Staff { get; set; }
+        public DbSet<SystemAdmin> SystemAdmins { get; set; }
+        public DbSet<CourseAdmin> CourseAdmins { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Course> Courses { get; set; }
