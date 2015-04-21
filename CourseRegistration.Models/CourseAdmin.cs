@@ -7,10 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    public class IndividualUser
+    public class CourseAdmin
     {
-        [Key][Required]
-        public String IdNumber { get; set; }
-        public Participant Participant { get; set; }
+        public bool enabled { get; set; }
+        public Staff Staff { get; set; }
     }
 }

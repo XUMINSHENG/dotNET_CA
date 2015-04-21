@@ -15,13 +15,15 @@ namespace CourseRegistration.Models
         public CourseClass CourseClass { get; set; }
         [Required]
         public Participant Participant { get; set; }
-        public String sponsorship { get; set; }
-        public String dietaryRequirement { get; set; }
-        public String organizationSize { get; set; }
-        public String billingAddress { get; set; }
-        public String billingPersonName { get; set; }
-        public String billingAddressCountry { get; set; }
-        public String billingAddressPostalCode { get; set; }
-        public String status { get; set; }
+        public String Sponsorship { get; set; }
+        public String DietaryRequirement { get; set; }
+        public String OrganizationSize { get; set; }
+        public String BillingAddress { get; set; }
+        public String BillingPersonName { get; set; }
+        public String BillingAddressCountry { get; set; }
+        public String BillingAddressPostalCode { get; set; }
+        public RegistrationStatus Status { get; set; }
     }
 }
+
+public enum RegistrationStatus { Pending=0,Success=1,Cancel=2}

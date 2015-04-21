@@ -18,7 +18,9 @@ namespace CourseRegistration.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        public String Status { get; set; }
+        public bool isOpenForRegister { get; set; }
+
+        public ClassStatus Status { get; set; }
 
         public Course Course { get; set; }
 
@@ -35,3 +37,5 @@ namespace CourseRegistration.Models
         }
     }
 }
+
+public enum ClassStatus { Pending = 0, Confirmed = 1, Cancel = 2 }
