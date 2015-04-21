@@ -9,6 +9,9 @@ namespace CourseRegistration.Models
 {
     public class SystemAdmin
     {
+        [Key]
+        [Required]
+        public String idNumber { get; set; }
         public Staff Staff { get; set; }
     }
 }

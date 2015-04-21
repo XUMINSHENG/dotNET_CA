@@ -9,7 +9,11 @@ namespace CourseRegistration.Models
 {
     public class CourseAdmin
     {
-        public bool enabled { get; set; }
+        [Key]
+        [Required]
+        public String idNumber { get; set; }
+
         public Staff Staff { get; set; }
+        public bool enabled { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace CourseRegistration.Data
     public class CourseContext : DbContext
     {
         public CourseContext():
-            base()
+            base("DefaultConnection")
         {
         }
 
