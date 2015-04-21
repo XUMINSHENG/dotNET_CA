@@ -15,5 +15,13 @@ namespace CourseRegistration.Data
         {
             return db.Courses.Single(m => m.CourseTitle == title);
         }
+
+
+        public void Add(Course course)
+        {
+            db.Courses.Add(course);
+        }
+
+
     }
 }
