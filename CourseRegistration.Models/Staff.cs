@@ -7,9 +7,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    public class Staff : User
+    public class Staff
     {
         [Key][Required]
-        public String idNumber { get; set; }
+        public String StaffId { get; set; }
+        [Required]
+        public String Password { get; set; }
+        public Role Role { get; set; }
     }
 }

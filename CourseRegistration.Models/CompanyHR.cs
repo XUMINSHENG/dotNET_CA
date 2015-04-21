@@ -13,11 +13,14 @@ namespace CourseRegistration.Models
         [Required]
         public String Email{get;set;}
         [Required]
+        public String Password { get; set; }
+        [Required]
         public Company Company { get; set; }
         [Required]
         public String Name{get;set;}
         public String ContactNumber{get;set;}
         public String JobTitle{get;set;}
         public String FaxNumber{get;set;}
+        public String EmailAddress { get; set; }
     }
 }

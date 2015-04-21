@@ -11,6 +11,8 @@ namespace CourseRegistration.Models
     {
         [Key][Required]
         public String IdNumber { get; set; }
+        [Required]
+        public String Password { get; set; }
         public Participant Participant { get; set; }
     }
 }

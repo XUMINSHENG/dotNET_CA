@@ -44,16 +44,14 @@
     <Compile Include="Company.cs" />
     <Compile Include="CompanyHR.cs" />
     <Compile Include="Course.cs" />
-    <Compile Include="CourseAdmin.cs" />
     <Compile Include="CourseClass.cs" />
     <Compile Include="IndividualUser.cs" />
     <Compile Include="Instructor.cs" />
     <Compile Include="Participant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="Staff.cs" />
-    <Compile Include="SystemAdmin.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

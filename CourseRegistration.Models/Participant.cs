@@ -30,5 +30,17 @@ namespace CourseRegistration.Models
         public String DietaryRequirement{ get;set; }
         public String OrganizationSize{ get;set; }
         public String SalaryRange { get; set; }
+
+        private List<Registration> registrations;
+        public virtual List<Registration> Registrations
+        {
+            get { 
+                return registrations; 
+            }
+            set
+            {
+                registrations = value;
+            }
+        }
     }
 }

@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    public abstract class User
+    public class Role
     {
-        [Required]
-        public String Password { get; set; }
+        [Key][Required]
+        public String RoleName { get; set; }
     }
 }

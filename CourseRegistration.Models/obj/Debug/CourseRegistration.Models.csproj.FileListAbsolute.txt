@@ -7,3 +7,4 @@ D:\CR\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.dll
 D:\CR\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.pdb
 D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.dll
 D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.pdb
+D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.csprojResolveAssemblyReference.cache
