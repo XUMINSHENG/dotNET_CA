@@ -7,6 +7,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Data.Entity;
+using CourseRegistration.Data;
+
 
 namespace CourseRegistrationSystem
 {
@@ -14,6 +17,8 @@ namespace CourseRegistrationSystem
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<CourseContext>(new DropCreateDatabaseIfModelChanges<CourseContext>());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

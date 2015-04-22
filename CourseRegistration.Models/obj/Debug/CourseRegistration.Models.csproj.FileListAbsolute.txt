@@ -1,0 +1,10 @@
+D:\CourseRegistrationSystem\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.dll
+D:\CourseRegistrationSystem\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.pdb
+D:\CourseRegistrationSystem\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.dll
+D:\CourseRegistrationSystem\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.pdb
+D:\CourseRegistrationSystem\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.csprojResolveAssemblyReference.cache
+D:\CR\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.dll
+D:\CR\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.pdb
+D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.dll
+D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.pdb
+D:\CR\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.csprojResolveAssemblyReference.cache
