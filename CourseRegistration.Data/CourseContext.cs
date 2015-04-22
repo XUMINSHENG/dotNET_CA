@@ -16,6 +16,11 @@ namespace CourseRegistration.Data
         {
         }
 
+        public CourseContext(String ConnectionString) :
+            base(ConnectionString)
+        {
+        }
+
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
