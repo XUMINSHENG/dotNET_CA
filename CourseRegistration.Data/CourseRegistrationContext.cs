@@ -9,14 +9,14 @@ using CourseRegistration.Models;
 
 namespace CourseRegistration.Data
 {
-    public class CourseContext : DbContext
+    public class CourseRegistrationContext : DbContext
     {
-        public CourseContext():
+        public CourseRegistrationContext():
             base("DefaultConnection")
         {
         }
 
-        public CourseContext(String ConnectionString) :
+        public CourseRegistrationContext(String ConnectionString) :
             base(ConnectionString)
         {
         }

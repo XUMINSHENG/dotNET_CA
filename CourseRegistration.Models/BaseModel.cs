@@ -19,7 +19,7 @@ namespace CourseRegistration.Models
         protected BaseModel()
         {
             IsDeleted = false;
-            AddDate = DateTime.Now;
+            CreateDate = DateTime.Now;
         }
 
         #endregion
@@ -32,7 +32,7 @@ namespace CourseRegistration.Models
         public bool IsDeleted { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime AddDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         ///     data consistency control
