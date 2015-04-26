@@ -56,11 +56,11 @@ namespace CourseRegistrationSystem.Controllers
 
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
-                IQueryable<Course> cl = uow.Repository<Course>().GetAll().Where<Course>(x => x.CourseTitle.Contains("Agile"));
+                IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
+                
                 List<Course> c = cl.ToList<Course>();
 
-                Console.WriteLine(c.First().Category);
+                Console.WriteLine("hh");
             }
 
             return View();

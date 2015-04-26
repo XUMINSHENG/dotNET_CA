@@ -9,33 +9,42 @@ namespace CourseRegistration.Data
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<TEntity> Repository<TEntity>() where TEntity : BaseModel;
         void Save();
     }
 
     public partial class UnitOfWork : IUnitOfWork
     {
         private CourseRegistrationContext _context;
+        private IRepository<Instructor> _instructorRepository;
         private IRepository<Category> _categoryRepository;
         private IRepository<Course> _courseRepository;
         private IRepository<CourseClass> _courseClassRepository;
         private IRepository<Registration> _registrationRepository;
         private IRepository<Participant> _participantRepository;
         private IRepository<Company> _companyRepository;
+        private IRepository<CompanyHR> _companyHRRepository;
+        private IRepository<IndividualUser> _individualUserRepository;
+
 
         public UnitOfWork()
         {
             _context = new CourseRegistrationContext();
         }
 
-        public IRepository<TEntity> Repository<TEntity>() where TEntity : BaseModel
-        {
-            return new BaseRepository<TEntity>(_context);
-        }
-
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public IRepository<Instructor> InstructorRepository
+        {
+            get
+            {
+                if (_instructorRepository == null)
+                    _instructorRepository = new BaseRepository<Instructor>(_context);
+
+                return _instructorRepository;
+            }
         }
 
         public IRepository<Category> CategoryRepository
@@ -101,6 +110,28 @@ namespace CourseRegistration.Data
                     _companyRepository = new BaseRepository<Company>(_context);
 
                 return _companyRepository;
+            }
+        }
+
+        public IRepository<CompanyHR> CompanyHRRepository
+        {
+            get
+            {
+                if (_companyHRRepository == null)
+                    _companyHRRepository = new BaseRepository<CompanyHR>(_context);
+
+                return _companyHRRepository;
+            }
+        }
+
+        public IRepository<IndividualUser> IndividualUserRepository
+        {
+            get
+            {
+                if (_individualUserRepository == null)
+                    _individualUserRepository = new BaseRepository<IndividualUser>(_context);
+
+                return _individualUserRepository;
             }
         }
 
