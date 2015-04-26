@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    public class Course
+    public class Course : BaseModel
     {
         [Key][Required]
         public String CourseCode { get; set; }
@@ -25,7 +25,7 @@ namespace CourseRegistration.Models
 
         public bool enabled { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         private List<Instructor> instructors = new List<Instructor>();
         public virtual List<Instructor> Instructors

@@ -22,3 +22,15 @@ D:\CR\CourseRegistration.Data\bin\Debug\EntityFramework.xml
 D:\CR\CourseRegistration.Data\bin\Debug\EntityFramework.SqlServer.xml
 D:\CR\CourseRegistration.Data\obj\Debug\CourseRegistration.Data.dll
 D:\CR\CourseRegistration.Data\obj\Debug\CourseRegistration.Data.pdb
+D:\CR\re\CourseRegistration.Data\bin\Debug\CourseRegistration.Data.dll.config
+D:\CR\re\CourseRegistration.Data\bin\Debug\CourseRegistration.Data.dll
+D:\CR\re\CourseRegistration.Data\bin\Debug\CourseRegistration.Data.pdb
+D:\CR\re\CourseRegistration.Data\bin\Debug\CourseRegistration.Models.dll
+D:\CR\re\CourseRegistration.Data\bin\Debug\EntityFramework.dll
+D:\CR\re\CourseRegistration.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\CR\re\CourseRegistration.Data\bin\Debug\CourseRegistration.Models.pdb
+D:\CR\re\CourseRegistration.Data\bin\Debug\EntityFramework.xml
+D:\CR\re\CourseRegistration.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\CR\re\CourseRegistration.Data\obj\Debug\CourseRegistration.Data.csprojResolveAssemblyReference.cache
+D:\CR\re\CourseRegistration.Data\obj\Debug\CourseRegistration.Data.dll
+D:\CR\re\CourseRegistration.Data\obj\Debug\CourseRegistration.Data.pdb

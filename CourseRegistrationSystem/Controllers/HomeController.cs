@@ -19,19 +19,36 @@ namespace CourseRegistrationSystem.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            CourseRepository db = new CourseRepository();
+            //CourseRepository db = new CourseRepository();
 
-            Course c = new Course();
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                
 
-            db.Add(c);
+                Course c = new Course();
+                c.CourseCode = "2";
+                c.CourseTitle = "Architecting Software Solutions";
+                c.Fee = 1444.50;
+                c.NumberOfDays = 5;
 
-
+                uow.CourseRepository.Insert(c);
+                uow.Save();
+            }
+            
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
+                List<Course> c = cl.ToList<Course>();
+
+                Console.WriteLine(c.First().Category);
+            }
 
             return View();
         }

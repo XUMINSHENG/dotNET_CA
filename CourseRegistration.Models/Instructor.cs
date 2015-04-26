@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistration.Models
 {
-    public class Instructor
+    public class Instructor : BaseModel
     {
         [Key][Required]
         public String InstructorId { get; set; }
