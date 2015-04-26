@@ -13,3 +13,8 @@ D:\CR\re\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.pdb
 D:\CR\re\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.dll
 D:\CR\re\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.pdb
 D:\CR\re\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.csprojResolveAssemblyReference.cache
+D:\CRs\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.dll
+D:\CRs\CourseRegistration.Models\bin\Debug\CourseRegistration.Models.pdb
+D:\CRs\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.csprojResolveAssemblyReference.cache
+D:\CRs\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.dll
+D:\CRs\CourseRegistration.Models\obj\Debug\CourseRegistration.Models.pdb
