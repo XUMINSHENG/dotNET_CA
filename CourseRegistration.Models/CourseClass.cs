@@ -20,9 +20,9 @@ namespace CourseRegistration.Models
 
         public bool isOpenForRegister { get; set; }
 
-        public ClassStatus Status { get; set; }
+        public virtual ClassStatus Status { get; set; }
 
-        public Course Course { get; set; }
+        public virtual Course Course { get; set; }
 
         private List<Registration> registrations;
         public virtual List<Registration> Registrations

@@ -23,14 +23,26 @@ namespace CourseRegistrationSystem.Controllers
 
             using (UnitOfWork uow = new UnitOfWork())
             {
-                
+
+                Category cate = new Category();
+                cate.CategoryId = "1";
+                cate.CategoryName = "NICF";
 
                 Course c = new Course();
+                c.CourseCode = "1";
+                c.CourseTitle = "Agile Continuous Delivery";
+                c.Category = cate;
+                c.Fee = 866.70;
+                c.NumberOfDays = 3;
+
+                uow.CourseRepository.Insert(c);
+                
+                c = new Course();
                 c.CourseCode = "2";
                 c.CourseTitle = "Architecting Software Solutions";
                 c.Fee = 1444.50;
                 c.NumberOfDays = 5;
-
+                
                 uow.CourseRepository.Insert(c);
                 uow.Save();
             }
@@ -44,7 +56,8 @@ namespace CourseRegistrationSystem.Controllers
 
             using (UnitOfWork uow = new UnitOfWork())
             {
-                IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
+                //IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
+                IQueryable<Course> cl = uow.Repository<Course>().GetAll().Where<Course>(x => x.CourseTitle.Contains("Agile"));
                 List<Course> c = cl.ToList<Course>();
 
                 Console.WriteLine(c.First().Category);

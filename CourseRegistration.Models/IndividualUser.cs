@@ -13,6 +13,6 @@ namespace CourseRegistration.Models
         public String IdNumber { get; set; }
         [Required]
         public String Password { get; set; }
-        public Participant Participant { get; set; }
+        public virtual Participant Participant { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace CourseRegistration.Models
         [Key][Required]
         public String RegistrationId { get; set; }
         [Required]
-        public CourseClass CourseClass { get; set; }
+        public virtual CourseClass CourseClass { get; set; }
         [Required]
-        public Participant Participant { get; set; }
+        public virtual Participant Participant { get; set; }
         public String Sponsorship { get; set; }
         public String DietaryRequirement { get; set; }
         public String OrganizationSize { get; set; }
@@ -22,7 +22,7 @@ namespace CourseRegistration.Models
         public String BillingPersonName { get; set; }
         public String BillingAddressCountry { get; set; }
         public String BillingAddressPostalCode { get; set; }
-        public RegistrationStatus Status { get; set; }
+        public virtual RegistrationStatus Status { get; set; }
     }
 }
 

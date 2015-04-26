@@ -14,7 +14,7 @@ namespace CourseRegistration.Models
         public String ParticipantId{ get;set; }
         [Required]
         public String IdNumber{ get;set; }
-        public Company Company{ get; set; }
+        public virtual Company Company { get; set; }
         public String Salutation{ get;set; }
         public String EmploymentStatus{ get;set; }
         public String CompanyName{ get;set; }

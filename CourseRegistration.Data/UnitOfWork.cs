@@ -9,17 +9,34 @@ namespace CourseRegistration.Data
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Category> CategoryRepository { get; }
-        IRepository<Course> CourseRepository { get; }
+        IRepository<TEntity> Repository<TEntity>() where TEntity : BaseModel;
         void Save();
     }
 
     public partial class UnitOfWork : IUnitOfWork
     {
-
+        private CourseRegistrationContext _context;
         private IRepository<Category> _categoryRepository;
         private IRepository<Course> _courseRepository;
-        private CourseRegistrationContext _context;
+        private IRepository<CourseClass> _courseClassRepository;
+        private IRepository<Registration> _registrationRepository;
+        private IRepository<Participant> _participantRepository;
+        private IRepository<Company> _companyRepository;
+
+        public UnitOfWork()
+        {
+            _context = new CourseRegistrationContext();
+        }
+
+        public IRepository<TEntity> Repository<TEntity>() where TEntity : BaseModel
+        {
+            return new BaseRepository<TEntity>(_context);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
 
         public IRepository<Category> CategoryRepository
         {
@@ -43,14 +60,48 @@ namespace CourseRegistration.Data
             }
         }
 
-        public UnitOfWork()
+        public IRepository<CourseClass> CourseClassRepository
         {
-            _context = new CourseRegistrationContext();
+            get
+            {
+                if (_courseClassRepository == null)
+                    _courseClassRepository = new BaseRepository<CourseClass>(_context);
+
+                return _courseClassRepository;
+            }
         }
 
-        public void Save()
+        public IRepository<Registration> RegistrationRepository
         {
-            _context.SaveChanges();
+            get
+            {
+                if (_registrationRepository == null)
+                    _registrationRepository = new BaseRepository<Registration>(_context);
+
+                return _registrationRepository;
+            }
+        }
+
+        public IRepository<Participant> ParticipantRepository
+        {
+            get
+            {
+                if (_participantRepository == null)
+                    _participantRepository = new BaseRepository<Participant>(_context);
+
+                return _participantRepository;
+            }
+        }
+
+        public IRepository<Company> CompanyRepository
+        {
+            get
+            {
+                if (_companyRepository == null)
+                    _companyRepository = new BaseRepository<Company>(_context);
+
+                return _companyRepository;
+            }
         }
 
         public void Dispose()
