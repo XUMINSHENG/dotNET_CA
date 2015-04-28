@@ -10,7 +10,7 @@ namespace CourseRegistration.Models
     public class CourseClass : BaseModel
     {
         [Key][Required]
-        public String ClassId { get; set; }
+        public int ClassId { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }

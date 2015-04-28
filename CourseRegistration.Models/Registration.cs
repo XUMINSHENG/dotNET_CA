@@ -10,7 +10,7 @@ namespace CourseRegistration.Models
     public class Registration : BaseModel
     {
         [Key][Required]
-        public String RegistrationId { get; set; }
+        public int RegistrationId { get; set; }
         [Required]
         public virtual CourseClass CourseClass { get; set; }
         [Required]

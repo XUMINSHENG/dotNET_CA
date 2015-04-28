@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CourseRegistration.BLL
 {
-    public class ClassBLL
+    public class CourseClassBLL
     {
     }
 }

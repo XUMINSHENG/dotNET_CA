@@ -10,7 +10,7 @@ namespace CourseRegistration.Models
     public class Instructor : BaseModel
     {
         [Key][Required]
-        public String InstructorId { get; set; }
+        public int InstructorId { get; set; }
 
         [Required]
         public String InstructorName { get; set; }

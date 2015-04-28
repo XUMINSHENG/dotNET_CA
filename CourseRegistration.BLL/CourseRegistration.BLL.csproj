@@ -39,12 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassBLL.cs" />
+    <Compile Include="CourseClassBLL.cs" />
     <Compile Include="CompanyBLL.cs" />
     <Compile Include="CourseBLL.cs" />
     <Compile Include="ParticipantBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CourseRegistration.Data\CourseRegistration.Data.csproj">
+      <Project>{8917f833-ae4f-4005-b5fc-ad4ec143ba60}</Project>
+      <Name>CourseRegistration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseRegistration.Models\CourseRegistration.Models.csproj">
+      <Project>{074cc324-7ca6-4285-a175-6115bfa2be17}</Project>
+      <Name>CourseRegistration.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

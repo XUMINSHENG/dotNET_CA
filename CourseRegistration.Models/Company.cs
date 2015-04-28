@@ -11,7 +11,7 @@ namespace CourseRegistration.Models
     {
         [Key]
         [Required]
-        public String CompanyID{ get;set; }
+        public int CompanyId { get; set; }
         [Required]
         public String CompanyName{ get;set; }
         public String CompanyUEN{ get;set; }

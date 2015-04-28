@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CourseRegistration.Models;
-using CourseRegistration.Data;
+using CourseRegistration.BLL;
+
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -21,31 +22,28 @@ namespace CourseRegistrationSystem.Controllers
 
             //CourseRepository db = new CourseRepository();
 
-            using (UnitOfWork uow = new UnitOfWork())
-            {
+           
+            Category cate = new Category();
+            cate.CategoryId = 1;
+            cate.CategoryName = "NICF";
 
-                Category cate = new Category();
-                cate.CategoryId = "1";
-                cate.CategoryName = "NICF";
+            Course c = new Course();
+            c.CourseCode = "1";
+            c.CourseTitle = "Agile Continuous Delivery";
+            c.Category = cate;
+            c.Fee = 866.70;
+            c.NumberOfDays = 3;
 
-                Course c = new Course();
-                c.CourseCode = "1";
-                c.CourseTitle = "Agile Continuous Delivery";
-                c.Category = cate;
-                c.Fee = 866.70;
-                c.NumberOfDays = 3;
-
-                uow.CourseRepository.Insert(c);
+            CourseBLL.CreateCourse(c);
                 
-                c = new Course();
-                c.CourseCode = "2";
-                c.CourseTitle = "Architecting Software Solutions";
-                c.Fee = 1444.50;
-                c.NumberOfDays = 5;
-                
-                uow.CourseRepository.Insert(c);
-                uow.Save();
-            }
+            c = new Course();
+            c.CourseCode = "2";
+            c.CourseTitle = "Architecting Software Solutions";
+            c.Fee = 1444.50;
+            c.NumberOfDays = 5;
+
+            CourseBLL.CreateCourse(c);
+            
             
             return View();
         }
@@ -54,14 +52,14 @@ namespace CourseRegistrationSystem.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            using (UnitOfWork uow = new UnitOfWork())
-            {
-                IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
+            //using (UnitOfWork uow = new UnitOfWork())
+            //{
+            //    IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
                 
-                List<Course> c = cl.ToList<Course>();
+            //    List<Course> c = cl.ToList<Course>();
 
-                Console.WriteLine("hh");
-            }
+            //    Console.WriteLine("hh");
+            //}
 
             return View();
         }

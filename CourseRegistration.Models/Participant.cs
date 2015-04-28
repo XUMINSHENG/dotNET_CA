@@ -11,7 +11,7 @@ namespace CourseRegistration.Models
     {
         [Key]
         [Required]
-        public String ParticipantId{ get;set; }
+        public int ParticipantId { get; set; }
         [Required]
         public String IdNumber{ get;set; }
         public virtual Company Company { get; set; }

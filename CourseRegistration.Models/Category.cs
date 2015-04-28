@@ -10,7 +10,7 @@ namespace CourseRegistration.Models
     public class Category : BaseModel
     {
         [Key][Required]
-        public String CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public String CategoryName { get; set; }

@@ -9,6 +9,15 @@ namespace CourseRegistration.Data
 {
     public interface IUnitOfWork : IDisposable
     {
+        IRepository<Instructor> InstructorRepository{ get; }
+        IRepository<Category> CategoryRepository { get; }
+        IRepository<Course> CourseRepository { get; }
+        IRepository<CourseClass> CourseClassRepository { get; }
+        IRepository<Registration> RegistrationRepository { get; }
+        IRepository<Participant> ParticipantRepository { get; }
+        IRepository<Company> CompanyRepository { get; }
+        IRepository<CompanyHR> CompanyHRRepository { get; }
+        IRepository<IndividualUser> IndividualUserRepository { get; }
         void Save();
     }
 

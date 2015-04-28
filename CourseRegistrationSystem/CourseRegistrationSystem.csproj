@@ -240,6 +240,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CourseRegistration.BLL\CourseRegistration.BLL.csproj">
+      <Project>{d6012b68-8b14-4f78-9060-4e7626bc1fcc}</Project>
+      <Name>CourseRegistration.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CourseRegistration.Data\CourseRegistration.Data.csproj">
       <Project>{8917f833-ae4f-4005-b5fc-ad4ec143ba60}</Project>
       <Name>CourseRegistration.Data</Name>
