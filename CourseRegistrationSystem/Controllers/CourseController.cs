@@ -18,10 +18,10 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         // GET: Course/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            Course course;
-            return View();
+            Course course = CourseBLL.Instance.getCourseById(id);
+            return View(course);
         }
 
         // GET: Course/Create
@@ -89,5 +89,6 @@ namespace CourseRegistrationSystem.Controllers
                 return View();
             }
         }
+
     }
 }

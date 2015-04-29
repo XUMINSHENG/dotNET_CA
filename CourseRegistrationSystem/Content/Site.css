@@ -31,3 +31,10 @@ textarea {
     background: url("../images/logo128.png") no-repeat scroll 0% 0% transparent;
     cursor: pointer;
 }
+
+.search{
+    float:right;
+    bottom:0px;
+    right:0px;
+    width:200px;
+}
