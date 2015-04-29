@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 13px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,13 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.logo{
+    float: left;
+    padding: 0px 0px 0px;
+    height: 71px;
+    width: 166px;
+    background: url("../images/logo128.png") no-repeat scroll 0% 0% transparent;
+    cursor: pointer;
 }
