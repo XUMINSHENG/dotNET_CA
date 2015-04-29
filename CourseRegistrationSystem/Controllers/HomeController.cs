@@ -34,7 +34,7 @@ namespace CourseRegistrationSystem.Controllers
             c.Fee = 866.70;
             c.NumberOfDays = 3;
 
-            CourseBLL.CreateCourse(c);
+            CourseBLL.Instance.CreateCourse(c);
                 
             c = new Course();
             c.CourseCode = "2";
@@ -42,7 +42,7 @@ namespace CourseRegistrationSystem.Controllers
             c.Fee = 1444.50;
             c.NumberOfDays = 5;
 
-            CourseBLL.CreateCourse(c);
+            CourseBLL.Instance.CreateCourse(c);
             
             
             return View();
@@ -60,6 +60,8 @@ namespace CourseRegistrationSystem.Controllers
 
             //    Console.WriteLine("hh");
             //}
+
+            CourseBLL.Instance.SearchCourse("NICF");
 
             return View();
         }
