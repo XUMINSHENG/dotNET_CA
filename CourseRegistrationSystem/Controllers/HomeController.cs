@@ -16,6 +16,30 @@ namespace CourseRegistrationSystem.Controllers
             return View();
         }
 
+        public ActionResult Courses()
+        {
+            IEnumerable<Category> categories;
+            IEnumerable<Course> courses = CourseBLL.Instance.GetAllCourses();
+
+            return View(courses);
+        }
+
+        public ActionResult Course(string id)
+        {
+            Course course = CourseBLL.Instance.getCourseById(id);
+            return View(course);
+        }
+
+        public ActionResult Classes()
+        {
+            return View();
+        }
+
+        public ActionResult Instructor()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
