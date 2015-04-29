@@ -20,6 +20,7 @@ namespace CourseRegistrationSystem.Controllers
         // GET: Course/Details/5
         public ActionResult Details(int id)
         {
+            Course course;
             return View();
         }
 
