@@ -11,7 +11,6 @@ namespace CourseRegistration.BLL
     public class CourseBLL
     {
 
-        private static IUnitOfWork uow = new UnitOfWork();
         private static readonly Lazy<CourseBLL> lazy =
             new Lazy<CourseBLL>(() => new CourseBLL());
       
@@ -20,7 +19,6 @@ namespace CourseRegistration.BLL
         private CourseBLL()
         {
         }
-
 
         public void CreateCourse(Course c)
         {
@@ -32,7 +30,8 @@ namespace CourseRegistration.BLL
 
         public IEnumerable<Course> GetAllCourses()
         {
-            using(IUnitOfWork uow = new UnitOfWork()){
+            using(IUnitOfWork uow = new UnitOfWork())
+            {
                 return uow.CourseRepository.GetAll().ToList();
             }
         }
@@ -53,6 +52,7 @@ namespace CourseRegistration.BLL
                 uow.Save();
             }
         }
+
         public void DeleteCourse(Course c)
         {
             using (IUnitOfWork uow = new UnitOfWork())
