@@ -13,8 +13,6 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
-            List<Category> categories = CategoryBLL.Instance.getAllCategories();
-            ViewBag.Categories = categories;
             return View();
         }
 
