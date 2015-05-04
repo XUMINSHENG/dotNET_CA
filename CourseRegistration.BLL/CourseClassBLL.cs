@@ -10,32 +10,59 @@ namespace CourseRegistration.BLL
 {
     public class CourseClassBLL
     {
-        private static IUnitOfWork uow = new UnitOfWork();
+       
         private static readonly Lazy<CourseClassBLL> lazy =
             new Lazy<CourseClassBLL>(() => new CourseClassBLL());
 
+        private CourseClassBLL() { }
+
         public static CourseClassBLL Instance { get { return lazy.Value; } }
+
 
         public void CreateCourseClass(CourseClass cc)
         {
+            using (IUnitOfWork uow = new UnitOfWork()) {
             uow.CourseClassRepository.Insert(cc);
             uow.Save();
+        }
         }
 
         public CourseClass getCourseClassById(int courseClassCode)
         {
-            return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single();
+            using (IUnitOfWork uow = new UnitOfWork()) { 
+                return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
+            }
         }
 
         public IEnumerable<CourseClass> getAllCourseClass()
         {
-            return uow.CourseClassRepository.GetAll().ToList();
+            using (IUnitOfWork uow = new UnitOfWork())
+            {
+                return uow.CourseClassRepository.GetAll().ToList();
+            }
         }
 
-        public bool CloseClass(int classID)
+        public void UpdateCourseClass(CourseClass cc)
         {
-            return false;
+            using (IUnitOfWork uow = new UnitOfWork())
+            {
+                uow.CourseClassRepository.Edit(cc);
+                uow.Save();
+            }
         }
+
+        public void DeleteCourseClass(CourseClass cc)
+        {
+            using (IUnitOfWork uow = new UnitOfWork())
+            {
+                uow.CourseClassRepository.Delete(cc);
+                uow.Save();
+            }
+        }
+
+//        public IEnumerable<> GetAttendSheet()
+//      {
+//        }
 
     }
 }
