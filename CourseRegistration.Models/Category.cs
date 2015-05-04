@@ -16,5 +16,18 @@ namespace CourseRegistration.Models
         public String CategoryName { get; set; }
 
         public String CategoryDescription { get; set; }
+
+        private List<Course> courses = new List<Course>();
+        public virtual List<Course> Courses
+        {
+            get
+            {
+                return courses;
+            }
+            set
+            {
+                courses = value;
+            }
+        }
     }
 }
