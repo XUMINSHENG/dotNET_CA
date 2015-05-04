@@ -1,5 +1,4 @@
 ﻿@using CourseRegistration.Models
-@model IQueryable<CourseRegistration.Models.Category>
 
 <!DOCTYPE html>
 <html>
@@ -46,7 +45,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Introducation", "Index", "Course")</li>
-                            @foreach (var item in Model)
+                            @foreach (Category item in ViewBag.Categories)
                             {
                                 <li class="dropdown-sub">
                                     <a data-toggle="dropdown" href="~/Course/Agile" role="button" aria-expanded="false">

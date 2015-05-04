@@ -13,8 +13,9 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
-            IQueryable<Category> categories = CategoryBLL.Instance.getAllCategories();
-            return View(categories);
+            List<Category> categories = CategoryBLL.Instance.getAllCategories();
+            ViewBag.Categories = categories;
+            return View();
         }
 
         public ActionResult Course(string id)

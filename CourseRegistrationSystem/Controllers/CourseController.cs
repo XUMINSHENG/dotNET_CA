@@ -14,6 +14,7 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Index()
         {
             IEnumerable<Course> courses = CourseBLL.Instance.GetAllCourses();
+            
             return View(courses);
         }
 

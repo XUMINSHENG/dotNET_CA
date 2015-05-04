@@ -21,9 +21,9 @@ namespace CourseRegistration.BLL
 
         }
 
-        public IQueryable<Category> getAllCategories()
+        public List<Category> getAllCategories()
         {
-            return uow.CategoryRepository.GetAll();
+            return uow.CategoryRepository.GetAll().ToList();
         }
 
         public Category getCourseById(int categoryId)

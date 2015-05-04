@@ -17,8 +17,8 @@ namespace CourseRegistration.Models
 
         public String CategoryDescription { get; set; }
 
-        private IEnumerable<Course> courses = new List<Course>();
-        public virtual IEnumerable<Course> Courses
+        private List<Course> courses = new List<Course>();
+        public virtual List<Course> Courses
         {
             get
             {
