@@ -13,14 +13,14 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
-            List<Category> categories = CategoryBLL.Instance.getAllCategories();
+            List<Category> categories = CategoryBLL.Instance.GetAllCategories();
             ViewBag.Categories = categories;
             return View();
         }
 
         public ActionResult Course(string id)
         {
-            Course course = CourseBLL.Instance.getCourseById(id);
+            Course course = CourseBLL.Instance.GetCourseById(id);
             return View(course);
         }
 

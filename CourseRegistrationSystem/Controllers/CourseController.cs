@@ -21,7 +21,7 @@ namespace CourseRegistrationSystem.Controllers
         // GET: Course/Details/5
         public ActionResult Details(string id)
         {
-            Course course = CourseBLL.Instance.getCourseById(id);
+            Course course = CourseBLL.Instance.GetCourseById(id);
             return View(course);
         }
 
@@ -82,7 +82,6 @@ namespace CourseRegistrationSystem.Controllers
             try
             {
                 // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
