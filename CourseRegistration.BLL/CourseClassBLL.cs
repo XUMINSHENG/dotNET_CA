@@ -27,9 +27,14 @@ namespace CourseRegistration.BLL
             return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single();
         }
 
-        public IEnumerable<CourseClass> getAllCategories()
+        public IEnumerable<CourseClass> getAllCourseClass()
         {
             return uow.CourseClassRepository.GetAll().ToList();
+        }
+
+        public bool CloseClass(int classID)
+        { 
+        
         }
 
     }
