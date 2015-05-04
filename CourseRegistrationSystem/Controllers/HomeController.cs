@@ -13,15 +13,8 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult Courses()
-        {
-            IEnumerable<Category> categories;
-            IEnumerable<Course> courses = CourseBLL.Instance.GetAllCourses();
-
-            return View(courses);
+            IEnumerable<Category> categories = CategoryBLL.Instance.getAllCategories();
+            return View(categories);
         }
 
         public ActionResult Course(string id)
