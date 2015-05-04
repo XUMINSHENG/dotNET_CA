@@ -52,13 +52,14 @@
                             @foreach (Category item in categories)
                             {
                                 <li class="dropdown-sub">
-                                    <a data-toggle="dropdown" href="~/Course/Agile" role="button" aria-expanded="false">
+                                    @*<a data-toggle="dropdown" href="~/Course/Agile" role="button" aria-expanded="false">
                                         @Html.DisplayFor(modelItem => item.CategoryName)
-                                    </a>
+                                    </a>*@
+                                    @Html.ActionLink(item.CategoryName, "Index", "Course")
                                     <ul class="dropdown-submenu">
                                         @foreach (Course course in item.Courses)
-                                        { 
-                                            <li>@Html.ActionLink(course.CourseTitle, "Index", "Course")</li>
+                                        {
+                                            <li>@Html.ActionLink(course.CourseTitle, "Details/"+course.CourseCode, "Course")</li>
                                         }
                                     </ul>
                                 </li>
