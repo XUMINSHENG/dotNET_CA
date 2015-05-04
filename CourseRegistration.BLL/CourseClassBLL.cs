@@ -33,8 +33,8 @@ namespace CourseRegistration.BLL
         }
 
         public bool CloseClass(int classID)
-        { 
-        
+        {
+            return false;
         }
 
     }
