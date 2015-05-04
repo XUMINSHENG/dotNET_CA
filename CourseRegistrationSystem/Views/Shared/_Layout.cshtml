@@ -1,5 +1,5 @@
 ﻿@using CourseRegistration.Models
-@model IEnumerable<CourseRegistration.Models.Category>
+@model IQueryable<CourseRegistration.Models.Category>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
         }
         
     </div>
-
+    <!--Menu-->
     <div class="navbar navbar-inverse navbar-top">
         <div class="container">
             <div class="navbar-header">
@@ -72,11 +72,14 @@
             </div>
         </div>
     </div>
+    
     <div class="container body-content">
+        <!--Content-->
         <div class="main-contnt">
             @RenderBody()
         </div>
         <hr />
+        <!--Footer-->
         <footer>
             <p>&copy; @DateTime.Now.Year - Course Registration System by .NET Team 1</p>
         </footer>

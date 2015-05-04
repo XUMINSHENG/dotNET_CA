@@ -13,7 +13,7 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
-            IEnumerable<Category> categories = CategoryBLL.Instance.getAllCategories();
+            IQueryable<Category> categories = CategoryBLL.Instance.getAllCategories();
             return View(categories);
         }
 

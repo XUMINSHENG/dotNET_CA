@@ -28,7 +28,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        public IEnumerable<Course> GetAllCourses()
+        public List<Course> GetAllCourses()
         {
             return uow.CourseRepository.GetAll().ToList();
         }
