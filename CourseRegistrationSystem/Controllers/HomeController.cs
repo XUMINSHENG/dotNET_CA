@@ -16,10 +16,10 @@ namespace CourseRegistrationSystem.Controllers
             return View();
         }
 
-        public ActionResult Course(string id)
+        public ActionResult Courses()
         {
-            Course course = CourseBLL.Instance.GetCourseById(id);
-            return View(course);
+            List<Category> categories = CategoryBLL.Instance.GetAllCategories();
+            return View(categories);
         }
 
         public ActionResult Classes()
