@@ -21,12 +21,12 @@ namespace CourseRegistration.BLL
 
         }
 
-        public List<Category> getAllCategories()
+        public List<Category> GetAllCategories()
         {
             return uow.CategoryRepository.GetAll().ToList();
         }
 
-        public Category getCourseById(int categoryId)
+        public Category GetCourseById(int categoryId)
         {
             return uow.CategoryRepository.GetAll().Where<Category>(x => x.CategoryId == categoryId).Single();
         }

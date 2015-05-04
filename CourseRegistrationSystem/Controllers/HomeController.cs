@@ -13,12 +13,17 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
+<<<<<<< HEAD
+=======
+            List<Category> categories = CategoryBLL.Instance.GetAllCategories();
+            ViewBag.Categories = categories;
+>>>>>>> ddc462bf94f0d058e49faa1ef3a0991fc93a7f33
             return View();
         }
 
         public ActionResult Course(string id)
         {
-            Course course = CourseBLL.Instance.getCourseById(id);
+            Course course = CourseBLL.Instance.GetCourseById(id);
             return View(course);
         }
 
