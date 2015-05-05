@@ -38,3 +38,8 @@ textarea {
     right:0px;
     width:200px;
 }
+
+footer{
+    position:fixed;
+    bottom:0px;
+}

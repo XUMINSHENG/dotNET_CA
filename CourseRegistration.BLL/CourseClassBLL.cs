@@ -27,14 +27,14 @@ namespace CourseRegistration.BLL
         }
         }
 
-        public CourseClass getCourseClassById(int courseClassCode)
+        public CourseClass GetCourseClassById(int courseClassCode)
         {
             using (IUnitOfWork uow = new UnitOfWork()) { 
                 return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
             }
         }
 
-        public IEnumerable<CourseClass> getAllCourseClass()
+        public IEnumerable<CourseClass> GetAllCourseClass()
         {
             using (IUnitOfWork uow = new UnitOfWork())
             {
