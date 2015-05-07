@@ -160,12 +160,103 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\CourseAdmin\CourseAdminIndex.aspx.cs">
-      <DependentUpon>CourseAdminIndex.aspx</DependentUpon>
+    <Compile Include="Areas\CourseAdmin\ClassManagement\ClassDetail.aspx.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Areas\CourseAdmin\CourseAdminIndex.aspx.designer.cs">
-      <DependentUpon>CourseAdminIndex.aspx</DependentUpon>
+    <Compile Include="Areas\CourseAdmin\ClassManagement\ClassDetail.aspx.designer.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\ClassManagement\ClassList.aspx.cs">
+      <DependentUpon>ClassList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\ClassManagement\ClassList.aspx.designer.cs">
+      <DependentUpon>ClassList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseManagement\CourseDetail.aspx.cs">
+      <DependentUpon>CourseDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseManagement\CourseDetail.aspx.designer.cs">
+      <DependentUpon>CourseDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseManagement\CourseList.aspx.cs">
+      <DependentUpon>CourseList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseManagement\CourseList.aspx.designer.cs">
+      <DependentUpon>CourseList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseAdminHomePage.aspx.cs">
+      <DependentUpon>CourseAdminHomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseAdminHomePage.aspx.designer.cs">
+      <DependentUpon>CourseAdminHomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationDetail.aspx.cs">
+      <DependentUpon>RegistrationDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationDetail.aspx.designer.cs">
+      <DependentUpon>RegistrationDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationList.aspx.cs">
+      <DependentUpon>RegistrationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationList.aspx.designer.cs">
+      <DependentUpon>RegistrationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx.cs">
+      <DependentUpon>RegistrationMoving.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx.designer.cs">
+      <DependentUpon>RegistrationMoving.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx.cs">
+      <DependentUpon>ResetPwdForIRH&amp;HR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx.designer.cs">
+      <DependentUpon>ResetPwdForIRH&amp;HR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseAdmin.Master.cs">
+      <DependentUpon>CourseAdmin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\CourseAdmin\CourseAdmin.Master.designer.cs">
+      <DependentUpon>CourseAdmin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx.cs">
+      <DependentUpon>CourseAdminDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx.designer.cs">
+      <DependentUpon>CourseAdminDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx.cs">
+      <DependentUpon>CourseAdminList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx.designer.cs">
+      <DependentUpon>CourseAdminList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\SystemAdmin.Master.cs">
+      <DependentUpon>SystemAdmin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\SystemAdmin.Master.designer.cs">
+      <DependentUpon>SystemAdmin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\SystemAdminHomePage.aspx.cs">
+      <DependentUpon>SystemAdminHomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\SystemAdminHomePage.aspx.designer.cs">
+      <DependentUpon>SystemAdminHomePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
@@ -182,7 +273,18 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\CourseAdmin\CourseAdminIndex.aspx" />
+    <Content Include="Areas\CourseAdmin\ClassManagement\ClassDetail.aspx" />
+    <Content Include="Areas\CourseAdmin\ClassManagement\ClassList.aspx" />
+    <Content Include="Areas\CourseAdmin\CourseManagement\CourseDetail.aspx" />
+    <Content Include="Areas\CourseAdmin\CourseManagement\CourseList.aspx" />
+    <Content Include="Areas\CourseAdmin\CourseAdminHomePage.aspx" />
+    <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationDetail.aspx" />
+    <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationList.aspx" />
+    <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx" />
+    <Content Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx" />
+    <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx" />
+    <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx" />
+    <Content Include="Areas\SystemAdmin\SystemAdminHomePage.aspx" />
     <Content Include="Content\bootstrap-addition.css" />
     <Content Include="Content\bootstrap-sidebar.css" />
     <Content Include="Content\bootstrap.css" />
@@ -196,6 +298,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="Areas\CourseAdmin\CourseAdmin.Master" />
+    <Content Include="Areas\SystemAdmin\SystemAdmin.Master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

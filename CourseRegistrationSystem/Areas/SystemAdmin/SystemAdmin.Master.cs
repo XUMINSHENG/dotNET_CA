@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace CourseRegistrationSystem.Areas.CourseAdmin
+namespace CourseRegistrationSystem.Areas.SystemAdmin
 {
-    public partial class CourseAdminIndex : System.Web.UI.Page
+    public partial class SystemAdmin : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
