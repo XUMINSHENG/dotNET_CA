@@ -4,8 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<title>Head</title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
+<title>Title</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" >
         Head
     </asp:ContentPlaceHolder>
 </head>
@@ -13,7 +13,20 @@
 <form id="form1" runat="server">
     <div>
     <asp:ContentPlaceHolder ID="Path" runat="server">
-        Path
+
+        <asp:Panel ID="Panel1" runat="server" HorizontalAlign="Left">
+        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo128.png"/>
+        </asp:Panel>
+        
+        <asp:Panel ID="Panel2" runat="server" HorizontalAlign="Right">
+        <asp:Label ID="SayHello" runat="server" Text="Hello~" Font-Size="Large"></asp:Label>
+        <asp:Button ID ="LogOff" runat="server" Text ="Log Off" OnClick="LogOff_Click" Font-Size="Large"></asp:Button>
+        </asp:Panel>
+        
+        <asp:Panel ID="Panel3" runat="server" HorizontalAlign="Left">
+          <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+        </asp:Panel>
+
     </asp:ContentPlaceHolder>
 </div>
 <div>
