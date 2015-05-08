@@ -79,7 +79,7 @@
     
     <div class="container body-content">
         <!--Content-->
-        <div class="main-contnt">
+        <div id="main-content">
             
             @RenderBody()
         </div>
@@ -93,6 +93,7 @@
 
     @Scripts.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

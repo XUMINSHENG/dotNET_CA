@@ -5,51 +5,68 @@
     ViewBag.Title = "Courses";
 }
 
-<div class="row">
-    <div class="col-sm-3 col-md-2 sidebar" style="top: auto;left:auto;overflow-y:hidden;bottom:auto;">
+<div class="row" style="margin:auto;">
+    <div class="col-sm-3 col-md-2 sidebar" style="position:absolute;top: auto;left:auto;overflow-y:hidden;bottom:auto;">
         <ul class="nav nav-sidebar">
+            <li class="active"><a>Category</a></li>
             @foreach (Category item in Model)
             {
-                <li>@Html.ActionLink(item.CategoryName, "Index", "Course")</li>
+                <li>@Ajax.ActionLink(item.CategoryName, "CourseList", "Course", new { categoryId = item.CategoryId},
+                 new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "course-list" })</li>
             }
+
+        </ul>
+        @*<hr style="border-color:#428bca;" />*@
+        <ul class="nav nav-sidebar">
+            <li class="active"><a>Upcoming Class</a></li>
+            <li>@Html.ActionLink("Class1","Index","Classes")</li>
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h2>Courses</h2>
-        
-        <p style="padding-left:15px;padding-right:15px;">
-            ISS conducts executive education programmes which impart skills and knowledge to manage, plan and implement infocomm and digital businesses. For the busy professional who want to keep abreast of technological and stay relevant in the competitive business landscape, ISS offers a suite of high quality, blended learning courses that are pedagogically sound and mentored by ISS lecturers. The executive education programmes at ISS are delivered by our team of industry professionals with successful track records and an average of more than 20 years of industry experience.
-        </p>
-        
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Courses)
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <div id="course-list">
+            <ul class="breadcrumb">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li class="active">Courses</li>
+            </ul>
+            <h2>Courses</h2>
+            <div style="padding-left:15px;padding-right:15px;">
+                <p>
+                    ISS conducts executive education programmes which impart skills and knowledge to manage, plan and implement infocomm and digital businesses. For the busy professional who want to keep abreast of technological and stay relevant in the competitive business landscape, ISS offers a suite of high quality, blended learning courses that are pedagogically sound and mentored by ISS lecturers. The executive education programmes at ISS are delivered by our team of industry professionals with successful track records and an average of more than 20 years of industry experience.
+                </p>
+                <p>
+                    To date, over 91,000 infocomm professionals, 5,100 corporate customers and 4,400 post-graduate alumni members have benefitted from ISS’s suite of services.
+                </p>
+            </div>
+            <h2>Our courses are categorised into the following :</h2>
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CategoryDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Courses.Count)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Courses)
+                    </th>
                 </tr>
-            }
 
-        </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Courses.Count)
+                        </td>
+                    </tr>
+                }
 
-    </div>
+            </table>
+        </div>
+        </div>
 </div>
