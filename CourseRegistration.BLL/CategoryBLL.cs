@@ -22,18 +22,14 @@ namespace CourseRegistration.BLL
 
         public List<Category> GetAllCategories()
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.CategoryRepository.GetAll().ToList();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CategoryRepository.GetAll().ToList();
         }
 
-        public Category GetCourseById(int categoryId)
+        public Category GetCategoryById(int categoryId)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.CategoryRepository.GetById(categoryId);
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CategoryRepository.GetById(categoryId);
         }
 
 

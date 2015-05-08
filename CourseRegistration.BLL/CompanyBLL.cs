@@ -21,45 +21,38 @@ namespace CourseRegistration.BLL
 
         public void CreateCompany(Company c)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.CompanyRepository.Insert(c);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+
+            uow.CompanyRepository.Insert(c);
+            uow.Save();
         }
 
         public IEnumerable<Company> GetAllCompanies()
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.CompanyRepository.GetAll().ToList();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CompanyRepository.GetAll().ToList();
         }
 
         public Company GetCompanyById(int id)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.CompanyRepository.GetById(id);
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CompanyRepository.GetById(id);
         }
 
         public void EditCompany(Company c)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.CompanyRepository.Edit(c);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            uow.CompanyRepository.Edit(c);
+            uow.Save();
+            
         }
 
         public void DeleteCompany(Company c)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.CompanyRepository.Delete(c);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+
+            uow.CompanyRepository.Delete(c);
+            uow.Save();
         }
 
     }

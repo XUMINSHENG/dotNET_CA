@@ -10,56 +10,50 @@ namespace CourseRegistration.BLL
 {
     public class RegistrationBLL
     {
-         private static readonly Lazy<RegistrationBLL> lazy =
-            new Lazy<RegistrationBLL>(() => new RegistrationBLL());
+        private static readonly Lazy<RegistrationBLL> lazy =
+        new Lazy<RegistrationBLL>(() => new RegistrationBLL());
 
-         private RegistrationBLL() { }
+        private RegistrationBLL() { }
 
-         public static RegistrationBLL Instance { get { return lazy.Value; } }
+        public static RegistrationBLL Instance { get { return lazy.Value; } }
 
 
-         public void CreateRegistration(Registration r)
+        public void CreateRegistration(Registration r)
         {
-            using (IUnitOfWork uow = new UnitOfWork()) 
-            {
+            IUnitOfWork uow = new UnitOfWork();
             uow.RegistrationRepository.Insert(r);
             uow.Save();
-            }
+            
         }
 
-         public Registration getRegistrationById(int id)
-         {
-             using (IUnitOfWork uow = new UnitOfWork())
-             {
-                 return uow.RegistrationRepository.GetAll().Where<Registration>(x => x.RegistrationId == id).Single();
-             }
-         }
+        public Registration getRegistrationById(int id)
+        {
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.RegistrationRepository.GetAll().Where<Registration>(x => x.RegistrationId == id).Single();
+        }
 
-         public IEnumerable<Registration> getAllRegistration()
-         {
-             using (IUnitOfWork uow = new UnitOfWork())
-             {
-                 return uow.RegistrationRepository.GetAll().ToList();
-             }
-         }
+        public IEnumerable<Registration> getAllRegistration()
+        {
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.RegistrationRepository.GetAll().ToList();
+             
+        }
 
-         public void UpdateRegistration(Registration r)
-         {
-             using (IUnitOfWork uow = new UnitOfWork())
-             {
-                 uow.RegistrationRepository.Edit(r);
-                 uow.Save();
-             }
-         }
+        public void UpdateRegistration(Registration r)
+        {
+            IUnitOfWork uow = new UnitOfWork();
+            uow.RegistrationRepository.Edit(r);
+            uow.Save();
+             
+        }
 
-         public void DeleteRegistration(Registration r)
-         {
-             using (IUnitOfWork uow = new UnitOfWork())
-             {
-                 uow.RegistrationRepository.Delete(r);
-                 uow.Save();
-             }
-         }
+        public void DeleteRegistration(Registration r)
+        {
+            IUnitOfWork uow = new UnitOfWork();
+            uow.RegistrationRepository.Delete(r);
+            uow.Save();
+             
+        }
 
     }
 }

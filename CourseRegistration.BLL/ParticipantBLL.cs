@@ -37,28 +37,25 @@ namespace CourseRegistration.BLL
 
         public Participant GetParticipantById(int id)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.ParticipantRepository.GetById(id);
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.ParticipantRepository.GetById(id);
+            
         }
 
         public void EditParticipant(Participant p)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.ParticipantRepository.Edit(p);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            uow.ParticipantRepository.Edit(p);
+            uow.Save();
+            
         }
 
         public void DeleteParticipant(Participant p)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.ParticipantRepository.Delete(p);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            uow.ParticipantRepository.Delete(p);
+            uow.Save();
+            
         }
     }
 }

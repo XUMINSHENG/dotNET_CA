@@ -21,43 +21,38 @@ namespace CourseRegistration.BLL
 
         public void CreateCourseClass(CourseClass cc)
         {
-            using (IUnitOfWork uow = new UnitOfWork()) {
+            IUnitOfWork uow = new UnitOfWork();
             uow.CourseClassRepository.Insert(cc);
             uow.Save();
-        }
+        
         }
 
         public CourseClass GetCourseClassById(int courseClassCode)
         {
-            using (IUnitOfWork uow = new UnitOfWork()) { 
-                return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
+            
         }
 
         public IEnumerable<CourseClass> GetAllCourseClass()
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.CourseClassRepository.GetAll().ToList();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            return uow.CourseClassRepository.GetAll().ToList();
+            
         }
 
         public void UpdateCourseClass(CourseClass cc)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.CourseClassRepository.Edit(cc);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            uow.CourseClassRepository.Edit(cc);
+            uow.Save();
         }
 
         public void DeleteCourseClass(CourseClass cc)
         {
-            using (IUnitOfWork uow = new UnitOfWork())
-            {
-                uow.CourseClassRepository.Delete(cc);
-                uow.Save();
-            }
+            IUnitOfWork uow = new UnitOfWork();
+            uow.CourseClassRepository.Delete(cc);
+            uow.Save();
         }
 
 //        public IEnumerable<> GetAttendSheet()
