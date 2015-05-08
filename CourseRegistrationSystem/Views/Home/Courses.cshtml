@@ -6,15 +6,50 @@
 }
 
 <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div class="col-sm-3 col-md-2 sidebar" style="top: auto;left:auto;overflow-y:hidden;bottom:auto;">
         <ul class="nav nav-sidebar">
             @foreach (Category item in Model)
             {
-                <li>@Html.ActionLink(item.CategoryName,"Index","Course")</li>
+                <li>@Html.ActionLink(item.CategoryName, "Index", "Course")</li>
             }
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h2>Courses</h2>
+        
+        <p style="padding-left:15px;padding-right:15px;">
+            ISS conducts executive education programmes which impart skills and knowledge to manage, plan and implement infocomm and digital businesses. For the busy professional who want to keep abreast of technological and stay relevant in the competitive business landscape, ISS offers a suite of high quality, blended learning courses that are pedagogically sound and mentored by ISS lecturers. The executive education programmes at ISS are delivered by our team of industry professionals with successful track records and an average of more than 20 years of industry experience.
+        </p>
+        
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Courses.Count)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
     </div>
 </div>

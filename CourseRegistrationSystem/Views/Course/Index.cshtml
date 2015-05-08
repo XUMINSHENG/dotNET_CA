@@ -11,9 +11,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CourseTitle)
         </th>
         <th>
@@ -29,9 +26,6 @@
 
 @foreach (var item in Model) {
     <tr>     
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
         <td>
             @Html.ActionLink(item.CourseTitle, "Details", new { id=item.CourseCode})
         </td>
