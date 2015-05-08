@@ -1,6 +1,14 @@
 ﻿@model CourseRegistration.Models.Category
 
-@foreach (var item in Model.Courses)
-{
-    @Html.DisplayFor(modelItem => item.CourseTitle)<br />
-}
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home","Index","Home")</li>
+    <li>@Html.ActionLink("Course","Index","Course")</li>
+    <li>@Html.DisplayFor(model => Model.CategoryName)</li>
+</ul>
+
+<div class="list-group">
+    @foreach (var item in Model.Courses)
+    {
+        @Html.ActionLink(item.CourseTitle, "Details", "Course", new { id = item.CourseCode}, new { @class = "list-group-item" })
+    }
+</div>
