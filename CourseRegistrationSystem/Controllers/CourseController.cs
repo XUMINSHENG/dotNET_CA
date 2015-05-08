@@ -18,9 +18,9 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         // GET: Course/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string code)
         {
-            Course course = CourseBLL.Instance.GetCourseById(id);
+            Course course = CourseBLL.Instance.GetCourseByCode(code);
             return View(course);
         }
 

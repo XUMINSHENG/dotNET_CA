@@ -53,5 +53,10 @@ namespace CourseRegistration.Models
                 courseClass = value;
             }
         }
+
+        public Course()
+        {
+
+        }
     }
 }

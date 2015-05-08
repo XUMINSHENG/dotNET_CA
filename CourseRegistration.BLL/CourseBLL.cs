@@ -34,10 +34,10 @@ namespace CourseRegistration.BLL
             return uow.CourseRepository.GetAll().ToList();
         }
 
-        public Course GetCourseById(String courseCode)
+        public Course GetCourseByCode(String courseCode)
         {
             IUnitOfWork uow = new UnitOfWork();
-            return uow.CourseRepository.GetAll().Where<Course>(x => x.CourseCode == courseCode).Single();
+            return uow.CourseRepository.GetAll().Where<Course>(x => x.CourseCode == courseCode).SingleOrDefault();
         }
 
         public void EditCourse(Course c)
