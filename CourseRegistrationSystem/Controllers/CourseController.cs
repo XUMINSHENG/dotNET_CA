@@ -14,8 +14,11 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Index()
         {
             List<Category> categories = CategoryBLL.Instance.GetAllCategories();
+            
             return View(categories);
         }
+
+      
 
         // GET: Course/Details/5
         public ActionResult Details(string code)

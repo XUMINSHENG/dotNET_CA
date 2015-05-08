@@ -16,12 +16,6 @@ namespace CourseRegistrationSystem.Controllers
             return View();
         }
 
-        public ActionResult Courses()
-        {
-            List<Category> categories = CategoryBLL.Instance.GetAllCategories();
-            return View(categories);
-        }
-
         public ActionResult Classes()
         {
             return View();
