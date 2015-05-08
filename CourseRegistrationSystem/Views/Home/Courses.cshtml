@@ -12,7 +12,7 @@
             @foreach (Category item in Model)
             {
                 <li>@Ajax.ActionLink(item.CategoryName, "CourseList", "Course", new { categoryId = item.CategoryId},
-                 new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "course-list" })</li>
+                 new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "courselist" })</li>
             }
 
         </ul>
@@ -23,7 +23,7 @@
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <div id="course-list">
+        <div id="courselist">
             <ul class="breadcrumb">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li class="active">Courses</li>

@@ -28,7 +28,7 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult CourseList(int categoryId)
         {
             Category category = CategoryBLL.Instance.GetCategoryById(categoryId);
-            return View(category);
+            return PartialView(category);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿@model CourseRegistration.Models.Category
 
-
 @foreach (var item in Model.Courses)
 {
-    @Html.DisplayFor(modelItem => item.CourseTitle)
-    <br />
+    @Html.DisplayFor(modelItem => item.CourseTitle)<br />
 }
