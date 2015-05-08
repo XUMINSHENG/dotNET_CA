@@ -19,19 +19,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin
 
         protected void Bind()
         {
-            GridView1.DataSource = CourseBLL.Instance.GetAllCourses();
-            GridView1.DataBind();
+           
         }
-
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            this.GridView1.PageIndex = e.NewPageIndex;
-            Bind();
-        }
-
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            Bind();
-        }
+       
     }
 }
