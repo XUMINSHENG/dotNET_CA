@@ -44,18 +44,18 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="~/Home/Course" role="button" aria-expanded="false">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="~/Course/Index" role="button" aria-expanded="false">
                             Courses
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Introducation", "Courses", "Home")</li>
+                            <li>@Html.ActionLink("Introducation", "Index", "Course")</li>
                             @foreach (Category item in categories)
                             {
                                 <li class="dropdown-sub">
                                     @*<a data-toggle="dropdown" href="~/Course/Agile" role="button" aria-expanded="false">
                                         @Html.DisplayFor(modelItem => item.CategoryName)
                                     </a>*@
-                                    @Html.ActionLink(item.CategoryName, "Index", "Course")
+                                    @Html.ActionLink(item.CategoryName, "Index", "Course", new { id = item.CategoryId }, new { })
                                     <ul class="dropdown-submenu">
                                         @foreach (Course course in item.Courses)
                                         {
@@ -84,6 +84,9 @@
             @RenderBody()
         </div>
         
+    </div>
+
+    <div class="container">
         <!--Footer-->
         <footer>
             <hr />

@@ -6,6 +6,23 @@
     <li>@Html.DisplayFor(model => Model.CategoryName)</li>
 </ul>
 
+<h3 style="text-transform:uppercase;">@Model.CategoryName</h3>
+
+<p>
+    @{
+        if (Model.CategoryDescription.IsEmpty())
+        {
+            @("The content is coming soon!");
+        }
+        else
+        {
+            Html.DisplayFor(model => Model.CategoryDescription);
+        }
+    }
+</p>
+
+<h3>COURSES LIST</h3>
+
 <div class="list-group">
     @foreach (var item in Model.Courses)
     {

@@ -9,6 +9,7 @@
     <div class="col-sm-3 col-md-2 sidebar" style="position:absolute;top: auto;left:auto;overflow-y:hidden;bottom:auto;">
         <ul class="nav nav-sidebar">
             <li class="active"><a>Category</a></li>
+            <li>@Html.ActionLink("Introduction","Index","Course")</li>
             @foreach (Category item in Model)
             {
                 <li>
@@ -46,9 +47,6 @@
                         @Html.DisplayNameFor(model => model.CategoryName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CategoryDescription)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Courses)
                     </th>
                 </tr>
@@ -57,10 +55,8 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CategoryDescription)
+                            @Ajax.ActionLink(item.CategoryName, "CourseList", "Course", new { categoryId = item.CategoryId },
+                 new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "courselist" })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Courses.Count)
