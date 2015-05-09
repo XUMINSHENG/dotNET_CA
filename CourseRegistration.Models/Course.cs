@@ -40,7 +40,6 @@ namespace CourseRegistration.Models
             }
         }
 
-
         private List<CourseClass> courseClass = new List<CourseClass>();
         public virtual List<CourseClass> CourseClasses
         {
@@ -52,11 +51,6 @@ namespace CourseRegistration.Models
             {
                 courseClass = value;
             }
-        }
-
-        public Course()
-        {
-
         }
     }
 }

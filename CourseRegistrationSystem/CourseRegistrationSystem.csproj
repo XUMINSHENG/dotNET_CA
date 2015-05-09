@@ -297,7 +297,6 @@
     <Content Include="images\logo32.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="Areas\CourseAdmin\CourseAdmin.Master" />
     <Content Include="Areas\SystemAdmin\SystemAdmin.Master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

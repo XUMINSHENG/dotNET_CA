@@ -18,13 +18,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 String courseCode = Request.QueryString["CourseCode"];
                 String PageMode = Request.QueryString["MODE"];
 
-                List<Category> categoryList = CategoryBLL.Instance.GetAllCategories();
-                foreach(Category c in categoryList)
-                {
-                    this.DropDownCategory.Items.Add(c.CategoryName);
-                    
-                }
-             
+                Load_Instructors();
+                Load_Categories();
 
 
                 Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
@@ -37,5 +32,26 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
         }
 
+        
+
+        private void Load_Categories()
+        {
+            List<Category> categoryList = CategoryBLL.Instance.GetAllCategories();
+            foreach (Category c in categoryList)
+            {
+                this.DropDownCategory.Items.Add(c.CategoryName);
+            }
+        }
+        private void Load_Instructors()
+        {
+            List<Instructor> instructorList = InstructorBLL.Instance.GetAllInstructors();
+            this.ChkBoxListInstructors.Items.Clear();
+            foreach (Instructor i in instructorList)
+            {
+                this.ChkBoxListInstructors.Items.Add(i.InstructorName);
+            }
+        }
     }
+
+    
 }

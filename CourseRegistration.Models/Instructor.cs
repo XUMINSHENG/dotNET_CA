@@ -15,5 +15,18 @@ namespace CourseRegistration.Models
         [Required]
         public String InstructorName { get; set; }
 
+        private List<Course> courses;
+        public virtual List<Course> Courses
+        {
+            get
+            {
+                return courses;
+            }
+            set
+            {
+                courses = value;
+            }
+        }
+
     }
 }
