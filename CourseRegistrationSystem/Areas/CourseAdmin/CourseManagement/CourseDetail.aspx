@@ -61,12 +61,12 @@
                         <asp:TextBox ID="TxtNumberOfDays" runat="server"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
-                 <asp:TableRow>
+                 <asp:TableRow Height="100px">
                     <asp:TableCell>
                         Instructors:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:Panel ID="Panel2" runat="server" Height="50" ScrollBars="Vertical">
+                        <asp:Panel ID="Panel2" runat="server" Height="100px" ScrollBars="Vertical">
                             <asp:CheckBoxList ID="ChkBoxListInstructors" runat="server" >
                                 <asp:listitem text="checkbox1"/> 
                                 <asp:listitem text="checkbox2"/> 
@@ -90,6 +90,7 @@
                 
             <asp:Panel ID="Panel3" runat="server">
                 <asp:Button runat="server" Text="Create" />
+                <asp:Button runat="server" Text="Edit" ID="BtnEdit" OnClick="BtnEdit_Click" />
             </asp:Panel>
         </asp:Panel>
     

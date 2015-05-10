@@ -17,9 +17,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             {
                 String courseCode = Request.QueryString["CourseCode"];
                 String PageMode = Request.QueryString["MODE"];
-
-                Load_Instructors();
-                Load_Categories();
+                Bind_Categories();
+                Bind_Instructors();
+                
 
 
                 Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
@@ -27,29 +27,65 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 {
                     this.TxtCourseCode.Text = course.CourseCode;
                     this.TxtCourseTitle.Text = course.CourseTitle;
-                    this.DropDownCategory.SelectedValue = course.Category.CategoryName;
+                    this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
+                    this.TxtDescription.Text = course.CourseDescription;
+                    this.TxtFee.Text = course.Fee.ToString();
+                    this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
+                    
+                    foreach (Instructor i in course.Instructors){
+                        this.ChkBoxListInstructors.SelectedValue = i.InstructorId.ToString();
+                    }
+
+                    this.ChkBoxEnabled.Checked = course.enabled;
+
                 }
             }
         }
 
         
 
-        private void Load_Categories()
+        private void Bind_Categories()
         {
             List<Category> categoryList = CategoryBLL.Instance.GetAllCategories();
-            foreach (Category c in categoryList)
-            {
-                this.DropDownCategory.Items.Add(c.CategoryName);
-            }
+            this.DropDownCategory.DataSource = categoryList;
+            this.DropDownCategory.DataValueField = "CategoryId";
+            this.DropDownCategory.DataTextField = "CategoryName";
+            this.DropDownCategory.DataBind();
         }
-        private void Load_Instructors()
+        private void Bind_Instructors()
         {
             List<Instructor> instructorList = InstructorBLL.Instance.GetAllInstructors();
-            this.ChkBoxListInstructors.Items.Clear();
-            foreach (Instructor i in instructorList)
+            this.ChkBoxListInstructors.DataSource = instructorList;
+            this.ChkBoxListInstructors.DataValueField = "InstructorId";
+            this.ChkBoxListInstructors.DataTextField = "InstructorName";
+            this.ChkBoxListInstructors.DataBind();
+        }
+
+        protected void BtnEdit_Click(object sender, EventArgs e)
+        {
+            Course course = new Course();
+            course.CourseCode = this.TxtCourseCode.Text;
+            course.CourseTitle = this.TxtCourseTitle.Text;
+
+            Category category = CategoryBLL.Instance.GetCategoryById(int.Parse(this.DropDownCategory.SelectedValue));
+            course.Category = category;
+
+            course.CourseDescription = this.TxtDescription.Text;
+            course.Fee = double.Parse(this.TxtFee.Text);
+            course.NumberOfDays = int.Parse(this.TxtNumberOfDays.Text);
+
+            foreach (ListItem i in this.ChkBoxListInstructors.Items)
             {
-                this.ChkBoxListInstructors.Items.Add(i.InstructorName);
+                if (i.Selected)
+                {
+                    Instructor instructor = InstructorBLL.Instance.GetInstructorById(int.Parse(i.Value));
+                    course.Instructors.Add(instructor);
+                }
             }
+
+            course.enabled = this.ChkBoxEnabled.Checked;
+
+            CourseBLL.Instance.EditCourse(course);
         }
     }
 
