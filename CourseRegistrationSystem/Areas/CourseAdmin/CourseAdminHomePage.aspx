@@ -9,7 +9,9 @@
 </asp:Content>
 
 <asp:Content ID="Menu" runat="server" contentPlaceHolderID="Menu">
-   <asp:Menu ID="caMenu" runat="server"></asp:Menu>
+   <asp:Menu ID="caMenu" runat="server">
+       
+   </asp:Menu>
 </asp:Content>
 
 
