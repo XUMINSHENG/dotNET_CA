@@ -21,7 +21,7 @@ namespace CourseRegistration.BLL
 
         public void CreateCourseClass(CourseClass cc)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseClassRepository.Insert(cc);
             uow.Save();
         
@@ -29,28 +29,28 @@ namespace CourseRegistration.BLL
 
         public CourseClass GetCourseClassById(int courseClassCode)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
             
         }
 
         public IEnumerable<CourseClass> GetAllCourseClass()
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseClassRepository.GetAll().ToList();
             
         }
 
         public void UpdateCourseClass(CourseClass cc)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseClassRepository.Edit(cc);
             uow.Save();
         }
 
         public void DeleteCourseClass(CourseClass cc)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseClassRepository.Delete(cc);
             uow.Save();
         }

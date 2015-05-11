@@ -21,27 +21,26 @@ namespace CourseRegistration.BLL
 
         public void CreateCompany(Company c)
         {
-            IUnitOfWork uow = new UnitOfWork();
-
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CompanyRepository.Insert(c);
             uow.Save();
         }
 
         public IEnumerable<Company> GetAllCompanies()
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CompanyRepository.GetAll().ToList();
         }
 
         public Company GetCompanyById(int id)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CompanyRepository.GetById(id);
         }
 
         public void EditCompany(Company c)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CompanyRepository.Edit(c);
             uow.Save();
             
@@ -49,8 +48,7 @@ namespace CourseRegistration.BLL
 
         public void DeleteCompany(Company c)
         {
-            IUnitOfWork uow = new UnitOfWork();
-
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CompanyRepository.Delete(c);
             uow.Save();
         }

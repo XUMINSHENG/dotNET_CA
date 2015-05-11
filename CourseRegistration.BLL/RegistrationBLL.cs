@@ -20,7 +20,7 @@ namespace CourseRegistration.BLL
 
         public void CreateRegistration(Registration r)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.RegistrationRepository.Insert(r);
             uow.Save();
             
@@ -28,20 +28,20 @@ namespace CourseRegistration.BLL
 
         public Registration getRegistrationById(int id)
         {
-            IUnitOfWork uow = new UnitOfWork();
-            return uow.RegistrationRepository.GetAll().Where<Registration>(x => x.RegistrationId == id).Single();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.RegistrationRepository.GetById(id);
         }
 
         public IEnumerable<Registration> getAllRegistration()
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.RegistrationRepository.GetAll().ToList();
              
         }
 
         public void UpdateRegistration(Registration r)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.RegistrationRepository.Edit(r);
             uow.Save();
              
@@ -49,7 +49,7 @@ namespace CourseRegistration.BLL
 
         public void DeleteRegistration(Registration r)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.RegistrationRepository.Delete(r);
             uow.Save();
              

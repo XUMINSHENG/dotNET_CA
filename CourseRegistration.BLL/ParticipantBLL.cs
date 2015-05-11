@@ -21,30 +21,28 @@ namespace CourseRegistration.BLL
 
         public void CreateParticipant(Participant p)
         {
-            using(IUnitOfWork uow = new UnitOfWork()){
-                uow.ParticipantRepository.Insert(p);
-                uow.Save();
-            }
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            uow.ParticipantRepository.Insert(p);
+            uow.Save();
         }
 
         public IEnumerable<Participant> GetAllParticipants()
         {
-            using(IUnitOfWork uow = new UnitOfWork())
-            {
-                return uow.ParticipantRepository.GetAll().ToList();
-            }
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.ParticipantRepository.GetAll().ToList();
+            
         }
 
         public Participant GetParticipantById(int id)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.ParticipantRepository.GetById(id);
             
         }
 
         public void EditParticipant(Participant p)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.ParticipantRepository.Edit(p);
             uow.Save();
             
@@ -52,7 +50,7 @@ namespace CourseRegistration.BLL
 
         public void DeleteParticipant(Participant p)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.ParticipantRepository.Delete(p);
             uow.Save();
             
