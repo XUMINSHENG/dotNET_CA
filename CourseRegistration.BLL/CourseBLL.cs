@@ -22,34 +22,33 @@ namespace CourseRegistration.BLL
 
         public void CreateCourse(Course c)
         {
-            IUnitOfWork uow = new UnitOfWork();
-            
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseRepository.Insert(c);
             uow.Save();
         }
 
         public IEnumerable<Course> GetAllCourses()
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseRepository.GetAll().ToList();
         }
 
         public Course GetCourseByCode(String courseCode)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseRepository.GetAll().Where<Course>(x => x.CourseCode == courseCode).SingleOrDefault();
         }
 
         public void EditCourse(Course c)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseRepository.Edit(c);
             uow.Save();
         }
 
         public void DeleteCourse(Course c)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.CourseRepository.Delete(c);
             uow.Save();
             
@@ -59,7 +58,7 @@ namespace CourseRegistration.BLL
         {
             IQueryable<Course> result;
             String keyWord = key.ToUpper();
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             
             //title
             IQueryable<Course> titleQuery = uow.CourseRepository.GetAll().Where<Course>(x => x.CourseTitle.ToUpper().Contains(keyWord));

@@ -33,11 +33,10 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                     this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
                     
                     foreach (Instructor i in course.Instructors){
-                        this.ChkBoxListInstructors.SelectedValue = i.InstructorId.ToString();
+                        this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
+
                     }
-
                     this.ChkBoxEnabled.Checked = course.enabled;
-
                 }
             }
         }
@@ -63,8 +62,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BtnEdit_Click(object sender, EventArgs e)
         {
-            Course course = new Course();
-            course.CourseCode = this.TxtCourseCode.Text;
+            Course course = CourseBLL.Instance.GetCourseByCode(this.TxtCourseCode.Text);
             course.CourseTitle = this.TxtCourseTitle.Text;
 
             Category category = CategoryBLL.Instance.GetCategoryById(int.Parse(this.DropDownCategory.SelectedValue));
@@ -84,8 +82,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
 
             course.enabled = this.ChkBoxEnabled.Checked;
-
+            
             CourseBLL.Instance.EditCourse(course);
+        }
+
+        protected void Unnamed1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -89,7 +89,7 @@
                     
                 
             <asp:Panel ID="Panel3" runat="server">
-                <asp:Button runat="server" Text="Create" />
+                <asp:Button runat="server" Text="Create" OnClick="Unnamed1_Click" />
                 <asp:Button runat="server" Text="Edit" ID="BtnEdit" OnClick="BtnEdit_Click" />
             </asp:Panel>
         </asp:Panel>

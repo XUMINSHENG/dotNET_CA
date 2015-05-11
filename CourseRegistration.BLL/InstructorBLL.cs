@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CourseRegistration.Models;
 using CourseRegistration.Data;
 
+
 namespace CourseRegistration.BLL
 {
     public class InstructorBLL
@@ -23,19 +24,20 @@ namespace CourseRegistration.BLL
 
         public List<Instructor> GetAllInstructors()
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+
             return uow.InstructorRepository.GetAll().ToList();
         }
 
         public Instructor GetInstructorById(int instructorId)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.InstructorRepository.GetById(instructorId);
         }
 
         public Instructor GetInstructorByName(String name)
         {
-            IUnitOfWork uow = new UnitOfWork();
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.InstructorRepository.GetAll().Where(x=>x.InstructorName==name).SingleOrDefault();
         }
 

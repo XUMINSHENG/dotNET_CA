@@ -36,6 +36,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void BTNEDIT_Click(object sender, EventArgs e)
         {
             String s = ((Button)sender).CommandArgument.ToString();
+            Response.Redirect("CourseDetail.aspx?CourseCode=" + s + "&MODE=EDIT");
+
+
         }
         protected void BTNDELETE_Click(object sender, EventArgs e)
         {
@@ -48,6 +51,11 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
             this.GridView1.DataSource = list;
             this.GridView1.DataBind();
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -15,7 +15,7 @@
                 AutoGenerateColumns="False"
                 AllowSorting="True"
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging">
+                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -32,7 +32,9 @@
                 <Columns>
                     <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" />
                 
-                    <asp:HyperLinkField DataTextField="CourseTitle" HeaderText="Title" ControlStyle-Width="300px" ItemStyle-Width="300px"/>
+                    <asp:HyperLinkField DataTextField="CourseTitle" HeaderText="Title" ControlStyle-Width="300px" ItemStyle-Width="300px" 
+                        DataNavigateUrlFields="CourseCode" 
+                        DataNavigateUrlFormatString="CourseDetail.aspx?CourseCode={0}&MODE=VIEW"/>
                 
                     <asp:BoundField DataField="Category.CategoryName" HeaderText="Cateory" ControlStyle-Width="200px" ItemStyle-Width="200px" />
                
@@ -42,15 +44,15 @@
                         
                     <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" ControlStyle-Width="100px" ItemStyle-Width="100px" />
                         
-                    <asp:TemplateField>
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
                             Opeation
                         </HeaderTemplate>
 
 
                         <ItemTemplate >
-                            <asp:Button ID="BtnEdit" runat="server" Font-Size="9pt" Text="Edit" OnClick="BTNEDIT_Click" CommandArgument='<%# Bind("CourseCode") %>' />
-                            <asp:Button ID="BtnDelete" runat="server" Font-Size="9pt" Text="Delete" OnClick="BTNDELETE_Click" CommandArgument='<%# Bind("CourseCode") %>' />
+                            <asp:Button ID="BtnEdit" runat="server" Font-Size="9pt" Text="Edit" OnClick="BTNEDIT_Click" CommandArgument='<%# Bind("CourseCode") %>' Width="50px" />
+                            <asp:Button ID="BtnDelete" runat="server" Font-Size="9pt" Text="Delete" OnClick="BTNDELETE_Click" CommandArgument='<%# Bind("CourseCode") %>' Width="50px" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
