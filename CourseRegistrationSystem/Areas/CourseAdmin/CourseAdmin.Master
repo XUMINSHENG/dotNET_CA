@@ -28,7 +28,7 @@
     </div>
 
     <div>
-        <asp:ContentPlaceHolder ID="Path" runat="server">        
+        <asp:ContentPlaceHolder ID="Path" runat="server">
         <asp:Panel ID="Panel6" runat="server" HorizontalAlign="Left">
           <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
         </asp:Panel>
@@ -42,14 +42,14 @@
     </div>
     
     <div>      
-    <asp:Table ID="Table1" runat="server" style="width: 100%;height:100%" BorderStyle="Double" CellPadding="2" CellSpacing="2">
-        <asp:TableRow Width="100%" Height="70%">
-            <asp:TableCell Width ="30%">
+    <asp:Table ID="Table1" runat="server" BorderStyle="Double" CellPadding="2" CellSpacing="2" Width="100%" Height="750px">
+        <asp:TableRow>
+            <asp:TableCell VerticalAlign="Top">
                 <asp:ContentPlaceHolder ID="Menu" runat="server">
                     Menu
                 </asp:ContentPlaceHolder>
             </asp:TableCell>
-            <asp:TableCell Width="70%" Height="70%">
+            <asp:TableCell>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 
                 </asp:ContentPlaceHolder>
