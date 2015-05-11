@@ -1,16 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SystemAdminHomePage.aspx.cs" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.SystemAdminIndex" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SystemAdminHomePage.aspx.cs" MasterPageFile="~/Areas/SystemAdmin/SystemAdmin.Master" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.SystemAdminIndex" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Title" runat="server" contentPlaceHolderID="subTitle">
+     Course Admin Home Page
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="Search" runat="server" contentPlaceHolderID="Search">
+   
+</asp:Content>
+
+<asp:Content ID="Menu" runat="server" contentPlaceHolderID="Menu">
+   
+</asp:Content>
+
+
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
+ 
+</asp:Content>
