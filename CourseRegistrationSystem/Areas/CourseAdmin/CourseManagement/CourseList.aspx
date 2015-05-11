@@ -15,7 +15,7 @@
                 AutoGenerateColumns="False"
                 AllowSorting="True"
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -30,30 +30,54 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 <Columns>
-                    <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" />
+                    <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
+                
+                    <ControlStyle Width="100px" />
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
                 
                     <asp:HyperLinkField DataTextField="CourseTitle" HeaderText="Title" ControlStyle-Width="300px" ItemStyle-Width="300px" 
                         DataNavigateUrlFields="CourseCode" 
-                        DataNavigateUrlFormatString="CourseDetail.aspx?CourseCode={0}&MODE=VIEW"/>
+                        DataNavigateUrlFormatString="CourseDetail.aspx?CourseCode={0}&MODE=VIEW">
                 
-                    <asp:BoundField DataField="Category.CategoryName" HeaderText="Cateory" ControlStyle-Width="200px" ItemStyle-Width="200px" />
+                    <ControlStyle Width="300px" />
+                    <ItemStyle Width="300px" />
+                    </asp:HyperLinkField>
+                
+                    <asp:BoundField DataField="Category.CategoryName" HeaderText="Cateory" ControlStyle-Width="200px" ItemStyle-Width="200px" >
                
-                    <asp:BoundField DataField="NumberOfDays" HeaderText="Duration" ControlStyle-Width="100px" ItemStyle-Width="100px" />
+                    <ControlStyle Width="200px" />
+                    <ItemStyle Width="200px" />
+                    </asp:BoundField>
+               
+                    <asp:BoundField DataField="NumberOfDays" HeaderText="Duration" ControlStyle-Width="100px" ItemStyle-Width="100px" >
 
-                    <asp:BoundField DataField="Fee" HeaderText="Fee" ControlStyle-Width="100px" ItemStyle-Width="100px" />
+                    <ControlStyle Width="100px" />
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+
+                    <asp:BoundField DataField="Fee" HeaderText="Fee" ControlStyle-Width="100px" ItemStyle-Width="100px" >
                         
-                    <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" ControlStyle-Width="100px" ItemStyle-Width="100px" />
+                    <ControlStyle Width="100px" />
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+                        
+                    <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" ControlStyle-Width="100px" ItemStyle-Width="100px" DataFormatString="{0:dd-MMM-yyyy}" >
+                        
+                    <ControlStyle Width="100px" />
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
                             Opeation
                         </HeaderTemplate>
 
-
                         <ItemTemplate >
                             <asp:Button ID="BtnEdit" runat="server" Font-Size="9pt" Text="Edit" OnClick="BTNEDIT_Click" CommandArgument='<%# Bind("CourseCode") %>' Width="50px" />
                             <asp:Button ID="BtnDelete" runat="server" Font-Size="9pt" Text="Delete" OnClick="BTNDELETE_Click" CommandArgument='<%# Bind("CourseCode") %>' Width="50px" />
                         </ItemTemplate>
+                        <ItemStyle HorizontalAlign="Center" />
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>

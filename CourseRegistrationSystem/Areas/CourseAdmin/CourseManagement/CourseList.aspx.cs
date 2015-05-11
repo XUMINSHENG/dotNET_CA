@@ -16,7 +16,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         {
             if (!Page.IsPostBack)
             {
-                BindCoursesList();
+                Bind_CoursesList();
             }
             
         }
@@ -25,27 +25,43 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             this.GridView1.PageIndex = e.NewPageIndex;
-            BindCoursesList();
+            Bind_CoursesList();
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            BindCoursesList();
+            Bind_CoursesList();
         }
 
         protected void BTNEDIT_Click(object sender, EventArgs e)
         {
-            String s = ((Button)sender).CommandArgument.ToString();
-            Response.Redirect("CourseDetail.aspx?CourseCode=" + s + "&MODE=EDIT");
+            String courseCode = ((Button)sender).CommandArgument.ToString();
+            Response.Redirect("CourseDetail.aspx?CourseCode=" + courseCode + "&MODE=EDIT");
 
 
         }
         protected void BTNDELETE_Click(object sender, EventArgs e)
         {
-            String s = ((Button)sender).CommandArgument.ToString();
+
+            String courseCode = ((Button)sender).CommandArgument.ToString();
+            Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
+            CourseBLL.Instance.DeleteCourse(course);
+            Bind_CoursesList();
         }
 
-        private void BindCoursesList()
+        
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        private void Bind_CoursesList()
         {
             IEnumerable<Course> list = CourseBLL.Instance.GetAllCourses();
 
@@ -53,9 +69,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             this.GridView1.DataBind();
         }
 
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

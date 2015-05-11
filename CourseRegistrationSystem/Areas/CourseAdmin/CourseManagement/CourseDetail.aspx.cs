@@ -34,7 +34,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                     
                     foreach (Instructor i in course.Instructors){
                         this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
-
                     }
                     this.ChkBoxEnabled.Checked = course.enabled;
                 }
