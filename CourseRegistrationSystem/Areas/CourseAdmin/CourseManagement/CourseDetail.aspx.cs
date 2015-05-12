@@ -25,17 +25,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
                 if (course != null)
                 {
-                    this.TxtCourseCode.Text = course.CourseCode;
-                    this.TxtCourseTitle.Text = course.CourseTitle;
-                    this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
-                    this.TxtDescription.Text = course.CourseDescription;
-                    this.TxtFee.Text = course.Fee.ToString();
-                    this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
-                    
-                    foreach (Instructor i in course.Instructors){
-                        this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
-                    }
-                    this.ChkBoxEnabled.Checked = course.enabled;
+                    Load_DetailData(course);
                 }
             }
         }
@@ -88,6 +78,24 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Load_DetailData(Course course)
+        {
+            this.TxtCourseCode.Text = course.CourseCode;
+            this.TxtCourseTitle.Text = course.CourseTitle;
+            this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
+            this.TxtDescription.Text = course.CourseDescription;
+            this.TxtFee.Text = course.Fee.ToString();
+            this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
+
+            foreach (Instructor i in course.Instructors)
+            {
+                this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
+            }
+
+            this.ChkBoxEnabled.Checked = course.enabled;
+            this.TxtCreateDate.Text = course.CreateDate.ToShortDateString();
         }
     }
 

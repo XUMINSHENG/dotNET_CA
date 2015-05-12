@@ -12,9 +12,9 @@
     
         <asp:Panel ID="Panel1" runat="server" Height="566px">
 
-            <asp:Table ID="Table1" runat="server" Height="312px" Width="480px">
+            <asp:Table ID="Table1" runat="server" Width="480px">
                 <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Code:
                     </asp:TableCell>
                     <asp:TableCell>
@@ -22,7 +22,7 @@
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Title:
                     </asp:TableCell>
                     <asp:TableCell>
@@ -30,7 +30,7 @@
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Category:
                     </asp:TableCell>
                     <asp:TableCell>
@@ -38,15 +38,15 @@
                     </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Description:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtDescription" runat="server" TextMode="multiline" Columns="50" Rows="5"></asp:TextBox>
+                        <asp:TextBox ID="TxtDescription" runat="server" TextMode="multiline" Rows="5" Width="480px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Fee:
                     </asp:TableCell>
                     <asp:TableCell>
@@ -54,7 +54,7 @@
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Duration:
                     </asp:TableCell>
                     <asp:TableCell>
@@ -62,11 +62,11 @@
                     </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow Height="100px">
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Instructors:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:Panel ID="Panel2" runat="server" Height="100px" ScrollBars="Vertical">
+                        <asp:Panel ID="Panel2" runat="server" Height="100px" ScrollBars="Vertical" BorderWidth="1px">
                             <asp:CheckBoxList ID="ChkBoxListInstructors" runat="server" >
                                 <asp:listitem text="checkbox1"/> 
                                 <asp:listitem text="checkbox2"/> 
@@ -77,14 +77,21 @@
                     </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow>
-                    <asp:TableCell>
+                    <asp:TableCell VerticalAlign="Top">
                         Enabled:
                     </asp:TableCell>
                     <asp:TableCell>
                         <asp:CheckBox ID="ChkBoxEnabled" runat="server" />
                     </asp:TableCell>
                 </asp:TableRow>
-
+                <asp:TableRow>
+                    <asp:TableCell VerticalAlign="Top">
+                        CreateDate:
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtCreateDate" runat="server" Enabled="false"></asp:TextBox>
+                    </asp:TableCell>
+                </asp:TableRow>
             </asp:Table>
                     
                 
