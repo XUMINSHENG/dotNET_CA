@@ -26,7 +26,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        public IEnumerable<Company> GetAllCompanies()
+        public List<Company> GetAllCompanies()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CompanyRepository.GetAll().ToList();

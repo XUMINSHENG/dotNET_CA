@@ -14,8 +14,11 @@
                 AllowPaging="True" 
                 AutoGenerateColumns="False"
                 AllowSorting="True"
+                
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound">
+                OnPageIndexChanging="GridView1_PageIndexChanging" 
+                OnSelectedIndexChanged="GridView1_SelectedIndexChanged" 
+                OnRowDataBound="GridView1_RowDataBound">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -31,9 +34,8 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 <Columns>
                     <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                
-                    <ControlStyle Width="100px" />
-                    <ItemStyle Width="100px" />
+                        <ControlStyle Width="100px" />
+                        <ItemStyle Width="100px" />
                     </asp:BoundField>
                 
                     <asp:HyperLinkField DataTextField="CourseTitle" HeaderText="Title" ControlStyle-Width="300px" ItemStyle-Width="300px" 

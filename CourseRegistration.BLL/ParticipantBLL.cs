@@ -26,7 +26,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        public IEnumerable<Participant> GetAllParticipants()
+        public List<Participant> GetAllParticipants()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.ParticipantRepository.GetAll().ToList();

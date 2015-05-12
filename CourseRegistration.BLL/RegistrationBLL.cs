@@ -32,7 +32,7 @@ namespace CourseRegistration.BLL
             return uow.RegistrationRepository.GetById(id);
         }
 
-        public IEnumerable<Registration> getAllRegistration()
+        public List<Registration> getAllRegistration()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.RegistrationRepository.GetAll().ToList();

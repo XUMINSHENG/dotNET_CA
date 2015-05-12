@@ -27,7 +27,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        public IEnumerable<Course> GetAllCourses()
+        public List<Course> GetAllCourses()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseRepository.GetAll().ToList();
@@ -54,7 +54,7 @@ namespace CourseRegistration.BLL
             
         }
 
-        public IEnumerable<Course> SearchCourse(String key)
+        public List<Course> SearchCourse(String key)
         {
             IQueryable<Course> result;
             String keyWord = key.ToUpper();

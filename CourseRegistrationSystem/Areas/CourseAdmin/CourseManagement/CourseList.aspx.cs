@@ -63,10 +63,29 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         private void Bind_CoursesList()
         {
-            IEnumerable<Course> list = CourseBLL.Instance.GetAllCourses();
+            List<Course> list = CourseBLL.Instance.GetAllCourses();
+            if (list.Count() == 0)
+            {
+                list.Add(new Course());
 
-            this.GridView1.DataSource = list;
-            this.GridView1.DataBind();
+                this.GridView1.DataSource = list;
+                this.GridView1.DataBind();
+                
+                int columnCount = this.GridView1.Columns.Count;
+
+                this.GridView1.Rows[0].Cells.Clear();
+                this.GridView1.Rows[0].Cells.Add(new TableCell());
+                this.GridView1.Rows[0].Cells[0].ColumnSpan = columnCount;
+                this.GridView1.Rows[0].Cells[0].Text = "No Record";
+                this.GridView1.Rows[0].Cells[0].Style.Add("text-align", "center");
+            }else{
+                 this.GridView1.DataSource = list;
+                this.GridView1.DataBind();
+            }
+
+           
+
+           
         }
 
         

@@ -34,7 +34,7 @@ namespace CourseRegistration.BLL
             
         }
 
-        public IEnumerable<CourseClass> GetAllCourseClass()
+        public List<CourseClass> GetAllCourseClass()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.CourseClassRepository.GetAll().ToList();
@@ -55,7 +55,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-//        public IEnumerable<> GetAttendSheet()
+        //        public List<> GetAttendSheet()
 //      {
 //        }
 
