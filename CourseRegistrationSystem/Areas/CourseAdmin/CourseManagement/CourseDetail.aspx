@@ -10,7 +10,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Panel ID="Panel1" runat="server" Height="566px">
+        <asp:Panel ID="Panel1" runat="server" Height="566px" Width ="40%">
 
             <asp:Table ID="Table1" runat="server" Width="480px">
                 <asp:TableRow>
@@ -93,11 +93,21 @@
                     </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
-                    
-                
-            <asp:Panel ID="Panel3" runat="server">
-                <asp:Button runat="server" Text="Create" OnClick="Unnamed1_Click" />
-                <asp:Button runat="server" Text="Edit" ID="BtnEdit" OnClick="BtnEdit_Click" />
+
+            <br />
+
+            <asp:Panel ID="BtnPanel" runat="server" >
+                <asp:Panel ID="NewPanel" runat="server" HorizontalAlign="Center">
+                    <asp:Button runat="server" Text="Create" OnClick="BtnCreate_Click" />
+                    <asp:Button runat="server" Text="Back" OnClick="BtnBack_Click" />
+                </asp:Panel>
+                <asp:Panel ID="EditPanel" runat="server" HorizontalAlign="Center">
+                    <asp:Button runat="server" Text="Edit" ID="BtnEdit" OnClick="BtnEdit_Click" />
+                    <asp:Button runat="server" Text="Back" OnClick="BtnBack_Click" />
+                </asp:Panel>
+                <asp:Panel ID="ViewPanel" runat="server" HorizontalAlign="Center">
+                    <asp:Button runat="server" Text="Back" OnClick="BtnBack_Click" />
+                </asp:Panel>
             </asp:Panel>
         </asp:Panel>
     

@@ -42,7 +42,16 @@ namespace CourseRegistration.Data
 
         public void Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException e)
+            {
+                Console.WriteLine(e.ToString());
+                throw e;
+            }
+            
         }
 
         public IRepository<Instructor> InstructorRepository

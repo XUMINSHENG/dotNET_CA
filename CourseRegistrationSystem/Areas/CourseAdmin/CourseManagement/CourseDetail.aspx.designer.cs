@@ -130,13 +130,31 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtCreateDate;
         
         /// <summary>
-        /// Panel3 control.
+        /// BtnPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel3;
+        protected global::System.Web.UI.WebControls.Panel BtnPanel;
+        
+        /// <summary>
+        /// NewPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel NewPanel;
+        
+        /// <summary>
+        /// EditPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel EditPanel;
         
         /// <summary>
         /// BtnEdit control.
@@ -146,5 +164,14 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnEdit;
+        
+        /// <summary>
+        /// ViewPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ViewPanel;
     }
 }

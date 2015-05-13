@@ -11,26 +11,31 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
     public partial class CourseDetail : System.Web.UI.Page
     {
+        String PageMode;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            PageMode = Request.QueryString["MODE"];
+            if (PageMode==null) PageMode = "NEW";
+
             if (!Page.IsPostBack)
             {
-                String courseCode = Request.QueryString["CourseCode"];
-                String PageMode = Request.QueryString["MODE"];
                 Bind_Categories();
                 Bind_Instructors();
-                
 
-
-                Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
-                if (course != null)
+                String courseCode = Request.QueryString["CourseCode"];
+                if (PageMode == "NEW")
                 {
-                    Load_DetailData(course);
+                }else if(PageMode == "EDIT" || PageMode == "VIEW"){
+                    Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
+                    if (course != null)
+                    {
+                        LoadDetailData(course);
+                    }
                 }
             }
+            ControlDisplayMode();
         }
-
-        
 
         private void Bind_Categories()
         {
@@ -49,9 +54,54 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             this.ChkBoxListInstructors.DataBind();
         }
 
+        protected void BtnCreate_Click(object sender, EventArgs e)
+        {
+            SaveCourse(true);
+            Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+        }
+
         protected void BtnEdit_Click(object sender, EventArgs e)
         {
-            Course course = CourseBLL.Instance.GetCourseByCode(this.TxtCourseCode.Text);
+            SaveCourse(false);
+            Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+        }
+
+        protected void BtnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CourseList.aspx");
+        }
+
+        private void LoadDetailData(Course course)
+        {
+            this.TxtCourseCode.Text = course.CourseCode;
+            this.TxtCourseTitle.Text = course.CourseTitle;
+            this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
+            this.TxtDescription.Text = course.CourseDescription;
+            this.TxtFee.Text = course.Fee.ToString();
+            this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
+
+            foreach (Instructor i in course.Instructors)
+            {
+                this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
+            }
+
+            this.ChkBoxEnabled.Checked = course.enabled;
+            this.TxtCreateDate.Text = course.CreateDate.ToShortDateString();
+        }
+
+        private void SaveCourse(bool isNew)
+        {
+            Course course;
+            if (isNew)
+            {
+                course = new Course();
+                course.CourseCode = this.TxtCourseCode.Text;
+            }
+            else
+            {
+                course = CourseBLL.Instance.GetCourseByCode(this.TxtCourseCode.Text);
+            }
+            
             course.CourseTitle = this.TxtCourseTitle.Text;
 
             Category category = CategoryBLL.Instance.GetCategoryById(int.Parse(this.DropDownCategory.SelectedValue));
@@ -71,31 +121,48 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
 
             course.enabled = this.ChkBoxEnabled.Checked;
-            
-            CourseBLL.Instance.EditCourse(course);
-        }
 
-        protected void Unnamed1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void Load_DetailData(Course course)
-        {
-            this.TxtCourseCode.Text = course.CourseCode;
-            this.TxtCourseTitle.Text = course.CourseTitle;
-            this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
-            this.TxtDescription.Text = course.CourseDescription;
-            this.TxtFee.Text = course.Fee.ToString();
-            this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
-
-            foreach (Instructor i in course.Instructors)
+            if (isNew)
             {
-                this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
+                CourseBLL.Instance.CreateCourse(course);
             }
+            else
+            {
+                CourseBLL.Instance.EditCourse(course);
+            }
+            
+        }
 
-            this.ChkBoxEnabled.Checked = course.enabled;
-            this.TxtCreateDate.Text = course.CreateDate.ToShortDateString();
+        private void ControlDisplayMode()
+        {
+            if (PageMode == "NEW")
+            {
+                this.EditPanel.Visible = false;
+                this.ViewPanel.Visible = false;
+            }
+            else if (PageMode == "EDIT")
+            {
+                this.TxtCourseCode.Enabled = false;
+
+                this.NewPanel.Visible = false;
+                this.ViewPanel.Visible = false;
+            }
+            else if(PageMode == "VIEW")
+            {
+                this.TxtCourseCode.Enabled = false;
+                this.TxtCourseTitle.Enabled = false;
+                this.DropDownCategory.Enabled = false;
+                this.TxtDescription.Enabled = false;
+                this.TxtFee.Enabled = false;
+                this.TxtNumberOfDays.Enabled = false;
+                this.ChkBoxListInstructors.Enabled = false;
+                this.ChkBoxEnabled.Enabled = false;
+                this.TxtCreateDate.Enabled = false;
+
+                this.NewPanel.Visible = false;
+                this.EditPanel.Visible = false;
+            }
         }
     }
 
