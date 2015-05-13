@@ -16,6 +16,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         {
             if (!Page.IsPostBack)
             {
+                Bind_CategoryList();
                 Bind_CoursesList();
             }
             
@@ -31,6 +32,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             Bind_CoursesList();
+        }
+
+        protected void DropDownCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Bind_CoursesList();
+        }
+
+        protected void BTNCREATE_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CourseDetail.aspx?MODE=NEW");
         }
 
         protected void BTNEDIT_Click(object sender, EventArgs e)
@@ -49,21 +60,20 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             Bind_CoursesList();
         }
 
-        
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-
+       
         private void Bind_CoursesList()
         {
-            List<Course> list = CourseBLL.Instance.GetAllCourses();
+            List<Course> list;
+            int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
+            if (categoryID == -1)
+            {
+                list = CourseBLL.Instance.GetAllCourses();
+            }
+            else
+            {
+                list = CourseBLL.Instance.getCoursesByCategoryID(categoryID);
+            }
+
             if (list.Count() == 0)
             {
                 list.Add(new Course());
@@ -79,15 +89,26 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 this.GridView1.Rows[0].Cells[0].Text = "No Record";
                 this.GridView1.Rows[0].Cells[0].Style.Add("text-align", "center");
             }else{
-                 this.GridView1.DataSource = list;
+                this.GridView1.DataSource = list;
                 this.GridView1.DataBind();
             }
-
+        }
+        private void Bind_CategoryList()
+        {
+            List<Category> list;
+            list = CategoryBLL.Instance.GetAllCategories();
            
+            ListItem AllItem = new ListItem("Select All", "-1");
+            this.DropDownCategory.DataSource = list;
+            this.DropDownCategory.DataValueField = "CategoryId";
+            this.DropDownCategory.DataTextField = "CategoryName";
+            this.DropDownCategory.DataBind();
 
-           
+            this.DropDownCategory.Items.Insert(0, AllItem);
+
         }
 
+       
         
     }
 }

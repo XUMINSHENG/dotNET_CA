@@ -9,16 +9,47 @@
 <body style="height: 424px">
     <form id="form1" runat="server">
     <div>
-        <asp:Panel ID="Panel1" runat="server" Width="1158px">
+        <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
+            <asp:Table ID="SelectTable" runat="server">
+                <asp:TableRow>
+                    <asp:TableCell Width="20%">
+                        <label>
+                            Select Category:
+                        </label>
+                    </asp:TableCell>
+                    <asp:TableCell Width="80%">
+                        <asp:DropDownList ID="DropDownCategory" runat="server" Width="220px"
+                            OnSelectedIndexChanged="DropDownCategory_SelectedIndexChanged"
+                            AutoPostBack="true">
+                            <asp:ListItem>Select All</asp:ListItem>
+                        </asp:DropDownList>
+                    </asp:TableCell>
+                    <asp:TableCell>
+
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell>
+
+                    </asp:TableCell>
+                    <asp:TableCell>
+
+                    </asp:TableCell>
+                    <asp:TableCell Width="20%" HorizontalAlign="Right">
+                        <asp:Button ID="BtnCreate" runat="server" Text="Create Course" OnClick="BTNCREATE_Click" />
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
+        </asp:Panel>
+        <br />
+        <asp:Panel ID="Panel1" runat="server" >
             <asp:GridView ID="GridView1" runat="server" Width="1141px" CellPadding="4" ForeColor="#333333" 
                 AllowPaging="True" 
                 AutoGenerateColumns="False"
                 AllowSorting="True"
                 
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging" 
-                OnSelectedIndexChanged="GridView1_SelectedIndexChanged" 
-                OnRowDataBound="GridView1_RowDataBound">
+                OnPageIndexChanging="GridView1_PageIndexChanging">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />

@@ -77,6 +77,12 @@ namespace CourseRegistration.BLL
             return result.ToList();
         }
 
+        public List<Course> getCoursesByCategoryID(int CategoryID)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.CourseRepository.GetAll().Where<Course>(x => x.Category.CategoryId == CategoryID).ToList();
+        }
+
     }
 }
 
