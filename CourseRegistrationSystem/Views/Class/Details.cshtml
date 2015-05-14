@@ -4,6 +4,12 @@
     ViewBag.Title = "Details";
 }
 
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Class", "Index", "Class")</li>
+    <li>@Html.DisplayFor(model => Model.Course.CourseTitle)</li>
+</ul>
+
 <h2>CourseClass</h2>
 
 <div>
