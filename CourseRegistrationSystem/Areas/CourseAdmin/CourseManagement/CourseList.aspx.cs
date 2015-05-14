@@ -67,6 +67,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
             if (categoryID == -1)
             {
+                // Select ALL
                 list = CourseBLL.Instance.GetAllCourses();
             }
             else
@@ -89,8 +90,23 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 this.GridView1.Rows[0].Cells[0].Text = "No Record";
                 this.GridView1.Rows[0].Cells[0].Style.Add("text-align", "center");
             }else{
+                
                 this.GridView1.DataSource = list;
                 this.GridView1.DataBind();
+
+                int pNo = this.GridView1.PageIndex;
+                int pSize = this.GridView1.PageSize;
+                String RecNo = (pNo * pSize + 1).ToString();
+                RecNo += "~";
+                if ((pNo + 1) * pSize < list.Count())
+                {
+                    RecNo += ((pNo + 1) * pSize).ToString();
+                }else{
+                    RecNo += list.Count().ToString();
+                }
+                RecNo += " / ";
+                RecNo += list.Count().ToString();
+                this.LblRecNo.InnerText = RecNo;
             }
         }
         private void Bind_CategoryList()

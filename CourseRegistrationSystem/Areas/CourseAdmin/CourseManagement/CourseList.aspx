@@ -25,15 +25,15 @@
                         </asp:DropDownList>
                     </asp:TableCell>
                     <asp:TableCell>
-
+                        
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell>
-
+                        Record:
                     </asp:TableCell>
                     <asp:TableCell>
-
+                        <label id="LblRecNo" runat="server"></label>
                     </asp:TableCell>
                     <asp:TableCell Width="20%" HorizontalAlign="Right">
                         <asp:Button ID="BtnCreate" runat="server" Text="Create Course" OnClick="BTNCREATE_Click" />
@@ -41,7 +41,7 @@
                 </asp:TableRow>
             </asp:Table>
         </asp:Panel>
-        <br />
+
         <asp:Panel ID="Panel1" runat="server" >
             <asp:GridView ID="GridView1" runat="server" Width="1141px" CellPadding="4" ForeColor="#333333" 
                 AllowPaging="True" 
@@ -64,6 +64,11 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 <Columns>
+                    <asp:TemplateField HeaderText="No." ControlStyle-Width="30px" ItemStyle-Width="30px">
+                        <ItemTemplate>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex+1%>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
                         <ControlStyle Width="100px" />
                         <ItemStyle Width="100px" />
