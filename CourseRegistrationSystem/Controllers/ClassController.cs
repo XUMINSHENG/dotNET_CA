@@ -16,5 +16,11 @@ namespace CourseRegistrationSystem.Controllers
             IEnumerable<CourseClass> classes = CourseClassBLL.Instance.GetAllCourseClass();
             return View(classes);
         }
+
+        public ActionResult Details(int id)
+        {
+            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
+            return View(courseClass);
+        }
     }
 }
