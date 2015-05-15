@@ -49,6 +49,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtCourseCode;
         
         /// <summary>
+        /// LblCodeMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCodeMsg;
+        
+        /// <summary>
         /// TxtCourseTitle control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtCourseTitle;
+        
+        /// <summary>
+        /// LblTitleMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblTitleMsg;
         
         /// <summary>
         /// DropDownCategory control.
@@ -76,6 +94,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtDescription;
         
         /// <summary>
+        /// LblDescMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblDescMsg;
+        
+        /// <summary>
         /// TxtFee control.
         /// </summary>
         /// <remarks>
@@ -85,6 +112,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtFee;
         
         /// <summary>
+        /// LblFeeMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblFeeMsg;
+        
+        /// <summary>
         /// TxtNumberOfDays control.
         /// </summary>
         /// <remarks>
@@ -92,6 +128,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtNumberOfDays;
+        
+        /// <summary>
+        /// LblDurationMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblDurationMsg;
         
         /// <summary>
         /// Panel2 control.

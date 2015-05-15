@@ -10,15 +10,18 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Panel ID="Panel1" runat="server" Height="566px" Width ="40%">
+        <asp:Panel ID="Panel1" runat="server" Height="566px" Width ="50%">
 
-            <asp:Table ID="Table1" runat="server" Width="480px">
+            <asp:Table ID="Table1" runat="server" Width="100%">
                 <asp:TableRow>
-                    <asp:TableCell VerticalAlign="Top">
+                    <asp:TableCell VerticalAlign="Top" Width="20%">
                         Code:
                     </asp:TableCell>
-                    <asp:TableCell>
+                    <asp:TableCell Width="60%">
                         <asp:TextBox ID="TxtCourseCode" runat="server"></asp:TextBox>
+                    </asp:TableCell>
+                    <asp:TableCell Width="20%">
+                        <asp:Label ID="LblCodeMsg" runat="server" Width="20%"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -28,6 +31,9 @@
                     <asp:TableCell>
                         <asp:TextBox ID="TxtCourseTitle" runat="server"></asp:TextBox>
                     </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:Label ID="LblTitleMsg" runat="server" Width="20%"></asp:Label>
+                    </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
@@ -36,13 +42,18 @@
                     <asp:TableCell>
                         <asp:DropDownList ID="DropDownCategory" runat="server"></asp:DropDownList>
                     </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
                         Description:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtDescription" runat="server" TextMode="multiline" Rows="5" Width="480px"></asp:TextBox>
+                        <asp:TextBox ID="TxtDescription" runat="server" TextMode="multiline" Rows="5" Width="100%"></asp:TextBox>
+                    </asp:TableCell>
+                     <asp:TableCell>
+                        <asp:Label ID="LblDescMsg" runat="server" Width="20%"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -52,6 +63,9 @@
                     <asp:TableCell>
                         <asp:TextBox ID="TxtFee" runat="server"></asp:TextBox>
                     </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:Label ID="LblFeeMsg" runat="server" Width="20%"></asp:Label>
+                    </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
@@ -59,6 +73,9 @@
                     </asp:TableCell>
                     <asp:TableCell>
                         <asp:TextBox ID="TxtNumberOfDays" runat="server"></asp:TextBox>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:Label ID="LblDurationMsg" runat="server" Width="20%"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow Height="100px">
@@ -75,13 +92,17 @@
                             </asp:CheckBoxList>
                         </asp:Panel>
                     </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
                 </asp:TableRow>
                  <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
                         Enabled:
-                    </asp:TableCell>
+                    </asp:TableCell> 
                     <asp:TableCell>
                         <asp:CheckBox ID="ChkBoxEnabled" runat="server" />
+                    </asp:TableCell>
+                    <asp:TableCell>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -91,10 +112,10 @@
                     <asp:TableCell>
                         <asp:TextBox ID="TxtCreateDate" runat="server" Enabled="false"></asp:TextBox>
                     </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
-
-            <br />
 
             <asp:Panel ID="BtnPanel" runat="server" >
                 <asp:Panel ID="NewPanel" runat="server" HorizontalAlign="Center">

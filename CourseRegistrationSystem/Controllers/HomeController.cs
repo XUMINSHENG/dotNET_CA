@@ -29,31 +29,6 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-            //CourseRepository db = new CourseRepository();
-
-           
-            Category cate = new Category();
-            cate.CategoryId = 1;
-            cate.CategoryName = "NICF";
-
-            Course c = new Course();
-            c.CourseCode = "1";
-            c.CourseTitle = "Agile Continuous Delivery";
-            c.Category = cate;
-            c.Fee = 866.70;
-            c.NumberOfDays = 3;
-
-            CourseBLL.Instance.CreateCourse(c);
-                
-            c = new Course();
-            c.CourseCode = "2";
-            c.CourseTitle = "Architecting Software Solutions";
-            c.Fee = 1444.50;
-            c.NumberOfDays = 5;
-
-            CourseBLL.Instance.CreateCourse(c);
-            
             
             return View();
         }

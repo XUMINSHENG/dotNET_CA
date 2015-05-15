@@ -116,12 +116,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 if (i.Selected)
                 {
                     Instructor instructor = InstructorBLL.Instance.GetInstructorById(int.Parse(i.Value));
-                    course.Instructors.Add(instructor);
+                    if (!instructor.Courses.Contains(course))
+                    {
+                        instructor.Courses.Add(course);
+                        course.Instructors.Add(instructor);
+                    }
+                    
                 }
             }
 
             course.enabled = this.ChkBoxEnabled.Checked;
-
 
             if (isNew)
             {
