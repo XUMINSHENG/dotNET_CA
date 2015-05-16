@@ -49,13 +49,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtCourseCode;
         
         /// <summary>
-        /// LblCodeMsg control.
+        /// RFValid_Code control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCodeMsg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFValid_Code;
         
         /// <summary>
         /// TxtCourseTitle control.
@@ -67,13 +67,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtCourseTitle;
         
         /// <summary>
-        /// LblTitleMsg control.
+        /// RFValid_Title control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitleMsg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFValid_Title;
         
         /// <summary>
         /// DropDownCategory control.
@@ -94,15 +94,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtDescription;
         
         /// <summary>
-        /// LblDescMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblDescMsg;
-        
-        /// <summary>
         /// TxtFee control.
         /// </summary>
         /// <remarks>
@@ -112,13 +103,22 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtFee;
         
         /// <summary>
-        /// LblFeeMsg control.
+        /// RFValid_Fee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblFeeMsg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFValid_Fee;
+        
+        /// <summary>
+        /// RagValid_Fee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RagValid_Fee;
         
         /// <summary>
         /// TxtNumberOfDays control.
@@ -130,13 +130,22 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtNumberOfDays;
         
         /// <summary>
-        /// LblDurationMsg control.
+        /// RFValid_Duration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblDurationMsg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFValid_Duration;
+        
+        /// <summary>
+        /// RagValid_Duration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RagValid_Duration;
         
         /// <summary>
         /// Panel2 control.
