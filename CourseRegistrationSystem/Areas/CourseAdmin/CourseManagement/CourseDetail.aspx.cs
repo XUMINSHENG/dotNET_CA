@@ -7,10 +7,14 @@ using System.Web.UI.WebControls;
 using CourseRegistration.BLL;
 using CourseRegistration.Models;
 
+
 namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
     public partial class CourseDetail : System.Web.UI.Page
     {
+        private const String Err_Update_PK_Violation = "Course code [&0] already exists.";
+        private const String Err_Update_Concurrency = "Course [&0] was updated by someone else.";
+
         String PageMode;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -56,14 +60,32 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
-            SaveCourse(true);
-            Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+            try
+            {
+                SaveCourse(true);
+                Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                //Violation of PRIMARY KEY constraint
+                if (ex.HResult == -2146233087)
+                {
+                    this.LblMessage.Text = Err_Update_PK_Violation.Replace("&0", this.TxtCourseCode.Text);
+                }
+            }
         }
 
         protected void BtnEdit_Click(object sender, EventArgs e)
         {
-            SaveCourse(false);
-            Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+            try
+            {
+                SaveCourse(false);
+                Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+            {
+                this.LblMessage.Text = Err_Update_Concurrency.Replace("&0", this.TxtCourseCode.Text);
+            }
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -74,6 +96,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         private void LoadDetailData(Course course)
         {
             this.TxtCourseCode.Text = course.CourseCode;
+            this.HidTimestamp.Value = System.Convert.ToBase64String(course.Timestamp);
             this.TxtCourseTitle.Text = course.CourseTitle;
             this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
             this.TxtDescription.Text = course.CourseDescription;
@@ -86,7 +109,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
 
             this.ChkBoxEnabled.Checked = course.enabled;
-            this.TxtCreateDate.Text = course.CreateDate.ToShortDateString();
+            this.TxtCreateDate.Text = course.CreateDate.ToString("dd-MMM-yyyy");
+        }
+
+        private bool CheckConcurrency(Course course, String timestamp)
+        {
+            if (course == null || !System.Convert.ToBase64String(course.Timestamp).Equals(timestamp))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void SaveCourse(bool isNew)
@@ -100,8 +132,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             else
             {
                 course = CourseBLL.Instance.GetCourseByCode(this.TxtCourseCode.Text);
+                if (!CheckConcurrency(course, this.HidTimestamp.Value))
+                {
+                    throw new System.Data.Entity.Infrastructure.DbUpdateConcurrencyException();
+                }
             }
-            
+
             course.CourseTitle = this.TxtCourseTitle.Text;
 
             Category category = CategoryBLL.Instance.GetCategoryById(int.Parse(this.DropDownCategory.SelectedValue));
@@ -111,20 +147,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             course.Fee = double.Parse(this.TxtFee.Text);
             course.NumberOfDays = int.Parse(this.TxtNumberOfDays.Text);
 
+            course.Instructors.Clear();
             foreach (ListItem i in this.ChkBoxListInstructors.Items)
             {
                 if (i.Selected)
                 {
                     Instructor instructor = InstructorBLL.Instance.GetInstructorById(int.Parse(i.Value));
-                    if (!instructor.Courses.Contains(course))
-                    {
-                        instructor.Courses.Add(course);
-                        course.Instructors.Add(instructor);
-                    }
-                    
+                    course.Instructors.Add(instructor);
                 }
             }
-
+            
             course.enabled = this.ChkBoxEnabled.Checked;
 
             if (isNew)

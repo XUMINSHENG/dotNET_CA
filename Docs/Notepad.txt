@@ -1,0 +1,20 @@
+1.System Architecture
+ 3 layer: DAL-BLL-PRL  
+ 
+
+2.DAL
+ UnitOfWork + Repository
+ UnitOfWork per thread 
+ UnitOfWork per method (X)
+ UnitOfWork per BLL class (X)
+
+3.BLL
+ Singleton - stateless
+ Per domain object
+ Concurrency :hidden for timestamp, cannot depend on EF because update flow, 
+
+
+4.PRL
+ For Public: .net MVC
+ For Admin: Webform
+

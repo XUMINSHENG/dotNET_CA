@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
-using CourseRegistration.Data;
 
-namespace CourseRegistration.BLL
+namespace CourseRegistration.Data
 {
-    class UnitOfWorkHelper
+    public class UnitOfWorkHelper
     {
         public static IUnitOfWork GetUnitOfWork()
         {
@@ -20,6 +19,5 @@ namespace CourseRegistration.BLL
             }
             return uow;
         }
-
     }
 }
