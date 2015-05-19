@@ -18,3 +18,5 @@
  For Public: .net MVC
  For Admin: Webform
 
+5.Security
+ integrate build-in security module with our own classes such as User-Participant

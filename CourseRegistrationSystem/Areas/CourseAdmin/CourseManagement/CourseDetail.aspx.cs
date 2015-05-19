@@ -12,8 +12,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
     public partial class CourseDetail : System.Web.UI.Page
     {
-        private const String Err_Update_PK_Violation = "Course code [&0] already exists.";
-        private const String Err_Update_Concurrency = "Course [&0] was updated by someone else.";
+        private const String Err_Update_PK_Violation = "Course code {0} already exists.";
+        private const String Err_Update_Concurrency = "Course {0} was updated by someone else.";
 
         String PageMode;
         protected void Page_Load(object sender, EventArgs e)
@@ -46,10 +46,11 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
+            String courseCode = this.TxtCourseCode.Text;
             try
             {
                 SaveCourse(true);
-                LoadDetailData(this.TxtCourseCode.Text);
+                LoadDetailData(courseCode);
                 PageMode = WebFormHelper.C_View_Mode;
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
@@ -57,22 +58,23 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 //Violation of PRIMARY KEY constraint
                 if (ex.HResult == -2146233087)
                 {
-                    this.LblMessage.Text = Err_Update_PK_Violation.Replace("&0", this.TxtCourseCode.Text);
+                    this.LblMessage.Text = string.Format(Err_Update_PK_Violation, courseCode);
                 }
             }
         }
 
         protected void BtnEdit_Click(object sender, EventArgs e)
         {
+            String courseCode = this.TxtCourseCode.Text;
             try
             {
                 SaveCourse(false);
-                LoadDetailData(this.TxtCourseCode.Text);
+                LoadDetailData(courseCode);
                 PageMode = WebFormHelper.C_View_Mode;
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
             {
-                this.LblMessage.Text = Err_Update_Concurrency.Replace("&0", this.TxtCourseCode.Text);
+                this.LblMessage.Text = string.Format(Err_Update_Concurrency, courseCode);
             }
         }
 
