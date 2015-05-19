@@ -29,5 +29,7 @@ namespace CourseRegistrationSystem.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<CourseRegistration.Models.Participant> Participants { get; set; }
     }
 }

@@ -22,12 +22,15 @@ namespace CourseRegistrationSystem
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-datepicker.js",
+                      "~/Scripts/DatePickerReady.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-addition.css",
                       "~/Content/bootstrap-sidebar.css",
+                      "~/Content/bootstrap-datepicker3.css",
                       "~/Content/site.css"));
 
             BundleTable.EnableOptimizations = true;

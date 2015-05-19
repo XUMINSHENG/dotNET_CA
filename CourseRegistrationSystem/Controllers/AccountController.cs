@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CourseRegistrationSystem.Models;
 
+using CourseRegistration.Models;
+
 namespace CourseRegistrationSystem.Controllers
 {
     [Authorize]
@@ -147,15 +149,26 @@ namespace CourseRegistrationSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(Participant model,String registerAs)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                ApplicationUser user=null;
+                String pwd = model.generatePassowrd();
+                String userName ="";
+                if (registerAs.Equals("CompanyHR"))
+                    userName=model.Email;
+                else
+                    userName=model.IdNumber;
+
+                user = new ApplicationUser { UserName = userName, Email = model.Email , PhoneNumber=model.ContactNumber};
+                    
+                var result = await UserManager.CreateAsync(user, pwd);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    CourseRegistration.BLL.ParticipantBLL.Instance.CreateParticipant(model);
+                    CourseRegistration.BLL.RoleBLL.Instance.AssignRoleToUser(userName, registerAs);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -164,6 +177,7 @@ namespace CourseRegistrationSystem.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("ResetPassword", "Account");
                 }
                 AddErrors(result);
             }
