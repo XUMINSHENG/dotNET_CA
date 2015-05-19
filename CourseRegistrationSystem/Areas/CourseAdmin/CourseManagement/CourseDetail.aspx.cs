@@ -31,15 +31,57 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 }
                 else if (PageMode == WebFormHelper.C_Edit_Mode || PageMode == WebFormHelper.C_View_Mode)
                 {
-                    Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
-                    if (course != null)
-                    {
-                        LoadDetailData(course);
-                    }
+                    LoadDetailData(courseCode);
                 }
             }
+            
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+
             ControlDisplayMode();
         }
+
+        protected void BtnCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveCourse(true);
+                LoadDetailData(this.TxtCourseCode.Text);
+                PageMode = WebFormHelper.C_View_Mode;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                //Violation of PRIMARY KEY constraint
+                if (ex.HResult == -2146233087)
+                {
+                    this.LblMessage.Text = Err_Update_PK_Violation.Replace("&0", this.TxtCourseCode.Text);
+                }
+            }
+        }
+
+        protected void BtnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveCourse(false);
+                LoadDetailData(this.TxtCourseCode.Text);
+                PageMode = WebFormHelper.C_View_Mode;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+            {
+                this.LblMessage.Text = Err_Update_Concurrency.Replace("&0", this.TxtCourseCode.Text);
+            }
+        }
+
+        protected void BtnBack_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("CourseList.aspx");
+        }
+
+
 
         private void Bind_Categories()
         {
@@ -58,59 +100,28 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             this.ChkBoxListInstructors.DataBind();
         }
 
-        protected void BtnCreate_Click(object sender, EventArgs e)
+        private void LoadDetailData(String courseCode)
         {
-            try
+            Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
+            if (course != null)
             {
-                SaveCourse(true);
-                //Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
-                PageMode = WebFormHelper.C_View_Mode;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
-            {
-                //Violation of PRIMARY KEY constraint
-                if (ex.HResult == -2146233087)
+
+                this.TxtCourseCode.Text = course.CourseCode;
+                this.HidTimestamp.Value = System.Convert.ToBase64String(course.Timestamp);
+                this.TxtCourseTitle.Text = course.CourseTitle;
+                this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
+                this.TxtDescription.Text = course.CourseDescription;
+                this.TxtFee.Text = course.Fee.ToString();
+                this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
+
+                foreach (Instructor i in course.Instructors)
                 {
-                    this.LblMessage.Text = Err_Update_PK_Violation.Replace("&0", this.TxtCourseCode.Text);
+                    this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
                 }
+
+                this.ChkBoxEnabled.Checked = course.enabled;
+                this.TxtCreateDate.Text = course.CreateDate.ToString("dd-MMM-yyyy");
             }
-        }
-
-        protected void BtnEdit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SaveCourse(false);
-                PageMode = WebFormHelper.C_View_Mode;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
-            {
-                this.LblMessage.Text = Err_Update_Concurrency.Replace("&0", this.TxtCourseCode.Text);
-            }
-        }
-
-        protected void BtnBack_Click(object sender, EventArgs e)
-        {
-            Server.Transfer("CourseList.aspx");
-        }
-
-        private void LoadDetailData(Course course)
-        {
-            this.TxtCourseCode.Text = course.CourseCode;
-            this.HidTimestamp.Value = System.Convert.ToBase64String(course.Timestamp);
-            this.TxtCourseTitle.Text = course.CourseTitle;
-            this.DropDownCategory.SelectedValue = course.Category.CategoryId.ToString();
-            this.TxtDescription.Text = course.CourseDescription;
-            this.TxtFee.Text = course.Fee.ToString();
-            this.TxtNumberOfDays.Text = course.NumberOfDays.ToString();
-
-            foreach (Instructor i in course.Instructors)
-            {
-                this.ChkBoxListInstructors.Items.FindByValue(i.InstructorId.ToString()).Selected = true;
-            }
-
-            this.ChkBoxEnabled.Checked = course.enabled;
-            this.TxtCreateDate.Text = course.CreateDate.ToString("dd-MMM-yyyy");
         }
 
         private bool CheckConcurrency(Course course, String timestamp)
@@ -199,6 +210,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
                 this.NewPanel.Visible = false;
                 this.EditPanel.Visible = false;
+                this.ViewPanel.Visible = true;
             }
         }
 
