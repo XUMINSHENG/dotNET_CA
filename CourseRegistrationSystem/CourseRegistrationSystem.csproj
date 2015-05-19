@@ -230,6 +230,7 @@
     <Compile Include="Areas\CourseAdmin\CourseAdmin.Master.designer.cs">
       <DependentUpon>CourseAdmin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Areas\CourseAdmin\Shared\WebFormHelper.cs" />
     <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx.cs">
       <DependentUpon>CourseAdminDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

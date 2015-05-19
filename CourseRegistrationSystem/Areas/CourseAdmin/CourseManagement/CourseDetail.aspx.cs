@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CourseRegistration.BLL;
 using CourseRegistration.Models;
-
+using CourseRegistrationSystem.Areas.CourseAdmin.Shared;
 
 namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
@@ -19,18 +19,18 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            PageMode = Request.QueryString["MODE"];
-            if (PageMode==null) PageMode = "NEW";
-
+            PageMode = GetSessionFieldAndRemove(WebFormHelper.C_PageMode, WebFormHelper.C_New_Mode);
             if (!Page.IsPostBack)
             {
                 Bind_Categories();
                 Bind_Instructors();
 
-                String courseCode = Request.QueryString["CourseCode"];
-                if (PageMode == "NEW")
+                String courseCode = GetSessionFieldAndRemove(WebFormHelper.C_PrimaryKey, "");
+                if (PageMode == WebFormHelper.C_New_Mode)
                 {
-                }else if(PageMode == "EDIT" || PageMode == "VIEW"){
+                }
+                else if (PageMode == WebFormHelper.C_Edit_Mode || PageMode == WebFormHelper.C_View_Mode)
+                {
                     Course course = CourseBLL.Instance.GetCourseByCode(courseCode);
                     if (course != null)
                     {
@@ -63,7 +63,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             try
             {
                 SaveCourse(true);
-                Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+                //Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+                PageMode = WebFormHelper.C_View_Mode;
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
             {
@@ -80,7 +81,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             try
             {
                 SaveCourse(false);
-                Response.Redirect("CourseDetail.aspx?CourseCode=" + this.TxtCourseCode.Text + "&MODE=VIEW");
+                PageMode = WebFormHelper.C_View_Mode;
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
             {
@@ -90,7 +91,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CourseList.aspx");
+            Server.Transfer("CourseList.aspx");
         }
 
         private void LoadDetailData(Course course)
@@ -172,19 +173,19 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         private void ControlDisplayMode()
         {
-            if (PageMode == "NEW")
+            if (PageMode == WebFormHelper.C_New_Mode)
             {
                 this.EditPanel.Visible = false;
                 this.ViewPanel.Visible = false;
             }
-            else if (PageMode == "EDIT")
+            else if (PageMode == WebFormHelper.C_Edit_Mode)
             {
                 this.TxtCourseCode.Enabled = false;
 
                 this.NewPanel.Visible = false;
                 this.ViewPanel.Visible = false;
             }
-            else if(PageMode == "VIEW")
+            else if (PageMode == WebFormHelper.C_View_Mode)
             {
                 this.TxtCourseCode.Enabled = false;
                 this.TxtCourseTitle.Enabled = false;
@@ -199,6 +200,32 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 this.NewPanel.Visible = false;
                 this.EditPanel.Visible = false;
             }
+        }
+
+        private String GetRequestField(String fieldId, String defaultVal)
+        {
+            String result = Request.QueryString[fieldId];
+
+            result = Request.Form[fieldId];
+
+            if (String.IsNullOrEmpty(result)) result = defaultVal;
+            return result;
+        }
+
+        private String GetSessionFieldAndRemove(String fieldId, String defaultVal)
+        {
+            Object obj = Session[fieldId];
+            String result = "";
+            if (obj == null)
+            { }
+            else
+            {
+                result = obj.ToString();
+                Session.Remove(fieldId);
+            }
+            
+            if (String.IsNullOrEmpty(result)) result = defaultVal;
+            return result;
         }
     }
 

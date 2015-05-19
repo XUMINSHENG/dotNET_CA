@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CourseRegistration.BLL;
 using CourseRegistration.Models;
+using CourseRegistrationSystem.Areas.CourseAdmin.Shared;
 
 
 namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
@@ -41,15 +42,23 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BTNCREATE_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CourseDetail.aspx?MODE=NEW");
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_New_Mode);
+            Server.Transfer("CourseDetail.aspx");
+        }
+        protected void BTNVIEW_Click(object sender, EventArgs e)
+        {
+            String courseCode = ((LinkButton)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, courseCode);
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_View_Mode);
+            Server.Transfer("CourseDetail.aspx");
         }
 
         protected void BTNEDIT_Click(object sender, EventArgs e)
         {
             String courseCode = ((Button)sender).CommandArgument.ToString();
-            Response.Redirect("CourseDetail.aspx?CourseCode=" + courseCode + "&MODE=EDIT");
-
-
+            Session.Add(WebFormHelper.C_PrimaryKey, courseCode);
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_Edit_Mode);
+            Server.Transfer("CourseDetail.aspx");
         }
         protected void BTNDELETE_Click(object sender, EventArgs e)
         {

@@ -8,7 +8,7 @@
 </head>
 <body style="height: 424px">
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" method="post">
     <div>
         <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
             <asp:Table ID="SelectTable" runat="server">
@@ -26,7 +26,7 @@
                         </asp:DropDownList>
                     </asp:TableCell>
                     <asp:TableCell>
-                        
+
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -67,21 +67,26 @@
                 <Columns>
                     <asp:TemplateField HeaderText="No." ControlStyle-Width="30px" ItemStyle-Width="30px">
                         <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex+1%>'></asp:Label>
+                        <asp:Label ID="LblRecordNo" runat="server" Text='<%# Container.DataItemIndex+1%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
                         <ControlStyle Width="100px" />
                         <ItemStyle Width="100px" />
                     </asp:BoundField>
-                
-                    <asp:HyperLinkField DataTextField="CourseTitle" HeaderText="Title" ControlStyle-Width="300px" ItemStyle-Width="300px" 
-                        DataNavigateUrlFields="CourseCode" 
-                        DataNavigateUrlFormatString="CourseDetail.aspx?CourseCode={0}&MODE=VIEW">
-                
-                    <ControlStyle Width="300px" />
-                    <ItemStyle Width="300px" />
-                    </asp:HyperLinkField>
+                    
+                    <asp:TemplateField HeaderStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
+                        <HeaderTemplate>
+                            Title
+                        </HeaderTemplate>
+                        <ItemTemplate >
+                            <asp:LinkButton runat="server" Text='<%# Eval("CourseTitle") %>' style="display:block;text-align:left"
+                                CommandArgument='<%#Eval("CourseCode") %>' OnClick="BTNVIEW_Click" ></asp:LinkButton>
+                        </ItemTemplate>
+                        <ItemStyle HorizontalAlign="Center" Width="120px" />
+                    </asp:TemplateField>
+                    
+                    
                 
                     <asp:BoundField DataField="Category.CategoryName" HeaderText="Category" ControlStyle-Width="200px" ItemStyle-Width="200px" >
                
