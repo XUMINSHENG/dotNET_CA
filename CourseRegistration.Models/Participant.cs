@@ -50,7 +50,7 @@ namespace CourseRegistration.Models
             }
         }
 
-        public String generatePassowrd()
+        public String generatePassword()
         {
             String pwd="";
             String alphaStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

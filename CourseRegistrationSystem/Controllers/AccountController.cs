@@ -154,7 +154,7 @@ namespace CourseRegistrationSystem.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user=null;
-                String pwd = model.generatePassowrd();
+                String pwd = model.generatePassword();
                 String userName ="";
                 if (registerAs.Equals("CompanyHR"))
                     userName=model.Email;
