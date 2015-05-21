@@ -33,6 +33,11 @@ namespace CourseRegistration.Data
             return dbset.Find(id);
         }
 
+        public TEntity GetById(String id)
+        {
+            return dbset.Find(id);
+        }
+
         public IQueryable<TEntity> GetAll()
         {
             return dbset;

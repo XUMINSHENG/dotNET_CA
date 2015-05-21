@@ -14,6 +14,7 @@ namespace CourseRegistration.Data
         #region Public Methods
 
         TEntity GetById(int id);
+        TEntity GetById(String id);
         IQueryable<TEntity> GetAll();
         void Edit(TEntity entity);
         void Insert(TEntity entity);
