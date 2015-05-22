@@ -18,5 +18,8 @@
  For Public: .net MVC
  For Admin: Webform
 
+ Controller of MVC and Code behind of Webform, retrieve data from HTML form, assemble into object then call BLL
+
 5.Security
- integrate build-in security module with our own classes such as User-Participant
+ integrate build-in security module with domain classes such as User-Participant
+ Extends IdentityDBContext
