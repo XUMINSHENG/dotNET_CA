@@ -50,6 +50,8 @@ namespace CourseRegistration.Models
             }
         }
 
+        public ApplicationUser AppUser { get; set; }
+
         public String generatePassword()
         {
             String pwd="";

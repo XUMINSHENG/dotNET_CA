@@ -17,7 +17,7 @@ namespace CourseRegistrationSystem
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<CourseRegistrationContext>(new DropCreateDatabaseIfModelChanges<CourseRegistrationContext>());
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

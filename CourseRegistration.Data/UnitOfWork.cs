@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CourseRegistration.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 
 namespace CourseRegistration.Data
 {
@@ -18,12 +21,14 @@ namespace CourseRegistration.Data
         IRepository<Company> CompanyRepository { get; }
         IRepository<CompanyHR> CompanyHRRepository { get; }
         IRepository<IndividualUser> IndividualUserRepository { get; }
+        UserManager<ApplicationUser> AppUserManager { get; }
+        RoleManager<IdentityRole> AppRoleManager { get; }
         void Save();
     }
 
     public partial class UnitOfWork : IUnitOfWork
     {
-        private CourseRegistrationContext _context;
+        private ApplicationDbContext _context;
         private IRepository<Instructor> _instructorRepository;
         private IRepository<Category> _categoryRepository;
         private IRepository<Course> _courseRepository;
@@ -33,11 +38,21 @@ namespace CourseRegistration.Data
         private IRepository<Company> _companyRepository;
         private IRepository<CompanyHR> _companyHRRepository;
         private IRepository<IndividualUser> _individualUserRepository;
+        private UserManager<ApplicationUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
+        private UserStore<ApplicationUser> _userStore;
+        private RoleStore<IdentityRole> _roleStore;
 
         public UnitOfWork()
         {
-            _context = new CourseRegistrationContext();
+            _context = new ApplicationDbContext();
+            _userStore = new UserStore<ApplicationUser>(_context);
+            _userStore.AutoSaveChanges = false;
+
+            _roleStore = new RoleStore<IdentityRole>(_context);
+            //_roleStore.AutoSaveChanges = false;
+            
         }
 
         public void Save()
@@ -153,10 +168,29 @@ namespace CourseRegistration.Data
             }
         }
 
+        public UserManager<ApplicationUser> AppUserManager
+        {
+            get
+            {
+                if (_userManager == null)
+                    _userManager = new UserManager<ApplicationUser>(_userStore);
+                return _userManager;
+            }
+        }
+
+        public RoleManager<IdentityRole> AppRoleManager
+        {
+            get
+            {
+                if (_roleManager == null)
+                    _roleManager = new RoleManager<IdentityRole>(_roleStore);
+                return _roleManager;
+            }
+        }
+
         public void Dispose()
         {
             _context.Dispose();
         }
     }
-
 }

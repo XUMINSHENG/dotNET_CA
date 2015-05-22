@@ -5,7 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using CourseRegistrationSystem.Models;
+using CourseRegistration.Models;
+using CourseRegistration.Data;
 
 namespace CourseRegistrationSystem
 {

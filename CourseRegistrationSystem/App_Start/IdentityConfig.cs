@@ -10,7 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using CourseRegistrationSystem.Models;
+using CourseRegistration.Models;
+using CourseRegistration.Data;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Configuration;
@@ -69,7 +70,10 @@ namespace CourseRegistrationSystem
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var userStore = new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>());
+            userStore.AutoSaveChanges = false;
+
+            var manager = new ApplicationUserManager(userStore);
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -136,3 +140,4 @@ namespace CourseRegistrationSystem
         }
     }
 }
+

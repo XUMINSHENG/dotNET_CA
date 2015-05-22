@@ -154,7 +154,7 @@ namespace CourseRegistrationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user=null;
+                //ApplicationUser user=null;
                 String pwd = model.generatePassword();
                 String userName ="";
                 if (registerAs.Equals("CompanyHR"))
@@ -162,30 +162,38 @@ namespace CourseRegistrationSystem.Controllers
                 else
                     userName=model.IdNumber;
 
-                user = new ApplicationUser { UserName = userName, Email = model.Email , PhoneNumber=model.ContactNumber};
-                using (TransactionScope ts = new TransactionScope())
-                {
-                    var result = UserManager.Create(user, pwd);
-                    if (result.Succeeded)
-                    {
-                        CourseRegistration.BLL.ParticipantBLL.Instance.CreateParticipant(model);
-                        CourseRegistration.BLL.RoleBLL.Instance.AssignRoleToUser(userName, registerAs);
-                        ts.Complete();
-                        ts.Dispose();
-                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                CourseRegistration.BLL.ParticipantBLL.Instance.CreateForIndividualUser(model);
 
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        return RedirectToAction("Index", "Home");
-                        //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                        //return RedirectToAction("ResetPassword", "Account", new { userId = user.Id, code = code });
-                    }
-                    AddErrors(result);
-                }
+                return RedirectToAction("Index", "Home");
+
+
+                //user = new ApplicationUser { UserName = userName, Email = model.Email , PhoneNumber=model.ContactNumber};
+                //using (TransactionScope ts = new TransactionScope())
+                //{
+                //    var result = UserManager.Create(user, pwd);
+                //    if (result.Succeeded)
+                //    {
+                //        CourseRegistration.BLL.ParticipantBLL.Instance.CreateParticipant(model);
+                //        //throw new Exception();
+                //        //CourseRegistration.BLL.RoleBLL.Instance.AssignRoleToUser(userName, registerAs);
+                        
+                        
+                //        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //        // Send an email with this link
+                //        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        
+                //        ts.Complete();
+                //        return RedirectToAction("Index", "Home");
+                //        //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                //        //return RedirectToAction("ResetPassword", "Account", new { userId = user.Id, code = code });
+                //    }
+                //    AddErrors(result);
+                //}
             }
 
             // If we got this far, something failed, redisplay form

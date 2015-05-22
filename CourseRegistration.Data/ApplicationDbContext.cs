@@ -5,24 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using CourseRegistration.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace CourseRegistration.Data
 {
-    public class CourseRegistrationContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public CourseRegistrationContext():
-            base("DefaultConnection")
+
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public CourseRegistrationContext(String ConnectionString) :
-            base(ConnectionString)
+        public static ApplicationDbContext Create()
         {
+            return new ApplicationDbContext();
         }
 
-        public DbSet<Staff> Staff { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Course> Courses { get; set; }
