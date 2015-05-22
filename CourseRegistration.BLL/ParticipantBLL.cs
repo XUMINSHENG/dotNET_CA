@@ -21,33 +21,6 @@ namespace CourseRegistration.BLL
         {
         }
 
-        public void CreateForIndividualUser(Participant p)
-        {
-            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-
-            var userRole = uow.AppRoleManager.FindByName("IndividualUser");
-
-            ApplicationUser user = new ApplicationUser
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = p.IdNumber,
-                Email = p.Email,
-                PhoneNumber = p.ContactNumber
-            };
-
-            user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
-
-            String pwd = p.generatePassword();
-
-
-            uow.AppUserManager.Create(user, pwd);
-
-            p.AppUser = user;
-            uow.ParticipantRepository.Insert(p);
-            uow.Save();
-
-        }
-
         public void CreateForCompanyEmployee(Participant p)
         {
 

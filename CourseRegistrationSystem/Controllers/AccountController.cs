@@ -155,14 +155,8 @@ namespace CourseRegistrationSystem.Controllers
             if (ModelState.IsValid)
             {
                 //ApplicationUser user=null;
-                String pwd = model.generatePassword();
-                String userName ="";
-                if (registerAs.Equals("CompanyHR"))
-                    userName=model.Email;
-                else
-                    userName=model.IdNumber;
 
-                CourseRegistration.BLL.ParticipantBLL.Instance.CreateForIndividualUser(model);
+                CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(model);
 
 
                 return RedirectToAction("Index", "Home");

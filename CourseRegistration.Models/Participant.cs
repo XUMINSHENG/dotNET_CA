@@ -52,19 +52,5 @@ namespace CourseRegistration.Models
 
         public ApplicationUser AppUser { get; set; }
 
-        public String generatePassword()
-        {
-            String pwd="";
-            String alphaStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String numStr = "1234567890";
-            char[] alphaNumList = (alphaStr.ToUpper() + alphaStr.ToLower() + numStr).ToCharArray();
-            Random rnd = new Random();
-            for(int i=0; i<9;i++)
-            {
-                int indexVal = rnd.Next(0, alphaNumList.Length);
-                pwd = pwd + alphaNumList[indexVal];
-            }
-            return pwd;            
-        }
     }
 }

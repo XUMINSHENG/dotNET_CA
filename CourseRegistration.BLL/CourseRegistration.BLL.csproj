@@ -61,6 +61,7 @@
     <Compile Include="CourseClassBLL.cs" />
     <Compile Include="CompanyBLL.cs" />
     <Compile Include="CourseBLL.cs" />
+    <Compile Include="UserBLL.cs" />
     <Compile Include="RoleBLL.cs" />
     <Compile Include="ParticipantBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
