@@ -66,6 +66,7 @@
     <Compile Include="ParticipantBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationBLL.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseRegistration.Data\CourseRegistration.Data.csproj">

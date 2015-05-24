@@ -45,7 +45,7 @@ namespace CourseRegistration.BLL
                 };
                 user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
 
-                String pwd = GeneratePassword();
+                String pwd = Util.GeneratePassword();
 
                 uow.AppUserManager.Create(user, pwd);
 
@@ -116,21 +116,6 @@ namespace CourseRegistration.BLL
             uow.RegistrationRepository.Delete(r);
             uow.Save();
              
-        }
-
-        private String GeneratePassword()
-        {
-            String pwd = "";
-            String alphaStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String numStr = "1234567890";
-            char[] alphaNumList = (alphaStr.ToUpper() + alphaStr.ToLower() + numStr).ToCharArray();
-            Random rnd = new Random();
-            for (int i = 0; i < 9; i++)
-            {
-                int indexVal = rnd.Next(0, alphaNumList.Length);
-                pwd = pwd + alphaNumList[indexVal];
-            }
-            return pwd;
         }
 
     }
