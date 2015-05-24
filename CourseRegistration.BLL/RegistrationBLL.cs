@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using CourseRegistration.Models;
@@ -99,7 +100,32 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.RegistrationRepository.GetAll().ToList();
-             
+        }
+
+        public List<Registration> getRegistrationByConds(Int32 categoryID, String courseCode, Int32 classID)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            IQueryable<Registration> query = 
+                from reg in uow.RegistrationRepository.GetAll()
+                select reg;
+
+            if (categoryID.ToString() != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.CourseClass.Course.Category.CategoryId == categoryID);
+            }
+
+            if (courseCode != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.CourseClass.Course.CourseCode == courseCode);
+            }
+
+            if (classID.ToString() != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.CourseClass.ClassId == classID);
+            }
+
+            return query.ToList();
+
         }
 
         public void UpdateRegistration(Registration r)

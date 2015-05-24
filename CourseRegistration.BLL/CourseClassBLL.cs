@@ -48,6 +48,28 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
+        public List<CourseClass> GetClassesByConds(int categoryID, string courseCode)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            IQueryable<CourseClass> query =
+                from courseClass in uow.CourseClassRepository.GetAll()
+                select courseClass;
+
+            if (categoryID.ToString() != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.Course.Category.CategoryId == categoryID);
+            }
+
+            if (courseCode != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.Course.CourseCode == courseCode);
+            }
+
+
+            return query.ToList(); 
+            
+        }
+
         public void DeleteCourseClass(CourseClass cc)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

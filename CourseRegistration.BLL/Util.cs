@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions; 
+
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace CourseRegistration.BLL
 {
@@ -12,6 +15,10 @@ namespace CourseRegistration.BLL
         public const string C_Role_CourseAdmin = "CourseAdmin";
         public const string C_Role_CompanyHR = "CompanyHR";
         public const string C_Role_IndividualUser = "IndividualUser";
+
+        public const string C_String_All_Select = "-1";
+
+
 
         public static String GeneratePassword()
         {
@@ -27,6 +34,8 @@ namespace CourseRegistration.BLL
             }
             return pwd;
         }
+
+
 
     }
 }

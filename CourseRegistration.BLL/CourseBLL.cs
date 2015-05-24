@@ -77,10 +77,19 @@ namespace CourseRegistration.BLL
             return result.ToList();
         }
 
-        public List<Course> getCoursesByCategoryID(int CategoryID)
+        public List<Course> getCoursesByConds(int categoryID)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.CourseRepository.GetAll().Where<Course>(x => x.Category.CategoryId == CategoryID).ToList();
+            IQueryable<Course> query =
+                from course in uow.CourseRepository.GetAll()
+                select course;
+
+            if (categoryID.ToString() != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.Category.CategoryId == categoryID);
+            }
+
+            return query.ToList();
         }
 
     }

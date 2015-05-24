@@ -86,7 +86,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
             else
             {
-                list = CourseBLL.Instance.getCoursesByCategoryID(categoryID);
+                list = CourseBLL.Instance.getCoursesByConds(categoryID);
             }
 
             if (list.Count() == 0)
@@ -128,12 +128,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             List<Category> list;
             list = CategoryBLL.Instance.GetAllCategories();
            
-            ListItem AllItem = new ListItem("Select All", "-1");
             this.DropDownCategory.DataSource = list;
             this.DropDownCategory.DataValueField = "CategoryId";
             this.DropDownCategory.DataTextField = "CategoryName";
             this.DropDownCategory.DataBind();
 
+            ListItem AllItem = new ListItem("Select All", "-1");
             this.DropDownCategory.Items.Insert(0, AllItem);
 
         }
