@@ -70,10 +70,10 @@ namespace CourseRegistrationSystem
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var userStore = new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>());
-            userStore.AutoSaveChanges = false;
+            var userStore = context.Get<IUnitOfWork>().AppUserStore;
 
             var manager = new ApplicationUserManager(userStore);
+            context.Get<IUnitOfWork>().AppUserManager = manager;
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

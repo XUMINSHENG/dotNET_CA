@@ -12,6 +12,7 @@ namespace CourseRegistration.Data
 {
     public interface IUnitOfWork : IDisposable
     {
+      
         IRepository<Instructor> InstructorRepository{ get; }
         IRepository<Category> CategoryRepository { get; }
         IRepository<Course> CourseRepository { get; }
@@ -21,8 +22,9 @@ namespace CourseRegistration.Data
         IRepository<Company> CompanyRepository { get; }
         IRepository<CompanyHR> CompanyHRRepository { get; }
         IRepository<IndividualUser> IndividualUserRepository { get; }
-        UserManager<ApplicationUser> AppUserManager { get; }
+        UserManager<ApplicationUser> AppUserManager { get; set; }
         RoleManager<IdentityRole> AppRoleManager { get; }
+        UserStore<ApplicationUser> AppUserStore { get; }
         void Save();
     }
 
@@ -47,12 +49,12 @@ namespace CourseRegistration.Data
         public UnitOfWork()
         {
             _context = new ApplicationDbContext();
-            _userStore = new UserStore<ApplicationUser>(_context);
-            _userStore.AutoSaveChanges = false;
-
-            _roleStore = new RoleStore<IdentityRole>(_context);
-            //_roleStore.AutoSaveChanges = false;
             
+        }
+
+        public static IUnitOfWork Create()
+        {
+            return new UnitOfWork();
         }
 
         public void Save()
@@ -63,7 +65,6 @@ namespace CourseRegistration.Data
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
-                Console.WriteLine(e.ToString());
                 throw e;
             }
             
@@ -168,13 +169,35 @@ namespace CourseRegistration.Data
             }
         }
 
+        public UserStore<ApplicationUser> AppUserStore
+        {
+            get
+            {
+                if (_userStore == null)
+                {
+                    _userStore = new UserStore<ApplicationUser>(_context);
+                    _userStore.AutoSaveChanges = false;
+                }
+
+                return _userStore;
+            }
+        }
+
         public UserManager<ApplicationUser> AppUserManager
         {
             get
             {
                 if (_userManager == null)
-                    _userManager = new UserManager<ApplicationUser>(_userStore);
+                {
+                    _userManager = new UserManager<ApplicationUser>(AppUserStore);
+                }
+
                 return _userManager;
+            }
+
+            set
+            {
+                _userManager = value;
             }
         }
 
@@ -183,7 +206,10 @@ namespace CourseRegistration.Data
             get
             {
                 if (_roleManager == null)
+                {
+                    _roleStore = new RoleStore<IdentityRole>(_context);
                     _roleManager = new RoleManager<IdentityRole>(_roleStore);
+                }
                 return _roleManager;
             }
         }
