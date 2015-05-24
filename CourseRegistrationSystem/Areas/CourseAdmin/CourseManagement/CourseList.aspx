@@ -1,14 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CourseList.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.CourseList" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body style="height: 424px">
-
-    <form id="form1" runat="server" method="post">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CourseList.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.CourseList" %>
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
     <div>
         <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
             <asp:Table ID="SelectTable" runat="server">
@@ -126,13 +117,15 @@
                                 CommandArgument='<%# Bind("CourseCode") %>' 
                                 OnClientClick='javascript:return confirm("This record will be deleted?");'
                                 Width="50px" />
+                            <asp:Button ID="BtnClass" runat="server" Font-Size="9pt" Text="View Class" 
+                                OnClick="BTNCLASS_Click" 
+                                CommandArgument='<%# Bind("CourseCode") %>' Width="90px" />
                         </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="120px" />
+                        <ItemStyle HorizontalAlign="Center" Width="250px" />
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </asp:Panel>
     </div>
-    </form>
-</body>
-</html>
+   
+</asp:Content>

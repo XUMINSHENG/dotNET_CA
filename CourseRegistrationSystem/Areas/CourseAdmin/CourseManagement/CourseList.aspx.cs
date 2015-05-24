@@ -68,7 +68,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             CourseBLL.Instance.DeleteCourse(course);
             Bind_CoursesList();
         }
-
+        protected void BTNCLASS_Click(object sender, EventArgs e)
+        {
+            String courseCode = ((Button)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, courseCode);
+            Server.Transfer("../ClassManagement/ClassList.aspx");
+        }
        
         private void Bind_CoursesList()
         {
