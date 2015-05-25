@@ -60,9 +60,6 @@
                     <asp:TableCell Width="70%">
                         <label id="LblRecNo" runat="server"></label>
                     </asp:TableCell>
-                    <asp:TableCell Width="20%" HorizontalAlign="Right">
-                        <asp:Button ID="BtnCreate" runat="server" Text="Create Course" OnClick="BTNCREATE_Click" />
-                    </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
         </asp:Panel>
@@ -74,7 +71,7 @@
                 AllowSorting="True"
                 
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging">
+                OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDataBound="GridView1_RowDataBound">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -94,7 +91,7 @@
                         <asp:Label ID="LblRecordNo" runat="server" Text='<%# Container.DataItemIndex+1%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
+
                     <asp:BoundField DataField="CourseClass.Course.Category.CategoryName" HeaderText="Category" ControlStyle-Width="100px" ItemStyle-Width="100px" >
                         <ControlStyle Width="100px" />
                         <ItemStyle Width="100px" />
@@ -150,19 +147,19 @@
                         </HeaderTemplate>
 
                         <ItemTemplate >
-                            <asp:Button ID="BtnEdit" runat="server" Font-Size="9pt" Text="Edit" 
-                                OnClick="BTNEDIT_Click" 
-                                CommandArgument='<%# Bind("RegistrationId") %>' Width="50px" />
-                            <asp:Button ID="BtnDelete" runat="server" Font-Size="9pt" Text="Delete" 
-                                OnClick="BTNDELETE_Click" 
+                            <asp:Button ID="BtnConfirm" runat="server" Font-Size="9pt" Text="Confirm" 
+                                OnClick="BTNCONFIRM_Click" 
+                                CommandArgument='<%# Bind("RegistrationId") %>' Width="60px" />
+                            <asp:Button ID="BtnCancel" runat="server" Font-Size="9pt" Text="Cancel" 
+                                OnClick="BTNCANCEL_Click" 
                                 CommandArgument='<%# Bind("RegistrationId") %>' 
-                                OnClientClick='javascript:return confirm("This record will be deleted?");'
-                                Width="50px" />
-                            <asp:Button ID="BtnClass" runat="server" Font-Size="9pt" Text="View Class" 
-                                OnClick="BTNCLASS_Click" 
-                                CommandArgument='<%# Bind("RegistrationId") %>' Width="90px" />
+                                OnClientClick='javascript:return confirm("This registration will be canceled?");'
+                                Width="60px" />
+                            <asp:Button ID="BtnDetail" runat="server" Font-Size="9pt" Text="Detail" 
+                                OnClick="BTNDETAIL_Click" 
+                                CommandArgument='<%# Bind("RegistrationId") %>' Width="60px" />
                         </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="250px" />
+                        <ItemStyle HorizontalAlign="Center" Width="200px" />
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>

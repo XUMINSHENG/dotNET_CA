@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using CourseRegistration.Models;
 using CourseRegistration.Data;
@@ -93,7 +94,10 @@ namespace CourseRegistration.BLL
         public Registration getRegistrationById(int id)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.RegistrationRepository.GetById(id);
+            return uow.RegistrationRepository.GetAll().Where(x=>x.RegistrationId==id)
+                .Include(x=>x.Participant)
+                .Include(x=> x.CourseClass)
+                .Single();
         }
 
         public List<Registration> getAllRegistration()

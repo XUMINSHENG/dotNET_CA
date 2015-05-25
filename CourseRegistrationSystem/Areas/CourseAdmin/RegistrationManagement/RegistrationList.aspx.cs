@@ -12,6 +12,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 {
     public partial class RegistrationList : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -35,6 +36,27 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             Bind_RegistrationList();
         }
 
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                String classStartDate = DataBinder.Eval(e.Row.DataItem, "CourseClass.StartDate").ToString();
+
+                if (DateTime.Compare(DateTime.Parse(classStartDate),DateTime.Now) < 0)
+                {
+                    ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = false;
+                    ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = false;
+                }
+                else
+                {
+                    ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = true;
+                    ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = true;
+                }
+                
+                
+            }
+        }
+
         protected void DropDownCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             Bind_CourseList();
@@ -54,36 +76,40 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             Bind_RegistrationList();
         }
 
-        protected void BTNEDIT_Click(object sender, EventArgs e)
+        protected void BTNCONFIRM_Click(object sender, EventArgs e)
         {
+            int RegistrationId = Int32.Parse(((Button)sender).CommandArgument.ToString());
+            Registration r = RegistrationBLL.Instance.getRegistrationById(RegistrationId);
+            r.Status = RegistrationStatus.Success;
+            RegistrationBLL.Instance.UpdateRegistration(r);
 
+            Bind_RegistrationList();
         }
 
-        protected void BTNDELETE_Click(object sender, EventArgs e)
+        protected void BTNCANCEL_Click(object sender, EventArgs e)
         {
-            
+            int RegistrationId = Int32.Parse(((Button)sender).CommandArgument.ToString());
+            Registration r = RegistrationBLL.Instance.getRegistrationById(RegistrationId);
+            r.Status = RegistrationStatus.Cancel;
+            RegistrationBLL.Instance.UpdateRegistration(r);
+
+            Bind_RegistrationList();
         }
 
-        protected void BTNCLASS_Click(object sender, EventArgs e)
+        protected void BTNDETAIL_Click(object sender, EventArgs e)
         {
-
+            String RegistrationId = ((Button)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, RegistrationId);
+            Server.Transfer("RegistrationDetail.aspx");
         }
         protected void BTNVIEW_Click(object sender, EventArgs e)
         {
-            //String courseCode = ((LinkButton)sender).CommandArgument.ToString();
-            //Session.Add(WebFormHelper.C_PrimaryKey, courseCode);
-            //Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_View_Mode);
-            //Server.Transfer("CourseDetail.aspx");
+            String courseCode = ((LinkButton)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, courseCode);
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_View_Mode);
+            Server.Transfer("../CourseManagement/CourseDetail.aspx");
         }
 
-        protected void BTNCREATE_Click(object sender, EventArgs e)
-        {
-
-            //Registration r = new Registration();
-            //r.Participant = ParticipantBLL.Instance.GetParticipantById(1);
-            //r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(7);
-            //RegistrationBLL.Instance.CreateForIndividualUser(r);
-        }
 
         private void Bind_RegistrationList()
         {

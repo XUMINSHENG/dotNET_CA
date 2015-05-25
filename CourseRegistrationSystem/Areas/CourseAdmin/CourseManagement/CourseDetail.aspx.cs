@@ -12,20 +12,18 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
     public partial class CourseDetail : System.Web.UI.Page
     {
-        private const String Err_Update_PK_Violation = "Course code {0} already exists.";
-        private const String Err_Update_Concurrency = "Course {0} was updated by someone else.";
-
+        
         String PageMode;
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            PageMode = GetSessionFieldAndRemove(WebFormHelper.C_PageMode, WebFormHelper.C_New_Mode);
+            PageMode = WebFormHelper.GetSessionFieldAndRemove(Session ,WebFormHelper.C_PageMode, WebFormHelper.C_New_Mode);
             if (!Page.IsPostBack)
             {
                 Bind_Categories();
                 Bind_Instructors();
 
-                String courseCode = GetSessionFieldAndRemove(WebFormHelper.C_PrimaryKey, "");
+                String courseCode = WebFormHelper.GetSessionFieldAndRemove(Session, WebFormHelper.C_PrimaryKey, "");
                 if (PageMode == WebFormHelper.C_New_Mode)
                 {
                 }
@@ -34,7 +32,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                     LoadDetailData(courseCode);
                 }
             }
-            
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -58,7 +55,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 //Violation of PRIMARY KEY constraint
                 if (ex.HResult == -2146233087)
                 {
-                    this.LblMessage.Text = string.Format(Err_Update_PK_Violation, courseCode);
+                    this.LblMessage.Text = string.Format(WebFormHelper.Err_Update_PK_Violation, "Course", courseCode);
                 }
             }
         }
@@ -74,7 +71,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
             {
-                this.LblMessage.Text = string.Format(Err_Update_Concurrency, courseCode);
+                this.LblMessage.Text = string.Format(WebFormHelper.Err_Update_Concurrency, "Course", courseCode);
             }
         }
 
@@ -126,15 +123,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
         }
 
-        private bool CheckConcurrency(Course course, String timestamp)
-        {
-            if (course == null || !System.Convert.ToBase64String(course.Timestamp).Equals(timestamp))
-            {
-                return false;
-            }
-            return true;
-        }
-
         private void SaveCourse(bool isNew)
         {
             Course course;
@@ -146,7 +134,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             else
             {
                 course = CourseBLL.Instance.GetCourseByCode(this.TxtCourseCode.Text);
-                if (!CheckConcurrency(course, this.HidTimestamp.Value))
+                if (!WebFormHelper.CheckConcurrency(course, this.HidTimestamp.Value))
                 {
                     throw new System.Data.Entity.Infrastructure.DbUpdateConcurrencyException();
                 }
@@ -216,31 +204,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
         }
 
-        private String GetRequestField(String fieldId, String defaultVal)
-        {
-            String result = Request.QueryString[fieldId];
-
-            result = Request.Form[fieldId];
-
-            if (String.IsNullOrEmpty(result)) result = defaultVal;
-            return result;
-        }
-
-        private String GetSessionFieldAndRemove(String fieldId, String defaultVal)
-        {
-            Object obj = Session[fieldId];
-            String result = "";
-            if (obj == null)
-            { }
-            else
-            {
-                result = obj.ToString();
-                Session.Remove(fieldId);
-            }
-            
-            if (String.IsNullOrEmpty(result)) result = defaultVal;
-            return result;
-        }
+        
     }
 
     

@@ -7,4 +7,5 @@ INSERT INTO [dbo].[CourseClasses] ([ClassId], [StartDate], [EndDate], [isOpenFor
 INSERT INTO [dbo].[CourseClasses] ([ClassId], [StartDate], [EndDate], [isOpenForRegister], [Status], [IsDeleted], [CreateDate], [Course_CourseCode]) VALUES (6, N'2015-05-03 21:44:33', N'2015-05-05 21:44:33', 1, 2, 0, N'2015-04-28 21:44:33', N'NICF0202')
 INSERT INTO [dbo].[CourseClasses] ([ClassId], [StartDate], [EndDate], [isOpenForRegister], [Status], [IsDeleted], [CreateDate], [Course_CourseCode]) VALUES (7, N'2015-05-04 21:44:33', N'2015-05-07 21:44:33', 1, 1, 0, N'2015-04-28 21:44:33', N'NICF0301')
 INSERT INTO [dbo].[CourseClasses] ([ClassId], [StartDate], [EndDate], [isOpenForRegister], [Status], [IsDeleted], [CreateDate], [Course_CourseCode]) VALUES (8, N'2015-05-08 21:44:33', N'2015-05-17 21:44:33', 1, 1, 1, N'2015-04-28 21:44:33', N'NICF0402')
+INSERT INTO [dbo].[CourseClasses] ([ClassId], [StartDate], [EndDate], [isOpenForRegister], [Status], [IsDeleted], [CreateDate], [Course_CourseCode]) VALUES (9, N'2015-07-30 21:44:33', N'2015-08-10 21:44:33', 1, 1, 1, N'2015-04-28 21:44:33', N'NICF0402')
 SET IDENTITY_INSERT [dbo].[CourseClasses] OFF
