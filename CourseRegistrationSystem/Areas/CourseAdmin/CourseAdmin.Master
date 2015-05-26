@@ -46,7 +46,23 @@
         <asp:TableRow>
             <asp:TableCell VerticalAlign="Top">
                 <asp:ContentPlaceHolder ID="Menu" runat="server">
-                    Menu
+                    <asp:Menu ID="Menu1" runat="server" BackColor="#E3EAEB" 
+                DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="Small" 
+                ForeColor="#666666" Orientation="Horizontal" StaticSubMenuIndent="10px" 
+                Height="16px" Width="189px" style="margin-left: 0px">
+                <StaticSelectedStyle BackColor="#1C5E55" />
+                <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                <DynamicHoverStyle BackColor="#666666" ForeColor="White" />
+                <DynamicMenuStyle BackColor="#E3EAEB" />
+                <DynamicSelectedStyle BackColor="#1C5E55" />
+                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                <StaticHoverStyle BackColor="#666666" ForeColor="White" />
+                <Items>
+                    <asp:MenuItem Text="Class Management" Value="Class Management" NavigateUrl="~/Areas/CourseAdmin/ClassManagement/ClassList.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Course Management" Value="Course Management" NavigateUrl="~/Areas/CourseAdmin/CourseManagement/CourseList.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Registration Management" Value="Registration Management" NavigateUrl="~/Areas/CourseAdmin/RegistrationManagement/RegistrationList.aspx"></asp:MenuItem>
+                </Items>
+            </asp:Menu>
                 </asp:ContentPlaceHolder>
             </asp:TableCell>
             <asp:TableCell>
