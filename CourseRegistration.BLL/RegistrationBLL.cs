@@ -106,7 +106,9 @@ namespace CourseRegistration.BLL
             return uow.RegistrationRepository.GetAll().ToList();
         }
 
-        public List<Registration> getRegistrationByConds(Int32 categoryID, String courseCode, Int32 classID)
+        public List<Registration> getRegistrationByConds(
+            String categoryID, String courseCode, String classID,
+            String participantName, String participantIdNumber, String participantCompanyName)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             IQueryable<Registration> query = 
@@ -115,7 +117,8 @@ namespace CourseRegistration.BLL
 
             if (categoryID.ToString() != Util.C_String_All_Select)
             {
-                query = query.Where(x => x.CourseClass.Course.Category.CategoryId == categoryID);
+                int tmpInt = int.Parse(categoryID);
+                query = query.Where(x => x.CourseClass.Course.Category.CategoryId == tmpInt);
             }
 
             if (courseCode != Util.C_String_All_Select)
@@ -125,7 +128,25 @@ namespace CourseRegistration.BLL
 
             if (classID.ToString() != Util.C_String_All_Select)
             {
-                query = query.Where(x => x.CourseClass.ClassId == classID);
+                int tmpInt = int.Parse(classID);
+                query = query.Where(x => x.CourseClass.ClassId == tmpInt);
+            }
+
+            if (participantName != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.Participant.FullName.ToUpper().Contains(participantName));
+            }
+
+            if (participantIdNumber != Util.C_String_All_Select)
+            {
+                query = query.Where(x => x.Participant.IdNumber.ToUpper().Contains(participantIdNumber));
+            }
+
+            if (participantCompanyName != Util.C_String_All_Select)
+            {
+                query = query.Where(x =>
+                    x.Participant.Company.CompanyName.ToUpper().Contains(participantCompanyName)
+                    || x.Participant.CompanyName.ToUpper().Contains(participantCompanyName));
             }
 
             return query.ToList();

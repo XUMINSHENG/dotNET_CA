@@ -50,6 +50,51 @@
                     </asp:TableCell>
 
                 </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell>
+                        <label>
+                            ParticipantName:
+                        </label>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtParticipantName" runat="server" Width="220px">
+                        </asp:TextBox>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <label>
+                            ParticipantIdNumber:
+                        </label>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtParticipantIdNumber" runat="server" Width="220px">
+                        </asp:TextBox>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <label>
+                            ParticipantCompanyName:
+                        </label>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtParticipantCompanyName" runat="server" Width="220px">
+                        </asp:TextBox>
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell HorizontalAlign="Right">
+                        <asp:Button ID="BtnReset" runat="server" Text="Reset" Width ="70px" OnClick="BtnReset_Click"/>
+                        <asp:Button ID="BtnSearch" runat="server" Text="Search" Width ="70px" OnClick="BtnSearch_Click"/>
+                    </asp:TableCell>
+                </asp:TableRow>
             </asp:Table>
 
             <asp:Table ID="Table1" runat="server">

@@ -67,6 +67,51 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement {
         protected global::System.Web.UI.WebControls.DropDownList DropDownClass;
         
         /// <summary>
+        /// TxtParticipantName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtParticipantName;
+        
+        /// <summary>
+        /// TxtParticipantIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtParticipantIdNumber;
+        
+        /// <summary>
+        /// TxtParticipantCompanyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtParticipantCompanyName;
+        
+        /// <summary>
+        /// BtnReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnReset;
+        
+        /// <summary>
+        /// BtnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSearch;
+        
+        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>

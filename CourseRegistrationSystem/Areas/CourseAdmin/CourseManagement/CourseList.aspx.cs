@@ -78,8 +78,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         private void Bind_CoursesList()
         {
             List<Course> list;
-            int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
-            if (categoryID == -1)
+            String categoryID = this.DropDownCategory.SelectedValue;
+            if (categoryID == Util.C_String_All_Select)
             {
                 // Select ALL
                 list = CourseBLL.Instance.GetAllCourses();
@@ -133,7 +133,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             this.DropDownCategory.DataTextField = "CategoryName";
             this.DropDownCategory.DataBind();
 
-            ListItem AllItem = new ListItem("Select All", "-1");
+            ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);
             this.DropDownCategory.Items.Insert(0, AllItem);
 
         }

@@ -38,23 +38,29 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                String classStartDate = DataBinder.Eval(e.Row.DataItem, "CourseClass.StartDate").ToString();
+            if (e.Row.RowType == DataControlRowType.DataRow){
+                Object obj = DataBinder.Eval(e.Row.DataItem, "CourseClass.StartDate");
+                if (obj != null)
+                {
+                    String classStartDate = obj.ToString();
 
-                if (DateTime.Compare(DateTime.Parse(classStartDate),DateTime.Now) < 0)
-                {
-                    ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = false;
-                    ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = false;
+                    if (DateTime.Compare(DateTime.Parse(classStartDate), DateTime.Now) < 0)
+                    {
+                        ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = false;
+                        ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = false;
+                    }
+                    else
+                    {
+                        ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = true;
+                        ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = true;
+                    }
                 }
-                else
-                {
-                    ((Button)e.Row.Cells[0].FindControl("BtnConfirm")).Visible = true;
-                    ((Button)e.Row.Cells[0].FindControl("BtnCancel")).Visible = true;
-                }
-                
-                
             }
+            
+            
+                
+                
+            
         }
 
         protected void DropDownCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,17 +116,38 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             Server.Transfer("../CourseManagement/CourseDetail.aspx");
         }
 
+        protected void BtnReset_Click(object sender, EventArgs e)
+        {
+            this.DropDownCategory.SelectedValue = Util.C_String_All_Select;
+            this.DropDownCourse.SelectedValue = Util.C_String_All_Select;
+            this.DropDownClass.SelectedValue = Util.C_String_All_Select;
+            
+            this.TxtParticipantName.Text = "";
+            this.TxtParticipantIdNumber.Text= "";
+            this.TxtParticipantCompanyName.Text = "";
+
+            Bind_RegistrationList();
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            Bind_RegistrationList();
+        }
 
         private void Bind_RegistrationList()
         {
             List<Registration> list;
-            int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
+            String categoryID = this.DropDownCategory.SelectedValue;
             String courseCode = this.DropDownCourse.SelectedValue;
-            int classID = int.Parse(this.DropDownClass.SelectedValue);
-
-            list = RegistrationBLL.Instance.getRegistrationByConds(categoryID, courseCode, classID);
+            String classID = this.DropDownClass.SelectedValue;
+            String partName = this.TxtParticipantName.Text;
+            String partIdNo = this.TxtParticipantIdNumber.Text;
+            String partCompanyName = this.TxtParticipantCompanyName.Text;
             
-
+            list = RegistrationBLL.Instance.getRegistrationByConds(
+                categoryID, courseCode, classID,
+                partName, partIdNo, partCompanyName);
+            
             if (list.Count() == 0)
             {
                 list.Add(new Registration());
@@ -170,14 +197,14 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             this.DropDownCategory.DataTextField = "CategoryName";
             this.DropDownCategory.DataBind();
 
-            ListItem AllItem = new ListItem("Select All", "-1");
+            ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);
             this.DropDownCategory.Items.Insert(0, AllItem);
 
         }
 
         private void Bind_CourseList()
         {
-            int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
+            String categoryID = this.DropDownCategory.SelectedValue;
 
             List<Course> list;
             list = CourseBLL.Instance.getCoursesByConds(categoryID);
@@ -187,14 +214,14 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             this.DropDownCourse.DataTextField = "CourseTitle";
             this.DropDownCourse.DataBind();
 
-            ListItem AllItem = new ListItem("Select All", "-1");
+            ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);
             this.DropDownCourse.Items.Insert(0, AllItem);
 
         }
 
         private void Bind_ClassList()
         {
-            int categoryID = int.Parse(this.DropDownCategory.SelectedValue);
+            String categoryID = this.DropDownCategory.SelectedValue;
             String courseCode = this.DropDownCourse.SelectedValue;
 
             List<CourseClass> list;
@@ -205,10 +232,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             this.DropDownClass.DataTextField = "StartDate";
             this.DropDownClass.DataBind();
 
-            ListItem AllItem = new ListItem("Select All", "-1");
+            ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);
             this.DropDownClass.Items.Insert(0, AllItem);
 
         }
+
+        
 
     }
 }

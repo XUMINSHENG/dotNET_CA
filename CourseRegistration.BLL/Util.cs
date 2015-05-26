@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace CourseRegistration.BLL
 {
-    class Util
+    public class Util
     {
         public const string C_Role_SystemAdmin = "SystemAdmin";
         public const string C_Role_CourseAdmin = "CourseAdmin";
         public const string C_Role_CompanyHR = "CompanyHR";
         public const string C_Role_IndividualUser = "IndividualUser";
 
-        public const string C_String_All_Select = "-1";
+        public const string C_String_All_Select = "";
 
 
 

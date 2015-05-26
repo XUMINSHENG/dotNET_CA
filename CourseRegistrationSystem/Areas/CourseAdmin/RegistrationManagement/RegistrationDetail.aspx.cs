@@ -52,15 +52,19 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             if (DateTime.Compare(r.CourseClass.StartDate,DateTime.Now)<0)
             {
                 this.DropDownClass.Enabled = false;
+                this.TxtSponsorship.Enabled = false;
+                this.TxtDietaryRequirement.Enabled = false;
+                this.TxtOrganizationSize.Enabled = false;
+                this.TxtBillingAddress.Enabled = false;
+                this.TxtBillingPersonName.Enabled = false;
+                this.TxtBillingAddressCountry.Enabled = false;
+                this.TxtBillingAddressPostalCode.Enabled = false;
 
                 this.EditPanel.Visible = false;
                 this.ViewPanel.Visible = true;
             }
             else
             {
-                
-                this.DropDownClass.Enabled = true;
-
                 this.EditPanel.Visible = true;
                 this.ViewPanel.Visible = false;
             }
@@ -79,7 +83,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
                 Bind_Classes(r);
                 this.TxtParticipant.Text = r.Participant.FullName;
                 this.TxtStatus.Text = r.Status.ToString(); ;
+                this.TxtSponsorship.Text = r.Sponsorship;
                 this.TxtDietaryRequirement.Text = r.DietaryRequirement;
+                this.TxtOrganizationSize.Text = r.OrganizationSize;
                 this.TxtBillingAddress.Text = r.BillingAddress;
                 this.TxtBillingPersonName.Text = r.BillingPersonName;
                 this.TxtBillingAddressCountry.Text = r.BillingAddressCountry;
@@ -98,7 +104,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             }
             else
             {
-                List<CourseClass> tmpList = CourseClassBLL.Instance.GetClassesByConds(r.CourseClass.Course.Category.CategoryId, r.CourseClass.Course.CourseCode);
+                List<CourseClass> tmpList = CourseClassBLL.Instance.GetClassesByConds(
+                    r.CourseClass.Course.Category.CategoryId.ToString(), 
+                    r.CourseClass.Course.CourseCode);
                 foreach (CourseClass c in tmpList)
                 {
                     // only classes start later then current time can be selected
@@ -127,6 +135,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 
                 CourseClass newC = CourseClassBLL.Instance.GetCourseClassById(Int32.Parse(this.DropDownClass.SelectedValue));
                 r.CourseClass = newC;
+
+                r.Sponsorship = this.TxtSponsorship.Text;
+                r.DietaryRequirement = this.TxtDietaryRequirement.Text;
+                r.OrganizationSize = this.TxtOrganizationSize.Text;
+                r.BillingAddress = this.TxtBillingAddress.Text;
+                r.BillingPersonName = this.TxtBillingPersonName.Text;
+                r.BillingAddressCountry = this.TxtBillingAddressCountry.Text;
+                r.BillingAddressPostalCode = this.TxtBillingAddressPostalCode.Text;
+
                 RegistrationBLL.Instance.UpdateRegistration(r);
 
                 LoadDetailData(r);

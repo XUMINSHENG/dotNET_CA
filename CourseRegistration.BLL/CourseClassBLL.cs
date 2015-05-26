@@ -48,7 +48,7 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        public List<CourseClass> GetClassesByConds(int categoryID, string courseCode)
+        public List<CourseClass> GetClassesByConds(String categoryID, String courseCode)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             IQueryable<CourseClass> query =
@@ -57,7 +57,8 @@ namespace CourseRegistration.BLL
 
             if (categoryID.ToString() != Util.C_String_All_Select)
             {
-                query = query.Where(x => x.Course.Category.CategoryId == categoryID);
+                int tmpInt = int.Parse(categoryID);
+                query = query.Where(x => x.Course.Category.CategoryId == tmpInt);
             }
 
             if (courseCode != Util.C_String_All_Select)

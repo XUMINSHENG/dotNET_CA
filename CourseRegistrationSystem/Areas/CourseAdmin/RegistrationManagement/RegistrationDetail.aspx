@@ -74,10 +74,18 @@
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
+                        <asp:label runat="server">Sponsorship:</asp:label>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtSponsorship" runat="server" Width="250px"></asp:TextBox>
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell VerticalAlign="Top">
                         <asp:label runat="server">DietaryRequirement:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtDietaryRequirement" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtDietaryRequirement" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -85,7 +93,7 @@
                         <asp:label runat="server">OrganizationSize:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtOrganizationSize" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtOrganizationSize" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -93,7 +101,7 @@
                         <asp:label runat="server">BillingAddress:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtBillingAddress" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtBillingAddress" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -101,7 +109,7 @@
                         <asp:label runat="server">BillingPersonName:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtBillingPersonName" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtBillingPersonName" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -109,7 +117,7 @@
                         <asp:label runat="server">BillingAddressCountry:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtBillingAddressCountry" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtBillingAddressCountry" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -117,7 +125,7 @@
                         <asp:label runat="server">BillingAddressPostalCode:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtBillingAddressPostalCode" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="TxtBillingAddressPostalCode" runat="server" Width="250px"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
