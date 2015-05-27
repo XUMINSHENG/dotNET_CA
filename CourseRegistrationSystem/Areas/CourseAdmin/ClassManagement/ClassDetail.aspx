@@ -1,16 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassDetail.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassDetail" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassDetail.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master"  Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassDetail" %>
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
     
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>
+
+<asp:Content ID="Content2" runat="server" contentPlaceHolderID="subTitle">
+    Class Detail
+</asp:Content>

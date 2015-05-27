@@ -49,7 +49,7 @@
                 AllowSorting="True"
                 
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging">
+                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -68,6 +68,8 @@
                         <ItemTemplate>
                         <asp:Label ID="LblRecordNo" runat="server" Text='<%# Container.DataItemIndex+1%>'></asp:Label>
                         </ItemTemplate>
+                        <ControlStyle Width="30px" />
+                        <ItemStyle Width="30px" />
                     </asp:TemplateField>
        
                     <asp:TemplateField HeaderStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
@@ -78,6 +80,7 @@
                             <asp:LinkButton runat="server" Text='<%# Eval("ClassId") %>' style="display:block;text-align:left"
                                 CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNVIEW_Click" ></asp:LinkButton>
                         </ItemTemplate>
+                        <HeaderStyle Width="100px" />
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
                     </asp:TemplateField>
                     
@@ -101,11 +104,11 @@
                     <ItemStyle Width="70px" HorizontalAlign="Right" />
                     </asp:BoundField>
 
-                    <asp:BoundField DataField="IsDeleted" HeaderText="Deleted" ControlStyle-Width="100px" ItemStyle-Width="100px" >
+                    <asp:BoundField DataField="Course.CourseTitle" HeaderText="Course" ControlStyle-Width="100px" ItemStyle-Width="100px" >
                     <ControlStyle Width="100px" />
                     <ItemStyle Width="100px" HorizontalAlign="Right" />
                     </asp:BoundField>
-                      
+                 
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>

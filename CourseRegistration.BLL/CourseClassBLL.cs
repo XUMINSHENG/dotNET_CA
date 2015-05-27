@@ -27,11 +27,24 @@ namespace CourseRegistration.BLL
         
         }
 
-        public CourseClass GetCourseClassById(int courseClassCode)
+        public CourseClass GetCourseClassById(int courseClassId)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassCode).Single(); 
+            return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassId).Single(); 
             
+        }
+
+        public int getRegNum(int courseClassId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            int result =
+                (from reg in uow.RegistrationRepository.GetAll()
+                where reg.Status != RegistrationStatus.Cancel &&
+                reg.CourseClass.ClassId == courseClassId
+                select 1).Count();
+
+            return result;
+
         }
 
         public List<CourseClass> GetAllCourseClass()
