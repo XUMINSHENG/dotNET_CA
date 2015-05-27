@@ -13,8 +13,6 @@ namespace CourseRegistration.Models
         [Required]
         public String Email{get;set;}
         [Required]
-        public String Password { get; set; }
-        [Required]
         public virtual Company Company { get; set; }
         [Required]
         public String Name{get;set;}

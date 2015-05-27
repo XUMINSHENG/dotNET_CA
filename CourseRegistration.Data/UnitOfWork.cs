@@ -21,7 +21,6 @@ namespace CourseRegistration.Data
         IRepository<Participant> ParticipantRepository { get; }
         IRepository<Company> CompanyRepository { get; }
         IRepository<CompanyHR> CompanyHRRepository { get; }
-        IRepository<IndividualUser> IndividualUserRepository { get; }
         UserManager<ApplicationUser> AppUserManager { get; set; }
         RoleManager<IdentityRole> AppRoleManager { get; }
         UserStore<ApplicationUser> AppUserStore { get; }
@@ -39,7 +38,6 @@ namespace CourseRegistration.Data
         private IRepository<Participant> _participantRepository;
         private IRepository<Company> _companyRepository;
         private IRepository<CompanyHR> _companyHRRepository;
-        private IRepository<IndividualUser> _individualUserRepository;
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
@@ -155,17 +153,6 @@ namespace CourseRegistration.Data
                     _companyHRRepository = new BaseRepository<CompanyHR>(_context);
 
                 return _companyHRRepository;
-            }
-        }
-
-        public IRepository<IndividualUser> IndividualUserRepository
-        {
-            get
-            {
-                if (_individualUserRepository == null)
-                    _individualUserRepository = new BaseRepository<IndividualUser>(_context);
-
-                return _individualUserRepository;
             }
         }
 

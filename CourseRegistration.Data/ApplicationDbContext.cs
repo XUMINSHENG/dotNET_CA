@@ -30,7 +30,6 @@ namespace CourseRegistration.Data
         public DbSet<CourseClass> CourseClasses { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<Participant> Participants { get; set; }
-        public DbSet<IndividualUser> IndividualUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyHR> CompanyHRs { get; set; }
 

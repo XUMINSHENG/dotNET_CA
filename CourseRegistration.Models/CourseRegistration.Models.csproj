@@ -59,7 +59,6 @@
     <Compile Include="Course.cs" />
     <Compile Include="CourseClass.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="IndividualUser.cs" />
     <Compile Include="Instructor.cs" />
     <Compile Include="Participant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
