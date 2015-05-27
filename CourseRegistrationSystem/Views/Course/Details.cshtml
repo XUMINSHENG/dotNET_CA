@@ -31,6 +31,15 @@
 
     </dl>
     <hr />
+    <ul>
+        @foreach (var item in Model.CourseClasses)
+        {
+            if (item.isOpenForRegister && item.StartDate > DateTime.Now)
+            {
+                <li>@item.ClassId</li>
+            }
+        }
+    </ul>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")
