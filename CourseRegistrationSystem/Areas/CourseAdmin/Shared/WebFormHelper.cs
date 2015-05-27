@@ -55,5 +55,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.Shared
             }
             return true;
         }
+
+        
     }
 }

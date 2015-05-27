@@ -17,10 +17,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
         {
             if (!Page.IsPostBack)
             {
+                Bind_EnumFields();
+
                 String rId = WebFormHelper.GetSessionFieldAndRemove(Session ,WebFormHelper.C_PrimaryKey, "");
                 if (!string.IsNullOrEmpty(rId))
                 {
                     Registration r = RegistrationBLL.Instance.getRegistrationById(Int32.Parse(rId));
+                    
                     LoadDetailData(r);
                     ControlDisplayMode(r);
                 }
@@ -52,9 +55,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             if (DateTime.Compare(r.CourseClass.StartDate,DateTime.Now)<0)
             {
                 this.DropDownClass.Enabled = false;
-                this.TxtSponsorship.Enabled = false;
+                this.DropDownSponsorship.Enabled = false;
                 this.TxtDietaryRequirement.Enabled = false;
-                this.TxtOrganizationSize.Enabled = false;
+                this.DropDownOrganizationSize.Enabled = false;
                 this.TxtBillingAddress.Enabled = false;
                 this.TxtBillingPersonName.Enabled = false;
                 this.TxtBillingAddressCountry.Enabled = false;
@@ -75,23 +78,35 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             
             if (r != null)
             {
+                
                 this.TxtRegistrationId.Text = r.RegistrationId.ToString();
                 this.txtCategory.Text = r.CourseClass.Course.Category.CategoryName;
                 this.TxtCourseCode.Text = r.CourseClass.Course.CourseCode;
                 this.HidTimestamp.Value = System.Convert.ToBase64String(r.Timestamp);
                 this.TxtCourseTitle.Text = r.CourseClass.Course.CourseTitle;
+
+                // Available classes list
                 Bind_Classes(r);
                 this.TxtParticipant.Text = r.Participant.FullName;
                 this.TxtStatus.Text = r.Status.ToString(); ;
-                this.TxtSponsorship.Text = r.Sponsorship.ToString();
+                this.DropDownSponsorship.SelectedValue = r.Sponsorship.ToString();
                 this.TxtDietaryRequirement.Text = r.DietaryRequirement;
-                this.TxtOrganizationSize.Text = r.OrganizationSize.ToString();
+                this.DropDownOrganizationSize.SelectedValue = r.OrganizationSize.ToString();
                 this.TxtBillingAddress.Text = r.BillingAddress;
                 this.TxtBillingPersonName.Text = r.BillingPersonName;
                 this.TxtBillingAddressCountry.Text = r.BillingAddressCountry;
                 this.TxtBillingAddressPostalCode.Text = r.BillingAddressPostalCode;
                 this.TxtCreateDate.Text = r.CreateDate.ToString("dd-MMM-yyyy");
             }
+        }
+
+        private void Bind_EnumFields()
+        {
+            this.DropDownSponsorship.DataSource = Enum.GetNames(typeof(Sponsorship));
+            this.DropDownSponsorship.DataBind();
+
+            this.DropDownOrganizationSize.DataSource = Enum.GetNames(typeof(OrganizationSize));
+            this.DropDownOrganizationSize.DataBind();
         }
 
         private void Bind_Classes(Registration r)
@@ -135,10 +150,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 
                 CourseClass newC = CourseClassBLL.Instance.GetCourseClassById(this.DropDownClass.SelectedValue);
                 r.CourseClass = newC;
-
-                //r.Sponsorship = this.TxtSponsorship.Text;
+                r.Sponsorship = (Sponsorship)Enum.Parse(typeof(Sponsorship), this.DropDownSponsorship.SelectedValue);
                 r.DietaryRequirement = this.TxtDietaryRequirement.Text;
-                //r.OrganizationSize = this.TxtOrganizationSize.Text;
+                r.OrganizationSize = (OrganizationSize)Enum.Parse(typeof(OrganizationSize), this.DropDownOrganizationSize.SelectedValue); 
                 r.BillingAddress = this.TxtBillingAddress.Text;
                 r.BillingPersonName = this.TxtBillingPersonName.Text;
                 r.BillingAddressCountry = this.TxtBillingAddressCountry.Text;

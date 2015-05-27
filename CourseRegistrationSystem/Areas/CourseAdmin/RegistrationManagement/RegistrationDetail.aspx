@@ -70,7 +70,7 @@
                         <asp:label runat="server">Sponsorship:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtSponsorship" runat="server" Width="250px"></asp:TextBox>
+                        <asp:DropDownList ID="DropDownSponsorship" runat="server" Width="250px" Enabled="false"></asp:DropDownList>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -86,7 +86,7 @@
                         <asp:label runat="server">OrganizationSize:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="TxtOrganizationSize" runat="server" Width="250px"></asp:TextBox>
+                        <asp:DropDownList ID="DropDownOrganizationSize" runat="server" Width="250px" ></asp:DropDownList>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>

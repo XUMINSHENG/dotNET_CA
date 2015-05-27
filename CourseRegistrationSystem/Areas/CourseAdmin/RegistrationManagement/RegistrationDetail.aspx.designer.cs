@@ -121,13 +121,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtStatus;
         
         /// <summary>
-        /// TxtSponsorship control.
+        /// DropDownSponsorship control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtSponsorship;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownSponsorship;
         
         /// <summary>
         /// TxtDietaryRequirement control.
@@ -139,13 +139,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement {
         protected global::System.Web.UI.WebControls.TextBox TxtDietaryRequirement;
         
         /// <summary>
-        /// TxtOrganizationSize control.
+        /// DropDownOrganizationSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtOrganizationSize;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownOrganizationSize;
         
         /// <summary>
         /// TxtBillingAddress control.
