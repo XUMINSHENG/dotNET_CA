@@ -29,7 +29,7 @@
 
     <div>
         <asp:ContentPlaceHolder ID="Path" runat="server">
-        <asp:Panel ID="Panel6" runat="server" HorizontalAlign="Left">
+        <asp:Panel ID="Panel6" runat="server" HorizontalAlign="Left" >
           <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
         </asp:Panel>
         </asp:ContentPlaceHolder>
@@ -42,9 +42,9 @@
     </div>
     
     <div>      
-    <asp:Table ID="Table1" runat="server" BorderStyle="Double" CellPadding="2" CellSpacing="2" Width="100%" Height="750px">
+    <asp:Table ID="Table1" runat="server" BorderStyle="Double" CellPadding="2" CellSpacing="2" Width="100%" Height="750px" HorizontalAlign="Left" CaptionAlign="Top">
         <asp:TableRow>
-            <asp:TableCell VerticalAlign="Top">
+            <asp:TableCell VerticalAlign="Top" HorizontalAlign="Left">
                 <asp:ContentPlaceHolder ID="Menu" runat="server">
                     <asp:Menu ID="Menu1" runat="server" BackColor="#E3EAEB" 
                 DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="Small" 
@@ -65,7 +65,7 @@
             </asp:Menu>
                 </asp:ContentPlaceHolder>
             </asp:TableCell>
-            <asp:TableCell>
+            <asp:TableCell HorizontalAlign="Left" VerticalAlign="Top">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 
                 </asp:ContentPlaceHolder>
