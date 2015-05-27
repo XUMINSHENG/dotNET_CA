@@ -448,6 +448,7 @@
     <Content Include="Views\Instructor\Details.cshtml" />
     <Content Include="Views\Class\Details.cshtml" />
     <Content Include="Views\Class\RegisterClass.cshtml" />
+    <Content Include="Views\Class\ParticipantView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
