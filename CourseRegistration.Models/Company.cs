@@ -32,5 +32,10 @@ namespace CourseRegistration.Models
             }
         }
 
+        public String BillingAddress { get; set; }
+        public String BillingPersonName { get; set; }
+        public String BillingAddressCountry { get; set; }
+        public String BillingAddressPostalCode { get; set; }
+
     }
 }

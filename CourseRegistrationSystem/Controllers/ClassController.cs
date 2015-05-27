@@ -18,13 +18,13 @@ namespace CourseRegistrationSystem.Controllers
             return View(classes);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(String id)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);
         }
 
-        public ActionResult RegisterClass(int id)
+        public ActionResult RegisterClass(String id)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);

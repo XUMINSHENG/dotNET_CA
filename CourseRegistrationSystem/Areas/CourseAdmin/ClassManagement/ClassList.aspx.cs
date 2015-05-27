@@ -39,7 +39,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void BTNCREATE_Click(object sender, EventArgs e)
         {
             
-            CourseClassBLL.Instance.getRegNum(3);
+         
         }
 
         protected void BTNVIEW_Click(object sender, EventArgs e)

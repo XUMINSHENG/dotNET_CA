@@ -83,9 +83,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
                 Bind_Classes(r);
                 this.TxtParticipant.Text = r.Participant.FullName;
                 this.TxtStatus.Text = r.Status.ToString(); ;
-                this.TxtSponsorship.Text = r.Sponsorship;
+                this.TxtSponsorship.Text = r.Sponsorship.ToString();
                 this.TxtDietaryRequirement.Text = r.DietaryRequirement;
-                this.TxtOrganizationSize.Text = r.OrganizationSize;
+                this.TxtOrganizationSize.Text = r.OrganizationSize.ToString();
                 this.TxtBillingAddress.Text = r.BillingAddress;
                 this.TxtBillingPersonName.Text = r.BillingPersonName;
                 this.TxtBillingAddressCountry.Text = r.BillingAddressCountry;
@@ -133,12 +133,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             {
                 Registration r = RegistrationBLL.Instance.getRegistrationById(Int32.Parse(rId));
 
-                CourseClass newC = CourseClassBLL.Instance.GetCourseClassById(Int32.Parse(this.DropDownClass.SelectedValue));
+                CourseClass newC = CourseClassBLL.Instance.GetCourseClassById(this.DropDownClass.SelectedValue);
                 r.CourseClass = newC;
 
-                r.Sponsorship = this.TxtSponsorship.Text;
+                //r.Sponsorship = this.TxtSponsorship.Text;
                 r.DietaryRequirement = this.TxtDietaryRequirement.Text;
-                r.OrganizationSize = this.TxtOrganizationSize.Text;
+                //r.OrganizationSize = this.TxtOrganizationSize.Text;
                 r.BillingAddress = this.TxtBillingAddress.Text;
                 r.BillingPersonName = this.TxtBillingPersonName.Text;
                 r.BillingAddressCountry = this.TxtBillingAddressCountry.Text;

@@ -86,7 +86,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
         {
             int RegistrationId = Int32.Parse(((Button)sender).CommandArgument.ToString());
             Registration r = RegistrationBLL.Instance.getRegistrationById(RegistrationId);
-            r.Status = RegistrationStatus.Success;
+            r.Status = RegistrationStatus.Successful;
             RegistrationBLL.Instance.UpdateRegistration(r);
 
             Bind_RegistrationList();

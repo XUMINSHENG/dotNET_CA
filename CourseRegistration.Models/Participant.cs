@@ -35,8 +35,8 @@ namespace CourseRegistration.Models
         [DataType(DataType.PhoneNumber)]
         public String ContactNumber{ get;set; }
         public String DietaryRequirement{ get;set; }
-        public String OrganizationSize{ get;set; }
-        public String SalaryRange { get; set; }
+        public OrganizationSize OrganizationSize { get; set; }
+        public SalaryRange SalaryRange { get; set; }
 
         private List<Registration> registrations;
         public virtual List<Registration> Registrations

@@ -14,5 +14,11 @@ namespace CourseRegistration.Models
         [Required]
         public String Password { get; set; }
         public virtual Participant Participant { get; set; }
+
+        public String BillingAddress { get; set; }
+        public String BillingPersonName { get; set; }
+        public String BillingAddressCountry { get; set; }
+        public String BillingAddressPostalCode { get; set; }
     }
+
 }

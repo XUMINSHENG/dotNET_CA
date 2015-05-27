@@ -10,7 +10,7 @@ namespace CourseRegistration.Models
     public class CourseClass : BaseModel
     {
         [Key][Required]
-        public int ClassId { get; set; }
+        public String ClassId { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }
@@ -38,4 +38,4 @@ namespace CourseRegistration.Models
     }
 }
 
-public enum ClassStatus { Pending = 0, Confirmed = 1, Cancel = 2 }
+

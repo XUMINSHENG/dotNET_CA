@@ -15,9 +15,9 @@ namespace CourseRegistration.Models
         public virtual CourseClass CourseClass { get; set; }
         [Required]
         public virtual Participant Participant { get; set; }
-        public String Sponsorship { get; set; }
+        public Sponsorship Sponsorship { get; set; }
         public String DietaryRequirement { get; set; }
-        public String OrganizationSize { get; set; }
+        public OrganizationSize OrganizationSize { get; set; }
         public String BillingAddress { get; set; }
         public String BillingPersonName { get; set; }
         public String BillingAddressCountry { get; set; }
@@ -26,4 +26,3 @@ namespace CourseRegistration.Models
     }
 }
 
-public enum RegistrationStatus { Pending=0,Success=1,Cancel=2}

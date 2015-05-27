@@ -155,8 +155,7 @@ namespace CourseRegistration.BLL
 
             if (classID.ToString() != Util.C_String_All_Select)
             {
-                int tmpInt = int.Parse(classID);
-                query = query.Where(x => x.CourseClass.ClassId == tmpInt);
+                query = query.Where(x => x.CourseClass.ClassId == classID);
             }
 
             if (participantName != Util.C_String_All_Select)
