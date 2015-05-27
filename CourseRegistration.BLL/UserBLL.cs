@@ -19,9 +19,11 @@ namespace CourseRegistration.BLL
 
         private UserBLL()
         {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            uow.AppUserManager.EmailService = new EmailService();
         }
 
-        public void CreateIndividualUser(Participant p)
+        public ApplicationUser CreateIndividualUser(Participant p)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
@@ -33,6 +35,7 @@ namespace CourseRegistration.BLL
                 UserName = p.IdNumber,
                 Email = p.Email,
                 PhoneNumber = p.ContactNumber,
+                isSysGenPassword = true
             };
             user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
 
@@ -44,10 +47,12 @@ namespace CourseRegistration.BLL
             p.AppUser = user;
             uow.ParticipantRepository.Insert(p);
             uow.Save();
+            uow.AppUserManager.SendEmail(user.Id, "Account Credentials", "Your Login Credentials are <br/> UserName:" + user.UserName + "<br/> Password:" + pwd);
+            return user;
 
         }
 
-        public void CreateCompanyHR(Company company, CompanyHR HR)
+        public ApplicationUser CreateCompanyHR(Company company, CompanyHR HR)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
@@ -59,6 +64,7 @@ namespace CourseRegistration.BLL
                 UserName = HR.Email,
                 Email = HR.Email,
                 PhoneNumber = HR.ContactNumber,
+                isSysGenPassword = true
             };
             user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
 
@@ -73,6 +79,7 @@ namespace CourseRegistration.BLL
             uow.CompanyHRRepository.Insert(HR);
 
             uow.Save();
+            return user;
 
         }
 

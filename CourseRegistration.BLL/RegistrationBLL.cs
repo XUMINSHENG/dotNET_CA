@@ -45,6 +45,7 @@ namespace CourseRegistration.BLL
                     UserName = r.Participant.IdNumber,
                     Email = r.Participant.Email,
                     PhoneNumber = r.Participant.ContactNumber,
+                    isSysGenPassword = true
                 };
                 user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
 

@@ -12,6 +12,9 @@ using CourseRegistrationSystem.Models;
 
 using CourseRegistration.Models;
 using System.Transactions;
+using System.Dynamic;
+
+using CourseRegistration.BLL;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -137,12 +140,10 @@ namespace CourseRegistrationSystem.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult RegisterIndividualUser()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -150,48 +151,97 @@ namespace CourseRegistrationSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Participant model,String registerAs)
+        public async Task<ActionResult> RegisterIndividualUser(Participant model)
+        {
+            if (ModelState.IsValid)
+            {
+                //ApplicationUser user=null;
+                var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(model);
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult RegisterCompanyHR()
+        {
+            return PartialView();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterCompanyHR(CompanyHR companyHR, Company company)
         {
             if (ModelState.IsValid)
             {
                 //ApplicationUser user=null;
 
-                CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(model);
-
-
+                var user = CourseRegistration.BLL.UserBLL.Instance.CreateCompanyHR(company, companyHR);
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 return RedirectToAction("Index", "Home");
 
-
-                //user = new ApplicationUser { UserName = userName, Email = model.Email , PhoneNumber=model.ContactNumber};
-                //using (TransactionScope ts = new TransactionScope())
-                //{
-                //    var result = UserManager.Create(user, pwd);
-                //    if (result.Succeeded)
-                //    {
-                //        CourseRegistration.BLL.ParticipantBLL.Instance.CreateParticipant(model);
-                //        //throw new Exception();
-                //        //CourseRegistration.BLL.RoleBLL.Instance.AssignRoleToUser(userName, registerAs);
-                        
-                        
-                //        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                //        // Send an email with this link
-                //        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                        
-                //        ts.Complete();
-                //        return RedirectToAction("Index", "Home");
-                //        //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                //        //return RedirectToAction("ResetPassword", "Account", new { userId = user.Id, code = code });
-                //    }
-                //    AddErrors(result);
-                //}
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(companyHR);
+        }
+
+
+        //
+        // GET: /Account/Register
+        [HttpGet]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Register(string abc)
+        {
+
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(string registerAs, Participant model = null, CompanyHR hr = null)
+        {
+            if (ModelState.IsValid)
+            {
+                if (registerAs == Util.C_Role_IndividualUser)
+                    RedirectToAction("RegisterIndividualUser", model);
+                else if (registerAs == Util.C_Role_CompanyHR)
+                    RedirectToAction("RegisterCompanyHR", new { companyHR = hr });
+                //ApplicationUser user=null;
+
+                //var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(model);
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            //return View(model);
+            return View();
         }
 
         //

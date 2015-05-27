@@ -17,30 +17,22 @@ namespace CourseRegistration.BLL
         private static readonly Lazy<RoleBLL> lazy =
             new Lazy<RoleBLL>(() => new RoleBLL());
 
-        private RoleStore<IdentityRole> roleStore;
-        private RoleManager<IdentityRole> roleManager;
-        private UserStore<IdentityUser> userStore;
-        private UserManager<IdentityUser> userManager;
-        private IdentityDbContext identDbContext;
+        private IUnitOfWork uow;
 
     public static RoleBLL Instance { get { return lazy.Value; } }
 
         private RoleBLL()
         {
-            roleStore = new RoleStore<IdentityRole>();
-            roleManager = new RoleManager<IdentityRole>(roleStore);
-            userStore = new UserStore<IdentityUser>();
-            userManager = new UserManager<IdentityUser>(userStore);
-            identDbContext = new IdentityDbContext();
+            uow = new UnitOfWork();
         }
 
         public int CreateRole(String roleName)
         {
             var role = new IdentityRole() { Name = roleName };
-            IdentityRole roleIdentity = roleManager.FindByName(roleName);
+            IdentityRole roleIdentity = uow.AppRoleManager.FindByName(roleName);
             if (roleIdentity == null)
             {
-                roleManager.Create(role);
+                uow.AppRoleManager.Create(role);
                 return 1;
             }
             return 0;
@@ -50,7 +42,7 @@ namespace CourseRegistration.BLL
         public List<String> GetAllRoles()
         {
             List<String> roleList = new List<string>();
-            foreach(IdentityRole role in roleManager.Roles.ToList())
+            foreach(IdentityRole role in uow.AppRoleManager.Roles.ToList())
             {
                 roleList.Add(role.Name);
             }
@@ -61,7 +53,7 @@ namespace CourseRegistration.BLL
         public List<String> GetAllUsers()
         {
             List<String> userList = new List<string>();
-            foreach(IdentityUser user in userManager.Users.ToList())
+            foreach (IdentityUser user in uow.AppUserManager.Users.ToList())
             {
                 userList.Add(user.UserName);
             }
@@ -72,9 +64,9 @@ namespace CourseRegistration.BLL
         public List<String> GetUserRoles(String userName)
         {
             List<String> roleList = new List<string>();
-            foreach (IdentityUserRole role in userManager.FindByName(userName).Roles.ToList())
+            foreach (IdentityUserRole role in uow.AppUserManager.FindByName(userName).Roles.ToList())
             {
-                roleList.Add(roleManager.FindById(role.RoleId).Name);
+                roleList.Add(uow.AppRoleManager.FindById(role.RoleId).Name);
             }
             return roleList;
 
@@ -82,23 +74,17 @@ namespace CourseRegistration.BLL
 
         public void AssignRoleToUser(String userName,String roleName)
         {
-            CreateRole(roleName);
-            userManager.AddToRole(userManager.FindByName(userName).Id, roleName);            
+            uow.AppUserManager.AddToRole(uow.AppUserManager.FindByName(userName).Id, roleName);            
         }
 
         public void UnAssignRoleToUser(String userName, String roleName)
         {
-            userManager.RemoveFromRole(userManager.FindByName(userName).Id, roleName);
+            uow.AppUserManager.RemoveFromRole(uow.AppUserManager.FindByName(userName).Id, roleName);
         }
 
         public void DeleteRole(String roleName)
         {
-            var role = new IdentityRole() { Name = roleName };
-            IdentityRole roleIdentity = identDbContext.Roles.FirstOrDefault(roleInst => roleInst.Name == roleName);
-            identDbContext.Entry(roleIdentity);
-            if (roleIdentity != null)
-                identDbContext.Roles.Remove(roleIdentity);
-            identDbContext.SaveChanges();
+            uow.AppRoleManager.Delete(uow.AppRoleManager.FindByName(roleName));
         }
     }
 }

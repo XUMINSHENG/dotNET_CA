@@ -42,8 +42,8 @@ namespace CourseRegistrationSystem
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
-            //SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"], Convert.ToInt32(465));
-            SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
+            SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"], Convert.ToInt32(587));
+            //SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;

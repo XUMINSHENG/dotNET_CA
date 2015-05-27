@@ -449,6 +449,10 @@
     <Content Include="Views\Class\Details.cshtml" />
     <Content Include="Views\Class\RegisterClass.cshtml" />
     <Content Include="Views\Class\ParticipantView.cshtml" />
+    <Content Include="Views\Account\RegisterHR.cshtml" />
+    <Content Include="Views\Account\RegisterIndividualUser.cshtml" />
+    <Content Include="Views\Account\RegisterCompany.cshtml" />
+    <Content Include="Views\Account\RegisterCompanyHR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
