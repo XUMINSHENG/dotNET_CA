@@ -57,10 +57,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
                 }
             }
             
-            
-                
-                
-            
         }
 
         protected void DropDownCategory_SelectedIndexChanged(object sender, EventArgs e)

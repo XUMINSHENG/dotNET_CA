@@ -57,9 +57,18 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         }
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //e.Row.Cells[2].Text = "1";
-            //((LinkButton) e.Row.FindControl("RegNum")).Text = "123";
-                //CourseClassBLL.Instance.getRegNum(3).ToString();
+      
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Object obj = DataBinder.Eval(e.Row.DataItem, "ClassId");
+                if (obj != null)
+                {
+                    String classId = obj.ToString();
+                    ((LinkButton)e.Row.FindControl("RegNum")).Text = CourseClassBLL.Instance.getRegNum(classId).ToString();
+                    
+                   
+                }
+            }
         }
 
         private void Bind_ClassList()

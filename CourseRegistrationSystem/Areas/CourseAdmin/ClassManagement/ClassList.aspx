@@ -91,6 +91,10 @@
                             Reg Num
                         </HeaderTemplate>
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
+                        <ItemTemplate >
+                            <asp:LinkButton runat="server" ID="RegNum" style="display:block;text-align:left"
+                                CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNVIEW_Click" ></asp:LinkButton>
+                        </ItemTemplate>
                     </asp:TemplateField>
                     
                     <asp:BoundField DataField="StartDate" HeaderText="Start Date" ControlStyle-Width="100px" ItemStyle-Width="100px" DataFormatString="{0:dd-MMM-yyyy}" >
