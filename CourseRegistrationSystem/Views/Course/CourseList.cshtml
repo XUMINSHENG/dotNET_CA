@@ -26,7 +26,10 @@
 <div class="list-group">
     @foreach (var item in Model.Courses)
     {
-        @Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode}, new { @class = "list-group-item" })
+        if (item.enabled)
+        {
+            @Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { @class = "list-group-item" })
+        }
         @*<a class="list-group-item" href="" data-toggle="modal" data-target="#myModal" data-whatever="@item">@item.CourseTitle</a>*@
     }
 </div>

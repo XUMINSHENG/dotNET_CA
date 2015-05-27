@@ -6,9 +6,48 @@
 
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li>@Html.ActionLink("Class","Index","Class")</li>
+    <li>@Html.ActionLink("Class", "Index", "Class")</li>
     <li>@Model.ClassId</li>
 </ul>
 
-<h2>@Model.ClassId Registration</h2>
+<h2>@Model.ClassId Class Registration</h2>
 
+<h4>@Model.Course.CourseTitle</h4>
+
+<p>
+    @Model.Course.CourseDescription
+</p>
+
+<p>Fee: @Model.Course.Fee</p>
+<p>Duration: @Model.Course.NumberOfDays days, from @Model.StartDate.ToString("yyyy-MM-dd") to @Model.EndDate.ToString("yyyy-MM-dd")</p>
+
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+        <h3 class="panel-title">Step1: Participant Details</h3>
+    </div>
+    <div class="collapse" id="collapse1">
+        <div class="panel-body">
+            glyphicon glyphicon-chevron-up
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+        <h3 class="panel-title">Step2: Bill Details</h3>
+    </div>
+    <div class="collapse" id="collapse2">
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+
+
+<hr />
+<nav>
+    <ul class="pager">
+        @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
+        <li class="next"><a href="#">Register</a></li>
+    </ul>
+</nav>

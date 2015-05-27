@@ -36,7 +36,7 @@
         {
             if (item.isOpenForRegister && item.StartDate > DateTime.Now)
             {
-                <li>@item.ClassId</li>
+                <li>@Html.ActionLink(item.ClassId, "RegisterClass", "Class", new { code = item.ClassId })</li>
             }
         }
     </ul>
