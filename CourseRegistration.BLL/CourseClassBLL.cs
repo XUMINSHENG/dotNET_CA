@@ -54,6 +54,20 @@ namespace CourseRegistration.BLL
             
         }
 
+        public List<CourseClass> GetAvailableClass()
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            List<CourseClass> list = new List<CourseClass>();
+            foreach (CourseClass item in uow.CourseClassRepository.GetAll().ToList())
+            {
+                if (item.isOpenForRegister&&DateTime.Now<item.StartDate)
+                {
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+
         public void UpdateCourseClass(CourseClass cc)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

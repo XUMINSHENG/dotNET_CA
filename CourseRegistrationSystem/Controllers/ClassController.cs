@@ -13,11 +13,18 @@ namespace CourseRegistrationSystem.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            IEnumerable<CourseClass> classes = CourseClassBLL.Instance.GetAllCourseClass();
+            IEnumerable<CourseClass> classes = CourseClassBLL.Instance.GetAvailableClass();
+
             return View(classes);
         }
 
         public ActionResult Details(int id)
+        {
+            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
+            return View(courseClass);
+        }
+
+        public ActionResult RegisterClass(int id)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);

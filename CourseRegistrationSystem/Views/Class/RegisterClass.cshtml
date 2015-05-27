@@ -1,0 +1,14 @@
+﻿@model CourseRegistration.Models.CourseClass
+
+@{
+    ViewBag.Title = "RegisterClass";
+}
+
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Class","Index","Class")</li>
+    <li>@Model.ClassId</li>
+</ul>
+
+<h2>@Model.ClassId Registration</h2>
+

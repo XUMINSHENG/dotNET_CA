@@ -14,17 +14,13 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
+        <th>Name</th>
+        <th>Course Type</th>
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isOpenForRegister)
         </th>
         <th></th>
     </tr>
@@ -32,21 +28,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
+            @Html.DisplayFor(modelItem => item.ClassId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @Html.ActionLink(item.Course.CourseTitle, "Details", "Course", new { code = item.Course.CourseCode }, new { })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @item.StartDate.ToString("yyyy-MM-dd")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isOpenForRegister)
+            @item.EndDate.ToString("yyyy-MM-dd")
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClassId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClassId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClassId })
+            @Html.ActionLink("Register", "RegisterClass", new { id=item.ClassId })
         </td>
     </tr>
 }
