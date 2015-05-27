@@ -42,9 +42,9 @@
     </div>
     
     <div>      
-    <asp:Table ID="Table1" runat="server" BorderStyle="Double" CellPadding="2" CellSpacing="2" Width="100%" Height="750px" HorizontalAlign="Left" CaptionAlign="Top">
+    <asp:Table ID="Table1" runat="server" CellPadding="2" CellSpacing="2" Width="90%" Height="750px" HorizontalAlign="Left" CaptionAlign="Top">
         <asp:TableRow>
-            <asp:TableCell VerticalAlign="Top" HorizontalAlign="Left">
+            <asp:TableCell VerticalAlign="Top" HorizontalAlign="Left" BorderStyle="Double">
                 <asp:ContentPlaceHolder ID="Menu" runat="server">
                     <asp:Menu ID="Menu1" runat="server" BackColor="#E3EAEB" 
                 DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="Small" 
@@ -65,7 +65,7 @@
             </asp:Menu>
                 </asp:ContentPlaceHolder>
             </asp:TableCell>
-            <asp:TableCell HorizontalAlign="Left" VerticalAlign="Top">
+            <asp:TableCell HorizontalAlign="Left" VerticalAlign="Top" BorderStyle="Double">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 
                 </asp:ContentPlaceHolder>
