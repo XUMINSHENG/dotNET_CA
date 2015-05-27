@@ -49,7 +49,9 @@
                 AllowSorting="True"
                 
                 OnRowCommand="GridView1_RowCommand"
-                OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                OnRowDataBound="GridView1_RowDataBound"
+                OnPageIndexChanging="GridView1_PageIndexChanging" 
+                OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -83,6 +85,13 @@
                         <HeaderStyle Width="100px" />
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
                     </asp:TemplateField>
+
+                    <asp:TemplateField HeaderStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
+                        <HeaderTemplate>
+                            Reg Num
+                        </HeaderTemplate>
+                        <ItemStyle HorizontalAlign="Center" Width="120px" />
+                    </asp:TemplateField>
                     
                     <asp:BoundField DataField="StartDate" HeaderText="Start Date" ControlStyle-Width="100px" ItemStyle-Width="100px" DataFormatString="{0:dd-MMM-yyyy}" >
                     <ControlStyle Width="100px" />
@@ -108,6 +117,7 @@
                     <ControlStyle Width="100px" />
                     <ItemStyle Width="100px" HorizontalAlign="Right" />
                     </asp:BoundField>
+
                  
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">

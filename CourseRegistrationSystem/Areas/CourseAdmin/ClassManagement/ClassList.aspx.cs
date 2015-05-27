@@ -55,7 +55,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         {
 
         }
-
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //e.Row.Cells[2].Text = "1";
+            //((LinkButton) e.Row.FindControl("RegNum")).Text = "123";
+                //CourseClassBLL.Instance.getRegNum(3).ToString();
+        }
 
         private void Bind_ClassList()
         {
