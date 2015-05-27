@@ -14,12 +14,12 @@
                 <asp:TableRow>
                     <asp:TableCell Width="20%">
                         <label>
-                            Select Category:
+                            Select Course:
                         </label>
                     </asp:TableCell>
                     <asp:TableCell Width="80%">
-                        <asp:DropDownList ID="DropDownCategory" runat="server" Width="220px"
-                            OnSelectedIndexChanged="DropDownCategory_SelectedIndexChanged"
+                        <asp:DropDownList ID="DropDownCourse" runat="server" Width="220px"
+                            OnSelectedIndexChanged="DropDownCourse_SelectedIndexChanged"
                             AutoPostBack="true">
                             <asp:ListItem>Select All</asp:ListItem>
                         </asp:DropDownList>

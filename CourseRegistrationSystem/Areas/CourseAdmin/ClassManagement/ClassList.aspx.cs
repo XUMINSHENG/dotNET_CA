@@ -16,11 +16,11 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         {
             if (!Page.IsPostBack)
             {
-                Bind_CategoryList();
+                Bind_CourseList();
                 Bind_ClassList();
             }
         }
-        protected void DropDownCategory_SelectedIndexChanged(object sender, EventArgs e)
+        protected void DropDownCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             Bind_ClassList();
         }
@@ -32,11 +32,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            Bind_ClassList();
-        }
-
-        protected void DropDownClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             Bind_ClassList();
         }
@@ -64,28 +59,22 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         private void Bind_ClassList()
         {
             List<CourseClass> list;
-            String categoryID = this.DropDownCategory.SelectedValue;
-            if (categoryID == Util.C_String_All_Select)
-            {
-                // Select ALL
-                list = CourseClassBLL.Instance.GetAllCourseClass();
-            }
             list = CourseClassBLL.Instance.GetAllCourseClass();
             this.GridView1.DataSource = list;
             this.GridView1.DataBind();
         }
-        private void Bind_CategoryList()
+        private void Bind_CourseList()
         {
-            List<Category> list;
-            list = CategoryBLL.Instance.GetAllCategories();
+            List<Course> list;
+            list = CourseBLL.Instance.GetAllCourses();
 
-            this.DropDownCategory.DataSource = list;
-            this.DropDownCategory.DataValueField = "CategoryId";
-            this.DropDownCategory.DataTextField = "CategoryName";
-            this.DropDownCategory.DataBind();
+            this.DropDownCourse.DataSource = list;
+            this.DropDownCourse.DataValueField = "CourseCode";
+            this.DropDownCourse.DataTextField = "CourseTitle";
+            this.DropDownCourse.DataBind();
 
             ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);
-            this.DropDownCategory.Items.Insert(0, AllItem);
+            this.DropDownCourse.Items.Insert(0, AllItem);
         }
 
     }
