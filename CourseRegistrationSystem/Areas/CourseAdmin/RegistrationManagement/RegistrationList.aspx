@@ -1,13 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrationList.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement.RegistrationList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrationList.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement.RegistrationList" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
     <div>
         <asp:Panel ID="SelectPanel" runat="server" Width="1250px">
             <asp:Table ID="SelectTable" runat="server">
@@ -137,9 +130,9 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:BoundField DataField="CourseClass.Course.Category.CategoryName" HeaderText="Category" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                        <ControlStyle Width="100px" />
-                        <ItemStyle Width="100px" />
+                    <asp:BoundField DataField="CourseClass.Course.Category.CategoryName" HeaderText="Category" >
+                        <ControlStyle Width="200px" />
+                        <ItemStyle Width="200px" />
                     </asp:BoundField>
                     
                     <asp:BoundField DataField="CourseClass.Course.CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
@@ -179,12 +172,6 @@
                         <ControlStyle Width="100px" />
                         <ItemStyle Width="100px" />
                     </asp:BoundField>
-
-                    <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" ControlStyle-Width="100px" ItemStyle-Width="100px" 
-                        DataFormatString="{0:dd-MMM-yyyy}" >
-                        <ControlStyle Width="100px" />
-                        <ItemStyle Width="100px" HorizontalAlign="Center" />
-                    </asp:BoundField>
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
@@ -210,6 +197,5 @@
             </asp:GridView>
         </asp:Panel>
     </div>
-    </form>
-</body>
-</html>
+
+</asp:Content>

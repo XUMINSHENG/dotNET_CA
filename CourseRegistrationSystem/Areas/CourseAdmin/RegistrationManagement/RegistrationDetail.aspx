@@ -1,13 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrationDetail.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement.RegistrationDetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrationDetail.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement.RegistrationDetail" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
     <div>
     <asp:Panel ID="Panel3" runat="server" >
             <asp:Label ID="LblMessage" runat="server" Font-Bold="True" Font-Size="X-Large"></asp:Label>
@@ -147,6 +140,4 @@
             </asp:Panel>
         </asp:Panel>
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>

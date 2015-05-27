@@ -33,9 +33,10 @@ namespace CourseRegistration.BLL
                     (participant.IdNumber == r.Participant.IdNumber && participant.Company == null)
                 select participant;
 
-            // Participant does not exist
+            
             if (query.Count() == 0)
             {
+                // Participant does not exist
                 // Create New User
                 var userRole = uow.AppRoleManager.FindByName("IndividualUser");
                 ApplicationUser user = new ApplicationUser
@@ -55,6 +56,29 @@ namespace CourseRegistration.BLL
                 r.Participant.AppUser = user;
                 uow.ParticipantRepository.Insert(r.Participant);
 
+            }
+            else
+            {
+                // already exist
+                // get participant record with same IdNo and Company == null
+                Participant p = query.Single();
+
+                // update exist one
+                p.Salutation = r.Participant.Salutation;
+                p.EmploymentStatus = r.Participant.EmploymentStatus;
+                p.CompanyName = r.Participant.CompanyName;
+                p.JobTitle = r.Participant.JobTitle;
+                p.Department = r.Participant.Department;
+                p.FullName = r.Participant.FullName;
+                p.Gender = r.Participant.Gender;
+                p.Nationality = r.Participant.Nationality;
+                p.DateOfBirth = r.Participant.DateOfBirth;
+                p.Email = r.Participant.Email;
+                p.ContactNumber = r.Participant.ContactNumber;
+                p.DietaryRequirement = r.Participant.DietaryRequirement;
+                p.OrganizationSize = r.Participant.OrganizationSize;
+                p.SalaryRange = r.Participant.SalaryRange;
+                    
             }
 
 
@@ -83,9 +107,12 @@ namespace CourseRegistration.BLL
                 // Create Participant
 
             }
+            else
+            {
+
+            }
 
             uow.RegistrationRepository.Insert(r);
-
 
             uow.Save();
 

@@ -97,11 +97,6 @@
                     <ItemStyle Width="100px" HorizontalAlign="Right" />
                     </asp:BoundField>
                         
-                    <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" ControlStyle-Width="100px" ItemStyle-Width="100px" DataFormatString="{0:dd-MMM-yyyy}" >
-                        
-                    <ControlStyle Width="100px" />
-                    <ItemStyle Width="100px" HorizontalAlign="Center" />
-                    </asp:BoundField>
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
