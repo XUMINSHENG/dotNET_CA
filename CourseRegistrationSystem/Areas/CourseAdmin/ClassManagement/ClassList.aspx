@@ -18,8 +18,8 @@
                         </label>
                     </asp:TableCell>
                     <asp:TableCell Width="80%">
-                        <asp:DropDownList ID="DropDownClass" runat="server" Width="220px"
-                            OnSelectedIndexChanged="DropDownClass_SelectedIndexChanged"
+                        <asp:DropDownList ID="DropDownCategory" runat="server" Width="220px"
+                            OnSelectedIndexChanged="DropDownCategory_SelectedIndexChanged"
                             AutoPostBack="true">
                             <asp:ListItem>Select All</asp:ListItem>
                         </asp:DropDownList>
@@ -96,7 +96,7 @@
                     <ItemStyle Width="100px" HorizontalAlign="Center" />
                     </asp:BoundField>
 
-                    <asp:BoundField DataField="State" HeaderText="State" ControlStyle-Width="100px" ItemStyle-Width="100px">
+                    <asp:BoundField DataField="Status" HeaderText="Status" ControlStyle-Width="100px" ItemStyle-Width="100px">
                     <ControlStyle Width="100px" />
                     <ItemStyle Width="70px" HorizontalAlign="Right" />
                     </asp:BoundField>
@@ -105,18 +105,7 @@
                     <ControlStyle Width="100px" />
                     <ItemStyle Width="100px" HorizontalAlign="Right" />
                     </asp:BoundField>
-
-                    <asp:BoundField DataField="CreatedTime" HeaderText="Created Time" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                    <ControlStyle Width="100px" />
-                    <ItemStyle Width="100px" HorizontalAlign="Right" />
-                    </asp:BoundField>
-
-                     <asp:BoundField DataField="Course_CourseCode" HeaderText="Course Code" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                    <ControlStyle Width="100px" />
-                    <ItemStyle Width="100px" HorizontalAlign="Right" />
-                    </asp:BoundField>
-                        
-                    
+                      
                         
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
@@ -125,11 +114,11 @@
                         <ItemTemplate >
                             <asp:Button ID="BtnEdit" runat="server" Font-Size="9pt" Text="Edit" 
                                 OnClick="BTNEDIT_Click" 
-                                CommandArgument='<%# Bind("CourseCode") %>' Width="50px" />
+                                CommandArgument='<%# Bind("ClassId") %>' Width="50px" />
 
                             <asp:Button ID="BtnViewDetail" runat="server" Font-Size="9pt" Text="Delete" 
                                 OnClick="BTNViewDetail_Click" 
-                                CommandArgument='<%# Bind("CourseCode") %>' 
+                                CommandArgument='<%# Bind("ClassId") %>' 
                                 Width="50px" />
 
                         </ItemTemplate>
