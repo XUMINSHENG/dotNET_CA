@@ -19,7 +19,6 @@ namespace CourseRegistration.Models
         public String ContactNumber{get;set;}
         public String JobTitle{get;set;}
         public String FaxNumber{get;set;}
-        public String EmailAddress { get; set; }
         public ApplicationUser AppUser { get; set; }
     }
 }
