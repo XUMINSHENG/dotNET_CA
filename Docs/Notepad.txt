@@ -23,3 +23,5 @@
 5.Security
  integrate build-in security module with domain classes such as User-Participant
  Extends IdentityDBContext
+
+BusinessRule:

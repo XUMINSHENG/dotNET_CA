@@ -24,14 +24,13 @@ namespace CourseRegistration.Models
         [Required]
         public String FullName{ get;set; }
         [Required]
-        public String Gender{ get;set; }
+        public Gender Gender { get; set; }
         public String Nationality{ get;set; }
         [DataType(DataType.Date)]
         public DateTime DateOfBirth{ get;set; }
         [Required]
         [DataType(DataType.EmailAddress)]
         public String Email{ get;set; }
-        [Required]
         [DataType(DataType.PhoneNumber)]
         public String ContactNumber{ get;set; }
         public String DietaryRequirement{ get;set; }

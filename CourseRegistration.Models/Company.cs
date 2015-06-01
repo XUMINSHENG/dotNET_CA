@@ -15,7 +15,7 @@ namespace CourseRegistration.Models
         [Required]
         public String CompanyName{ get;set; }
         public String CompanyUEN{ get;set; }
-        public String OrganizationSize{ get;set; }
+        public OrganizationSize OrganizationSize { get; set; }
         public String CompanyAddress{ get;set; }
         public String Country{ get;set; }
         public String PostalCode { get; set; }

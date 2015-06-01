@@ -15,4 +15,9 @@ namespace CourseRegistration.Models
     public enum SalaryRange { Less_Than_60k = 0, From_60_To_90k = 1, From_90k_To_120k = 2, More_Than_120k = 3 }
 
     public enum Sponsorship { Self = 0, Company = 1 }
+
+    public enum Gender { female = 0, male = 1 }
+
+
+
 }

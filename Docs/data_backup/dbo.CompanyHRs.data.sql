@@ -1,0 +1,1 @@
+﻿INSERT INTO [dbo].[CompanyHRs] ([Email], [Name], [ContactNumber], [JobTitle], [FaxNumber], [IsDeleted], [CreateDate], [AppUser_Id], [Company_CompanyId]) VALUES ('lord@heaven.com', 'Jehovah', '000000', 'The Creator', '111111', 0, N'2015-04-28 21:44:33', null,1)

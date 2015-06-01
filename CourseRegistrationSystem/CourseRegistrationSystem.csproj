@@ -272,6 +272,7 @@
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
+    <Compile Include="Controllers\CompanyHRController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
@@ -453,6 +454,9 @@
     <Content Include="Views\Account\RegisterIndividualUser.cshtml" />
     <Content Include="Views\Account\RegisterCompany.cshtml" />
     <Content Include="Views\Account\RegisterCompanyHR.cshtml" />
+    <Content Include="Views\CompanyHR\CompanyInfo.cshtml" />
+    <Content Include="Views\CompanyHR\EmployeeList.cshtml" />
+    <Content Include="Views\CompanyHR\CreateEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

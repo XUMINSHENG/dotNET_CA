@@ -21,9 +21,17 @@ namespace CourseRegistration.BLL
         {
         }
 
-        public void CreateForCompanyEmployee(Participant p)
+        public void CreateForCompanyEmployee(Company c,Participant p)
         {
+            // set value for employee
+            p.Company = c;
+            p.CompanyName = c.CompanyName;
+            p.EmploymentStatus = "Employed";
+            p.OrganizationSize = c.OrganizationSize;
 
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            uow.ParticipantRepository.Insert(p);
+            uow.Save();
         }
 
 
@@ -35,12 +43,20 @@ namespace CourseRegistration.BLL
             
         }
 
+        public List<Participant> GetAllParticipantsByCompanyId(int compId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.ParticipantRepository.GetAll().Where(x => x.Company.CompanyId == compId).ToList();
+
+        }
+
         public Participant GetParticipantById(int id)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             return uow.ParticipantRepository.GetById(id);
-            
         }
+
+
 
         public void EditParticipant(Participant p)
         {
@@ -53,6 +69,14 @@ namespace CourseRegistration.BLL
         public void DeleteParticipant(Participant p)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+
+            //validate 
+            Participant participant = GetParticipantById(p.ParticipantId);
+            if (participant.Registrations.Count > 0)
+            {
+                throw new Exception("Not allow deletion");
+            }
+
             uow.ParticipantRepository.Delete(p);
             uow.Save();
             
