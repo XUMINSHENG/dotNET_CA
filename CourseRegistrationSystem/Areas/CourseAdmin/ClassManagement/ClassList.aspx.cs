@@ -38,22 +38,23 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BTNCREATE_Click(object sender, EventArgs e)
         {
-            
-         
-        }
-
-        protected void BTNVIEW_Click(object sender, EventArgs e)
-        {
-
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_New_Mode);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassDetail.aspx");
         }
 
         protected void BTNEDIT_Click(object sender, EventArgs e)
         {
-            
+            String ClassId = ((Button)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, ClassId);
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_Edit_Mode);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassDetail.aspx");
         }
         protected void BTNViewDetail_Click(object sender, EventArgs e)
         {
-
+            String ClassId = ((LinkButton)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, ClassId);
+            Session.Add(WebFormHelper.C_PageMode, WebFormHelper.C_View_Mode);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassDetail.aspx");
         }
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -65,8 +66,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 {
                     String classId = obj.ToString();
                     ((LinkButton)e.Row.FindControl("RegNum")).Text = CourseClassBLL.Instance.getRegNum(classId).ToString();
-                    
-                   
                 }
             }
         }
@@ -143,5 +142,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         }
 
+        protected void RegNum_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void BTNDELETE_Click(object sender, EventArgs e)
+        {
+            String ClassId = ((Button)sender).CommandArgument.ToString();
+            CourseClass CourseClass = CourseClassBLL.Instance.GetCourseClassById(ClassId);
+            CourseClassBLL.Instance.DeleteCourseClass(CourseClass);
+            Bind_ClassList();
+        }
     }
 }

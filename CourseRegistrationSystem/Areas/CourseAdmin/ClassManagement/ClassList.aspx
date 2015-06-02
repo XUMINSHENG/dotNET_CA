@@ -80,7 +80,7 @@
                         </HeaderTemplate>
                         <ItemTemplate >
                             <asp:LinkButton runat="server" Text='<%# Eval("ClassId") %>' style="display:block;text-align:left"
-                                CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNVIEW_Click" ></asp:LinkButton>
+                                CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNViewDetail_Click" ></asp:LinkButton>
                         </ItemTemplate>
                         <HeaderStyle Width="100px" />
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
@@ -93,7 +93,7 @@
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
                         <ItemTemplate >
                             <asp:LinkButton runat="server" ID="RegNum" style="display:block;text-align:left"
-                                CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNVIEW_Click" ></asp:LinkButton>
+                                CommandArgument='<%#Eval("ClassId") %>' OnClick="RegNum_Click" ></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                     
@@ -133,9 +133,10 @@
                                 OnClick="BTNEDIT_Click" 
                                 CommandArgument='<%# Bind("ClassId") %>' Width="50px" />
 
-                            <asp:Button ID="BtnViewDetail" runat="server" Font-Size="9pt" Text="Delete" 
-                                OnClick="BTNViewDetail_Click" 
+                            <asp:Button ID="BtnDel" runat="server" Font-Size="9pt" Text="Delete" 
+                                OnClick="BTNDELETE_Click" 
                                 CommandArgument='<%# Bind("ClassId") %>' 
+                                OnClientClick='javascript:return confirm("This record will be deleted?");'
                                 Width="50px" />
 
                         </ItemTemplate>

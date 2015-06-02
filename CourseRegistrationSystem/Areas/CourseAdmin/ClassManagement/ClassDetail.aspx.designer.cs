@@ -22,13 +22,13 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// table1 control.
+        /// DataTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table table1;
+        protected global::System.Web.UI.WebControls.Table DataTable;
         
         /// <summary>
         /// tb_ClassID control.
@@ -76,12 +76,30 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddt_ClassStatus;
         
         /// <summary>
-        /// DropDownCourse control.
+        /// ddt_Course control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownCourse;
+        protected global::System.Web.UI.WebControls.DropDownList ddt_Course;
+        
+        /// <summary>
+        /// btn_Submit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Submit;
+        
+        /// <summary>
+        /// btn_Cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Cancel;
     }
 }
