@@ -17,11 +17,13 @@ namespace CourseRegistration.Models
         public String IdNumber{ get;set; }
         public virtual Company Company { get; set; }
         public String Salutation{ get;set; }
+        [Display(Name = "Status")]
         public String EmploymentStatus{ get;set; }
         public String CompanyName{ get;set; }
         public String JobTitle{ get;set; }
         public String Department{ get;set; }
         [Required]
+        [Display(Name = "Name")]
         public String FullName{ get;set; }
         [Required]
         public Gender Gender { get; set; }
@@ -32,6 +34,7 @@ namespace CourseRegistration.Models
         [DataType(DataType.EmailAddress)]
         public String Email{ get;set; }
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "PhoneNo.")]
         public String ContactNumber{ get;set; }
         public String DietaryRequirement{ get;set; }
         public OrganizationSize OrganizationSize { get; set; }
