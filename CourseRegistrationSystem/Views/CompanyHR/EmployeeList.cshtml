@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CourseRegistration.Models.Participant>
 
 <p>
-    @Html.ActionLink("Create New", "CreateEmployee")
+    @Html.ActionLink("New Employee", "EmployeeCreate")
 </p>
 <table class="table">
     <tr>
@@ -71,9 +71,9 @@
             @Html.DisplayFor(modelItem => item.ContactNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ParticipantId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ParticipantId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ParticipantId })
+            @Html.ActionLink("Edit", "EmployeeEdit", new { id = item.ParticipantId }) |
+            @Html.ActionLink("Details", "EmployeeDetails", new { id = item.ParticipantId }) |
+            @Html.ActionLink("Delete", "EmployeeDelete", new { id=item.ParticipantId })
         </td>
     </tr>
 }

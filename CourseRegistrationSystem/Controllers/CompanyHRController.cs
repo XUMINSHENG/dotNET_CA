@@ -88,6 +88,9 @@ namespace CourseRegistrationSystem.Controllers
             }
         }
 
+
+        #region Company Functions
+
         // GET: CompanyHR
         public ActionResult CompanyInfo()
         {
@@ -113,7 +116,11 @@ namespace CourseRegistrationSystem.Controllers
             }
         }
 
-        // GET: CompanyHR
+        #endregion
+
+        #region Employee Functions
+
+        // GET: CompanyHR/EmployeeList
         public ActionResult EmployeeList()
         {
             Company company = CompanyBLL.Instance.GetCompanyById(1);
@@ -121,15 +128,26 @@ namespace CourseRegistrationSystem.Controllers
             return View(participantList);
         }
 
-        // GET: CompanyHR/Create
-        public ActionResult CreateEmployee()
+        // GET: CompanyHR/EmployeeDetails/5
+        public ActionResult EmployeeDetails(int id)
+        {
+            Participant participant = ParticipantBLL.Instance.GetParticipantById(id);
+            if (participant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(participant);
+        }
+
+        // GET: CompanyHR/EmployeeCreate
+        public ActionResult EmployeeCreate()
         {
             return View();
         }
 
-        // POST: CompanyHR/Create
+        // POST: CompanyHR/EmployeeCreate
         [HttpPost]
-        public ActionResult CreateEmployee(Participant participant)
+        public ActionResult EmployeeCreate(Participant participant)
         {
             try
             {
@@ -144,5 +162,64 @@ namespace CourseRegistrationSystem.Controllers
             }
         }
 
+        // GET: CompanyHR/EmployeeEdit/5
+        public ActionResult EmployeeEdit(int id)
+        {
+            Participant participant = ParticipantBLL.Instance.GetParticipantById(id);
+            if (participant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(participant);
+        }
+
+        // POST: CompanyHR/EmployeeEdit/5
+        [HttpPost]
+        public ActionResult EmployeeEdit(int id, FormCollection collection)
+        {
+            try
+            {
+                Participant participant = ParticipantBLL.Instance.GetParticipantById(id);
+                UpdateModel(participant);
+                ParticipantBLL.Instance.EditParticipant(participant);
+
+                return RedirectToAction("EmployeeList");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: CompanyHR/EmployeeDelete/5
+        public ActionResult EmployeeDelete(int id)
+        {
+            Participant participant = ParticipantBLL.Instance.GetParticipantById(id);
+            if (participant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(participant);
+        }
+
+        // POST: CompanyHR/EmployeeDelete/5
+        [HttpPost]
+        public ActionResult EmployeeDelete(int id, FormCollection collection)
+        {
+            try
+            {
+                Participant participant = ParticipantBLL.Instance.GetParticipantById(id);
+                UpdateModel(participant);
+                ParticipantBLL.Instance.DeleteParticipant(participant);
+
+                return RedirectToAction("EmployeeList");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        #endregion
     }
 }

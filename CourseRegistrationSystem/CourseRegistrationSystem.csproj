@@ -456,8 +456,11 @@
     <Content Include="Views\Account\RegisterCompanyHR.cshtml" />
     <Content Include="Views\CompanyHR\CompanyInfo.cshtml" />
     <Content Include="Views\CompanyHR\EmployeeList.cshtml" />
-    <Content Include="Views\CompanyHR\CreateEmployee.cshtml" />
+    <Content Include="Views\CompanyHR\EmployeeCreate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\CompanyHR\EmployeeEdit.cshtml" />
+    <Content Include="Views\CompanyHR\EmployeeDetails.cshtml" />
+    <Content Include="Views\CompanyHR\EmployeeDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
