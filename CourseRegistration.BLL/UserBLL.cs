@@ -79,6 +79,7 @@ namespace CourseRegistration.BLL
             uow.CompanyHRRepository.Insert(HR);
 
             uow.Save();
+            uow.AppUserManager.SendEmail(user.Id, "Account Credentials", "Your Login Credentials are <br/> UserName:" + user.UserName + "<br/> Password:" + pwd);
             return user;
 
         }
