@@ -124,6 +124,34 @@ namespace CourseRegistration.BLL
             return uow.AppUserManager.FindById(id);
         }
 
+        public async Task<bool> ConfirmEmail(string id,bool status)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            ApplicationUser user = GetUserById(id);
+            if (user == null || status == false)
+                return false;
+            else
+            {
+                await uow.AppUserStore.SetEmailConfirmedAsync(user, status);
+                uow.Save();
+                return true;
+            }
+        }
+
+        public async Task<bool> setPassword(string id,string password , bool status)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            ApplicationUser user = GetUserById(id);
+            if (user == null || status == false)
+                return false;
+            else
+            {
+                await uow.AppUserStore.SetPasswordHashAsync(user, uow.AppUserManager.PasswordHasher.HashPassword(password));
+                uow.Save();
+                return true;
+            }
+        }
+
         public void DeleteUser(ApplicationUser user)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

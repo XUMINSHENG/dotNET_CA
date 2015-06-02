@@ -314,7 +314,8 @@ namespace CourseRegistrationSystem.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            var updateResult = CourseRegistration.BLL.UserBLL.Instance.ConfirmEmail(userId, result.Succeeded);
+            return View(updateResult.Result ? "ConfirmEmail" : "Error");
         }
 
         //
@@ -335,8 +336,7 @@ namespace CourseRegistrationSystem.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                if (user == null)
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -396,7 +396,8 @@ namespace CourseRegistrationSystem.Controllers
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
+            var updateResult = CourseRegistration.BLL.UserBLL.Instance.setPassword(user.Id, model.Password ,result.Succeeded);
+            if (updateResult.Result)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
