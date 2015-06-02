@@ -35,6 +35,7 @@ namespace CourseRegistration.Models
         public String ContactNumber{ get;set; }
         public String DietaryRequirement{ get;set; }
         public OrganizationSize OrganizationSize { get; set; }
+        [Display(Name = "Annual Salary")]
         public SalaryRange SalaryRange { get; set; }
 
         private List<Registration> registrations;
