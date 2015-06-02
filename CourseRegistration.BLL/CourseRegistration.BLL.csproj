@@ -58,11 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompanyBLL.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="InstructorBLL.cs" />
     <Compile Include="CategoryBLL.cs" />
     <Compile Include="CourseClassBLL.cs" />
-    <Compile Include="CompanyBLL.cs" />
+    <Compile Include="CompanyHRBLL.cs" />
     <Compile Include="CourseBLL.cs" />
     <Compile Include="UserBLL.cs" />
     <Compile Include="RoleBLL.cs" />

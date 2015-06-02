@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
+using Microsoft.AspNet.Identity;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -123,8 +124,9 @@ namespace CourseRegistrationSystem.Controllers
         // GET: CompanyHR/EmployeeList
         public ActionResult EmployeeList()
         {
-            Company company = CompanyBLL.Instance.GetCompanyById(1);
-            List<Participant> participantList = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(company.CompanyId);
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            List<Participant> participantList = loginHR.Company.Employees;
             return View(participantList);
         }
 
@@ -152,6 +154,7 @@ namespace CourseRegistrationSystem.Controllers
         {
             try
             {
+
                 Company company = CompanyBLL.Instance.GetCompanyById(1);
                 ParticipantBLL.Instance.CreateForCompanyEmployee(company, participant);
 
