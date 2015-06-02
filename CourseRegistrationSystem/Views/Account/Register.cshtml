@@ -1,6 +1,7 @@
-﻿@model CourseRegistration.Models.Participant
-@{
+﻿@{
     ViewBag.Title = "Register";
+    ViewBag.IndividualUser = CourseRegistration.BLL.Util.C_Role_IndividualUser;
+    ViewBag.CompanyHR = CourseRegistration.BLL.Util.C_Role_CompanyHR;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -13,10 +14,10 @@
             @Html.Label("Register As", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="radio-inline">
-                    @Html.RadioButton("registerAs", "IndividualUser", new { id = "IndividualUser", onclick = "showResult(this)" }) IndividualUser
+                    @Html.RadioButton("registerAs", (string)@ViewBag.IndividualUser, new { id = @ViewBag.IndividualUser, onclick = "showRegisterResult(this)" }) @ViewBag.IndividualUser
                 </div>
                 <div class="radio-inline">
-                    @Html.RadioButton("registerAs", "CompanyHR", new { id = "CompanyHR", onclick = "showResult(this)" }) CompanyHR
+                    @Html.RadioButton("registerAs", (string)@ViewBag.CompanyHR, new { id = @ViewBag.CompanyHR, onclick = "showRegisterResult(this)" }) @ViewBag.CompanyHR
                 </div>
                 @Html.ValidationMessage("registerAs", new { htmlAttributes = new { @class = "text-danger" } })
             </div>
@@ -28,13 +29,15 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    function showResult(radio) {
+    function showRegisterResult(radio) {
         var selected = radio.value;
-        if (selected == "IndividualUser") {
+        var individualUser = '@ViewBag.IndividualUser';
+        var companyHR = '@ViewBag.CompanyHR';
+        if (selected == individualUser) {
             //$("#RegisterPage").load("/Account/RegisterIndividualUser");
             $url = "/Account/RegisterIndividualUser";
         }
-        else if (selected == "CompanyHR") {
+        else if (selected == companyHR) {
             // $("#RegisterPage").load("/Account/RegisterCompanyHR");
             $url = "/Account/RegisterCompanyHR";
         }

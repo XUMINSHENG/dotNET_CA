@@ -48,10 +48,6 @@ namespace CourseRegistrationSystem.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -62,6 +58,26 @@ namespace CourseRegistrationSystem.Models
         public bool RememberMe { get; set; }
     }
 
+    public class IndividualUserLoginViewModel : LoginViewModel
+    {
+        [Required]
+        [Display(Name = "NRIC/PASSPORT")]
+        public string UserName { get; set; }
+    }
+    public class CompanyHrLoginViewModel : LoginViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string UserName { get; set; }
+
+    }
+    public class StaffLoginViewModel : LoginViewModel
+    {
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+    }
     public class RegisterViewModel
     {
         [Required]
@@ -89,7 +105,7 @@ namespace CourseRegistrationSystem.Models
         public string Email { get; set; }
 
         [Required]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

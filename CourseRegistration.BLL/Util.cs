@@ -13,6 +13,7 @@ namespace CourseRegistration.BLL
     {
         public const string C_Role_SystemAdmin = "SystemAdmin";
         public const string C_Role_CourseAdmin = "CourseAdmin";
+        public const string C_Role_Staff = "Staff";
         public const string C_Role_CompanyHR = "CompanyHR";
         public const string C_Role_IndividualUser = "IndividualUser";
 
