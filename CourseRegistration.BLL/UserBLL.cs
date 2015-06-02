@@ -76,6 +76,8 @@ namespace CourseRegistration.BLL
             uow.CompanyRepository.Insert(company);
 
              // Create CompanyHR
+            HR.Company = company;
+            HR.AppUser = user;
             uow.CompanyHRRepository.Insert(HR);
 
             uow.Save();
