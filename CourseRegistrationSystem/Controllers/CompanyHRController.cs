@@ -140,6 +140,7 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         // GET: CompanyHR/EmployeeCreate
+        [Authorize(Roles = "CompanyHR")]
         public ActionResult EmployeeCreate()
         {
             return View();

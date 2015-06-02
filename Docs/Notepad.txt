@@ -25,3 +25,10 @@
  Extends IdentityDBContext
 
 BusinessRule:
+ 1. no two participant records with same NRIC and Company attribute
+ 2. Same Participant can not register two classes overlap
+ 
+
+
+Assumption:
+do not allow edit for registration or class that is passed

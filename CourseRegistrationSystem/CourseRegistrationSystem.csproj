@@ -325,6 +325,7 @@
     <Content Include="Areas\CourseAdmin\CourseAdmin.Master" />
     <Content Include="Areas\SystemAdmin\SystemAdmin.Master" />
     <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\CourseAdmin\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
