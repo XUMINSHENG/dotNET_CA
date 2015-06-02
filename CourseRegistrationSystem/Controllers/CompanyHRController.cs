@@ -95,8 +95,9 @@ namespace CourseRegistrationSystem.Controllers
         // GET: CompanyHR
         public ActionResult CompanyInfo()
         {
-
-            Company company = CompanyBLL.Instance.GetCompanyById(1);
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            Company company = loginHR.Company;
 
             return View(company);
         }
@@ -154,9 +155,9 @@ namespace CourseRegistrationSystem.Controllers
         {
             try
             {
-
-                Company company = CompanyBLL.Instance.GetCompanyById(1);
-                ParticipantBLL.Instance.CreateForCompanyEmployee(company, participant);
+                String loginUserId = User.Identity.GetUserId();
+                CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+                ParticipantBLL.Instance.CreateForCompanyEmployee(loginHR.Company, participant);
 
                 return RedirectToAction("EmployeeList");
             }
@@ -223,6 +224,10 @@ namespace CourseRegistrationSystem.Controllers
                 return View();
             }
         }
+
+        #endregion
+
+        #region Registration Functions
 
         #endregion
     }

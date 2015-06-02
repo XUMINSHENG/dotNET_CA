@@ -32,10 +32,10 @@ namespace CourseRegistration.BLL
             return uow.CompanyHRRepository.GetAll().ToList();
         }
 
-        public CompanyHR GetCompanyHRByUserId(String UserId)
+        public CompanyHR GetCompanyHRByUserId(String userId)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.CompanyHRRepository.GetById(UserId);
+            return uow.CompanyHRRepository.GetAll().Where(x => x.AppUser.Id == userId).SingleOrDefault();
         }
 
         public void EditCompanyHR(CompanyHR hr)
