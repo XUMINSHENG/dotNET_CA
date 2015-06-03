@@ -282,6 +282,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -450,7 +451,6 @@
     <Content Include="Views\Instructor\Details.cshtml" />
     <Content Include="Views\Class\Details.cshtml" />
     <Content Include="Views\Class\RegisterClass.cshtml" />
-    <Content Include="Views\Class\ParticipantView.cshtml" />
     <Content Include="Views\Account\RegisterHR.cshtml" />
     <Content Include="Views\Account\RegisterIndividualUser.cshtml" />
     <Content Include="Views\Account\RegisterCompany.cshtml" />
@@ -465,6 +465,7 @@
     <Content Include="Views\Account\LoginIndividualUser.cshtml" />
     <Content Include="Views\Account\LoginCompanyHR.cshtml" />
     <Content Include="Views\Account\LoginStaff.cshtml" />
+    <Content Include="Views\Class\RegisterClassForHR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,20 +24,25 @@ namespace CourseRegistrationSystem.Controllers
             return View(courseClass);
         }
 
-        public ActionResult RegisterClass(String id)
+        public ActionResult RegisterClassForIU(String classId, String userId)
         {
-            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
+            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             //get personal details to pre fill paticipant details
 
             return View(courseClass);
         }
 
-        public ActionResult ParticipantView()
+        public ActionResult RegisterClassForHR(String classId, int cmpId)
         {
-            //get personal info if indivual user
-            //get employees list if company user
-            Participant p = new Participant();
-            return PartialView(p);
+            Registration registration = new Registration();
+
+            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
+            ViewBag.CourseClass = courseClass;
+            ViewBag.EmployeeList = participants;
+
+            return View(courseClass);
         }
+
     }
 }
