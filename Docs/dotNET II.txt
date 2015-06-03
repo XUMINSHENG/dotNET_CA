@@ -1,11 +1,16 @@
 1.refine system architecture
 2.refine domain class diagram
 3.refine usecase
+
 4.for WCF part
-	implement facade
 	implement WCF(with justification of binding type etc.)
-	implement Client Application
+		1.Course Registration Web Service
+		2.Attendance System
+			get student list
+			submit attendance
+		
+	implement Client Application 1 day
 5.for WWF part
 	implement Course Confirmation Process
 	implement Course Completion Process
-	implement Webform pages to call those WWF
+	implement Webform pages to call those WWF(CourseAdmin-ClassManagement ; Instructor-Assessment)
