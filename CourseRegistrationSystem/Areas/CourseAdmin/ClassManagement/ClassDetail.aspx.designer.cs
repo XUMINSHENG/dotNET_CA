@@ -40,22 +40,22 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox tb_ClassID;
         
         /// <summary>
-        /// tb_startDate control.
+        /// Start_Date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_startDate;
+        protected global::System.Web.UI.WebControls.Calendar Start_Date;
         
         /// <summary>
-        /// tb_endDate control.
+        /// End_Date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_endDate;
+        protected global::System.Web.UI.WebControls.Calendar End_Date;
         
         /// <summary>
         /// ddl_RegisterStatus control.

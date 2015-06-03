@@ -18,7 +18,19 @@
                 <asp:Label runat="server" Text="Start Date"></asp:Label>
             </asp:TableCell>
             <asp:TableCell>
-                 <asp:TextBox runat="server" ID ="tb_startDate"></asp:TextBox>
+                 <asp:Calendar ID="Start_Date" runat="server" BackColor="White"
+                      BorderColor="#3366CC" BorderWidth="1px" CellPadding="1"
+                      DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
+                      ForeColor="#003399" Height="200px" Width="220px" OnSelectionChanged="Start_Date_SelectionChanged">
+                 <DayHeaderStyle BackColor="#99CCCC" ForeColor="#336666" Height="1px" />
+                 <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                 <OtherMonthDayStyle ForeColor="#999999" />
+                 <SelectedDayStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+                 <SelectorStyle BackColor="#99CCCC" ForeColor="#336666" />
+                 <TitleStyle BackColor="#003399" BorderColor="#3366CC" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="#CCCCFF" Height="25px" />
+                 <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                 <WeekendDayStyle BackColor="#CCCCFF" />
+        </asp:Calendar>
             </asp:TableCell>
         </asp:TableRow>
 
@@ -27,7 +39,18 @@
                 <asp:Label runat="server" Text="End Date"></asp:Label>
             </asp:TableCell>
             <asp:TableCell>
-                 <asp:TextBox runat="server" ID ="tb_endDate"></asp:TextBox>
+                 <asp:Calendar ID ="End_Date" runat="server" sBackColor="White"
+                      BorderColor="#3366CC" BorderWidth="1px" CellPadding="1"
+                      DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
+                      ForeColor="#003399" Height="200px" Width="220px" OnSelectionChanged="End_Date_SelectionChanged">
+                 <DayHeaderStyle BackColor="#99CCCC" ForeColor="#336666" Height="1px" />
+                 <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                 <OtherMonthDayStyle ForeColor="#999999" />
+                 <SelectedDayStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+                 <SelectorStyle BackColor="#99CCCC" ForeColor="#336666" />
+                 <TitleStyle BackColor="#003399" BorderColor="#3366CC" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="#CCCCFF" Height="25px" />
+                 <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                 <WeekendDayStyle BackColor="#CCCCFF" /></asp:Calendar>
             </asp:TableCell>
         </asp:TableRow>
 
@@ -76,6 +99,5 @@
             </asp:TableCell>
         </asp:TableFooterRow>
     </asp:Table>
-        
     </form>
 </body>
