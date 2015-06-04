@@ -11,12 +11,12 @@ namespace CourseRegistrationSystem.Models
     {
         [Required]
         public CourseClass courseClass { get; set; }
-        
-        public Sponsorship sponsorship { get; set; }
-
         public String billingAddress { get; set; }
 
+        public String billingPersonName { get; set; }
 
-        
+        public String billlingAddressCountry { get; set; }
+
+        public String billingAddressPostalCode { get; set; } 
     }
 }

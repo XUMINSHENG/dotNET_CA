@@ -8,7 +8,7 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Model.ClassId</li>
+    <li>@ViewBag.CourseClass.ClassId</li>
 </ul>
 
 <h2>@Model.ClassId Class Registration</h2>
@@ -26,20 +26,23 @@
 @{
     var participants = new List<Participant>();
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-        <h3 class="panel-title">Step1: Participant Details</h3>
-    </div>
-    <div class="collapse" id="collapse1">
-        <div class="panel-body">
-            <div>
-                <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</button>
-                <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from your employee list</button>
-                <hr />
-            </div>
-            @{
-                if (participants.Count == 0)
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <h3 class="panel-title">Step1: Participant Details</h3>
+        </div>
+        <div class="collapse" id="collapse1">
+            <div class="panel-body">
+                <div>
+                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</button>
+                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from your employee list</button>
+                    <hr />
+                </div>
+
+                @if (participants.Count == 0)
                 {
                     <p>There is no participant. Please add one at least.</p>
                 }
@@ -50,27 +53,28 @@
                         <button type="button" class="btn btn-primary btn-lg btn-block">@p.FullName</button>
                     }
                 }
-            }
+            
+            </div>
         </div>
     </div>
-</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-        <h3 class="panel-title">Step2: Bill Details</h3>
-    </div>
-    <div class="collapse" id="collapse2">
-        <div class="panel-body">
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+            <h3 class="panel-title">Step2: Bill Details</h3>
+        </div>
+        <div class="collapse" id="collapse2">
+            <div class="panel-body">
 
+            </div>
         </div>
     </div>
-</div>
 
 
-<hr />
-<nav>
-    <ul class="pager">
-        @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
-        <li class="next"><a href="#">Register</a></li>
-    </ul>
-</nav>
+    <hr />
+    <nav>
+        <ul class="pager">
+            @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
+            <li class="next"><a href="#">Register</a></li>
+        </ul>
+    </nav>
+}

@@ -44,5 +44,10 @@ namespace CourseRegistrationSystem.Controllers
             return View(courseClass);
         }
 
+        [HttpPost]
+        public ActionResult RegisterClassForHR(int cmpId)
+        {
+            return View();
+        }
     }
 }

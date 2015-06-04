@@ -91,30 +91,31 @@ namespace CourseRegistration.BLL
             
         }
 
-        public void CreateForCompanyEmployee(Registration r)
+        public void CreateForCompanyEmployee(List<Registration> registrationList)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
-            // Participant exists or not
-            IQueryable<Participant> query =
-                from participant in uow.ParticipantRepository.GetAll()
-                where
-                    (participant.IdNumber == r.Participant.IdNumber && participant.Company == r.Participant.Company)
-                select participant;
-
-            // Participant does not exist
-            if (query.Count() == 0)
+            foreach (Registration reg in registrationList)
             {
-                // Create Participant
+                // Participant exists or not
+                IQueryable<Participant> query =
+                    from participant in uow.ParticipantRepository.GetAll()
+                    where
+                        (participant.IdNumber == reg.Participant.IdNumber && participant.Company == reg.Participant.Company)
+                    select participant;
 
+                // Participant does not exist
+                if (query.Count() == 0)
+                {
+                    // Create Participant
+
+                }
+                else
+                {
+
+                }
+                uow.RegistrationRepository.Insert(reg);
             }
-            else
-            {
-
-            }
-
-            uow.RegistrationRepository.Insert(r);
-
             uow.Save();
 
         }
