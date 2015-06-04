@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}</ProjectGuid>
+    <ProjectGuid>{C98EB79C-783D-44C4-BFE6-9B7E92A76075}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -59,14 +59,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Service1.svc" />
+    <Content Include="CourseRegistrationService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service1.svc.cs">
-      <DependentUpon>Service1.svc</DependentUpon>
+    <Compile Include="CourseRegistrationData.cs" />
+    <Compile Include="CourseRegistrationService.svc.cs">
+      <DependentUpon>CourseRegistrationService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="ICourseRegistrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +80,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CourseRegistration.BLL\CourseRegistration.BLL.csproj">
+      <Project>{d6012b68-8b14-4f78-9060-4e7626bc1fcc}</Project>
+      <Name>CourseRegistration.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseRegistration.Models\CourseRegistration.Models.csproj">
+      <Project>{074cc324-7ca6-4285-a175-6115bfa2be17}</Project>
+      <Name>CourseRegistration.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -93,7 +104,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1663</DevelopmentServerPort>
+          <DevelopmentServerPort>2178</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1663/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

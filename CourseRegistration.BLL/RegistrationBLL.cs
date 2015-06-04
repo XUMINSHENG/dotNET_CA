@@ -22,15 +22,18 @@ namespace CourseRegistration.BLL
         public static RegistrationBLL Instance { get { return lazy.Value; } }
 
 
-        public void CreateForIndividualUser(Registration r)
+        public void CreateForIndividualUser(Registration reg)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+
+            //validate
+            ValidateRegistration(reg);
 
             // Participant exists or not
             IQueryable<Participant> query = 
                 from participant in uow.ParticipantRepository.GetAll()
                 where
-                    (participant.IdNumber == r.Participant.IdNumber && participant.Company == null)
+                    (participant.IdNumber == reg.Participant.IdNumber && participant.Company == null)
                 select participant;
 
             
@@ -42,9 +45,9 @@ namespace CourseRegistration.BLL
                 ApplicationUser user = new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = r.Participant.IdNumber,
-                    Email = r.Participant.Email,
-                    PhoneNumber = r.Participant.ContactNumber,
+                    UserName = reg.Participant.IdNumber,
+                    Email = reg.Participant.Email,
+                    PhoneNumber = reg.Participant.ContactNumber,
                     isSysGenPassword = true
                 };
                 user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
@@ -54,8 +57,8 @@ namespace CourseRegistration.BLL
                 uow.AppUserManager.Create(user, pwd);
 
                 // Create New Participant
-                r.Participant.AppUser = user;
-                uow.ParticipantRepository.Insert(r.Participant);
+                reg.Participant.AppUser = user;
+                uow.ParticipantRepository.Insert(reg.Participant);
 
             }
             else
@@ -63,29 +66,15 @@ namespace CourseRegistration.BLL
                 // already exist
                 // get participant record with same IdNo and Company == null
                 Participant p = query.Single();
+                // update existing one
+                UpdateRegParticipant(p, reg.Participant);
+                uow.ParticipantRepository.Edit(p);
 
-                // update exist one
-                p.Salutation = r.Participant.Salutation;
-                p.EmploymentStatus = r.Participant.EmploymentStatus;
-                p.CompanyName = r.Participant.CompanyName;
-                p.JobTitle = r.Participant.JobTitle;
-                p.Department = r.Participant.Department;
-                p.FullName = r.Participant.FullName;
-                p.Gender = r.Participant.Gender;
-                p.Nationality = r.Participant.Nationality;
-                p.DateOfBirth = r.Participant.DateOfBirth;
-                p.Email = r.Participant.Email;
-                p.ContactNumber = r.Participant.ContactNumber;
-                p.DietaryRequirement = r.Participant.DietaryRequirement;
-                p.OrganizationSize = r.Participant.OrganizationSize;
-                p.SalaryRange = r.Participant.SalaryRange;
-                    
+                reg.Participant = p;
             }
 
-
             // Create Registration
-            uow.RegistrationRepository.Insert(r);
-            
+            uow.RegistrationRepository.Insert(reg);
             
             uow.Save();
             
@@ -95,26 +84,35 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
+            
+
             foreach (Registration reg in registrationList)
             {
+                ValidateRegistration(reg);
+
                 // Participant exists or not
                 IQueryable<Participant> query =
                     from participant in uow.ParticipantRepository.GetAll()
                     where
-                        (participant.IdNumber == reg.Participant.IdNumber && participant.Company == reg.Participant.Company)
+                        (participant.IdNumber == reg.Participant.IdNumber && 
+                        participant.Company.CompanyId == reg.Participant.Company.CompanyId)
                     select participant;
 
-                Participant existingOne = query.SingleOrDefault();
-
                 // Participant does not exist
-                if (existingOne == null)
+                if (query.Count() == 0)
                 {
-                    // Create Participant
-                    uow.ParticipantRepository.Insert(reg.Participant);
+                    // EF automatically Create Participant
                 }
                 else
                 {
-                    uow.ParticipantRepository.Edit(reg.Participant);
+                    // get participant record with same IdNo and Company == passed
+                    Participant p = query.Single();
+                    // update existing one
+                    UpdateRegParticipant(p,reg.Participant);
+                    uow.ParticipantRepository.Edit(p);
+
+                    reg.Participant = p;
+
                 }
                 uow.RegistrationRepository.Insert(reg);
             }
@@ -199,5 +197,35 @@ namespace CourseRegistration.BLL
              
         }
 
+
+
+        private void ValidateRegistration(Registration r)
+        {
+            // class open for reg
+
+            // this participant doesn't register this class
+
+
+        }
+
+
+        private void UpdateRegParticipant(Participant oldP, Participant newP)
+        {
+            //
+            oldP.Salutation = newP.Salutation;
+            oldP.EmploymentStatus = newP.EmploymentStatus;
+            oldP.CompanyName = newP.CompanyName;
+            oldP.JobTitle = newP.JobTitle;
+            oldP.Department = newP.Department;
+            oldP.FullName = newP.FullName;
+            oldP.Gender = newP.Gender;
+            oldP.Nationality = newP.Nationality;
+            oldP.DateOfBirth = newP.DateOfBirth;
+            oldP.Email = newP.Email;
+            oldP.ContactNumber = newP.ContactNumber;
+            oldP.DietaryRequirement = newP.DietaryRequirement;
+            oldP.OrganizationSize = newP.OrganizationSize;
+            oldP.SalaryRange = newP.SalaryRange;
+        }
     }
 }

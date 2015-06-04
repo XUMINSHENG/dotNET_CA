@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.Data", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.BLL", "CourseRegistration.BLL\CourseRegistration.BLL.csproj", "{D6012B68-8B14-4F78-9060-4E7626BC1FCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.Service", "CourseRegistration.Service\CourseRegistration.Service.csproj", "{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.Service", "CourseRegistration.Service\CourseRegistration.Service.csproj", "{C98EB79C-783D-44C4-BFE6-9B7E92A76075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{D6012B68-8B14-4F78-9060-4E7626BC1FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6012B68-8B14-4F78-9060-4E7626BC1FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6012B68-8B14-4F78-9060-4E7626BC1FCC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B07AB5A8-F9FE-4F3A-8550-8B69CF4800A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
