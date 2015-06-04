@@ -62,7 +62,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 {
                     L_ErrMsgID.Text = "Opertion Succeed!";
                     btn_Submit.Visible=false;
-                    btn_Cancel.Text="Back to Class List"
+                    btn_Cancel.Text = "Back to Class List";
                 }
                     
         }
