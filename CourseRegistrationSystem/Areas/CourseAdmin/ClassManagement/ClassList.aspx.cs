@@ -139,7 +139,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            Bind_ClassList();
         }
 
         protected void RegNum_Click(object sender, EventArgs e)
