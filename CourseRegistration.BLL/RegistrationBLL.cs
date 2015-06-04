@@ -104,15 +104,17 @@ namespace CourseRegistration.BLL
                         (participant.IdNumber == reg.Participant.IdNumber && participant.Company == reg.Participant.Company)
                     select participant;
 
+                Participant existingOne = query.SingleOrDefault();
+
                 // Participant does not exist
-                if (query.Count() == 0)
+                if (existingOne == null)
                 {
                     // Create Participant
-
+                    uow.ParticipantRepository.Insert(reg.Participant);
                 }
                 else
                 {
-
+                    uow.ParticipantRepository.Edit(reg.Participant);
                 }
                 uow.RegistrationRepository.Insert(reg);
             }
