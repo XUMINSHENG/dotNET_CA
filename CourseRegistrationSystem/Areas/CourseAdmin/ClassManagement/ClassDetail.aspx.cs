@@ -57,13 +57,35 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         }
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            checkDataFormat();
-            saveClass();
+            if(checkDataFormat()==true)
+                if (saveClass() == true)
+                {
+                    L_ErrMsgID.Text = "Opertion Succeed!";
+                    btn_Submit.Visible=false;
+                    btn_Cancel.Text="Back to Class List"
+                }
+                    
         }
 
-        protected void checkDataFormat()
-        { 
-            
+        protected bool checkDataFormat()
+        {
+            if (tb_ClassID.Text == "")
+            {
+                L_ErrMsgID.Text = "Class ID can't be empty!";
+                return false;
+            }
+            else
+            {
+                Course course = CourseBLL.Instance.GetCourseByCode(ddt_Course.SelectedValue);
+                DateTime least = Start_Date.TodaysDate;
+                least = least.AddDays(course.NumberOfDays-1);
+                if (least < End_Date.TodaysDate)
+                {
+                    L_ErrMsgDate.Text = course.CourseTitle + " need to least " + course.NumberOfDays + "day!";
+                    return false;
+                }  
+            }
+            return true;
         }
 
         protected void btn_Cancel_Click(object sender, EventArgs e)
@@ -77,6 +99,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             {
                 tb_ClassID.Enabled = true;
                 ddl_RegisterStatus.Enabled = true;
+                ddl_RegisterStatus.SelectedIndex=1;
                 ddt_ClassStatus.Enabled = true;
                 ddt_Course.Enabled = true;
                 Start_Date.Enabled = true;
@@ -84,6 +107,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 btn_Submit.Text = "Create";
                 btn_Cancel.Text = "Cancel";
                 btn_Submit.Visible = true;
+                setEndDate();
             }
             else if (PageMode == WebFormHelper.C_Edit_Mode)
             {
@@ -113,15 +137,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
         protected void Start_Date_SelectionChanged(object sender, EventArgs e)
         {
             Start_Date.TodaysDate = Start_Date.SelectedDate;
-            DateTime start = Start_Date.SelectedDate;
-            if (btn_Submit.Text == "Save")
-            {
-                String ClassId = tb_ClassID.Text;
-                CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(ClassId);
-                int NumOfDays = courseClass.Course.NumberOfDays;
-                End_Date.SelectedDate = start.AddDays(NumOfDays - 1);
-                End_Date.TodaysDate = start.AddDays(NumOfDays - 1);
-            }
+            setEndDate();
+        }
+
+        protected void setEndDate()
+        {
+            Course course = CourseBLL.Instance.GetCourseByCode(ddt_Course.SelectedValue);
+            DateTime start = Start_Date.TodaysDate;
+            int NumOfDays = course.NumberOfDays;
+            End_Date.SelectedDate = start.AddDays(NumOfDays - 1);
+            End_Date.TodaysDate = start.AddDays(NumOfDays - 1);
         }
 
         protected void End_Date_SelectionChanged(object sender, EventArgs e)
@@ -134,8 +159,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             {
                 CourseClass courseClass = new CourseClass();
                 courseClass.ClassId = tb_ClassID.Text;
-                courseClass.StartDate = Start_Date.SelectedDate;
-                courseClass.EndDate = End_Date.SelectedDate;
+                courseClass.StartDate = Start_Date.TodaysDate;
+                courseClass.EndDate = End_Date.TodaysDate;
                 courseClass.isOpenForRegister = System.Convert.ToBoolean(ddl_RegisterStatus.SelectedIndex);
                 switch (ddt_ClassStatus.SelectedIndex)
                 {
@@ -148,10 +173,26 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 return true;
             }
             else if (btn_Submit.Text == "Save")
-            { 
-                
+            {
+                CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(tb_ClassID.Text);
+                courseClass.StartDate = Start_Date.TodaysDate;
+                courseClass.EndDate = End_Date.TodaysDate;
+                courseClass.isOpenForRegister = System.Convert.ToBoolean(ddl_RegisterStatus.SelectedIndex);
+                switch (ddt_ClassStatus.SelectedIndex)
+                {
+                    case 0: { courseClass.Status = ClassStatus.Pending; break; }
+                    case 1: { courseClass.Status = ClassStatus.Confirmed; break; }
+                    case 2: { courseClass.Status = ClassStatus.Cancel; break; }
+                }
+                CourseClassBLL.Instance.UpdateCourseClass(courseClass);
+                return true;
             }
             return false;
+        }
+
+        protected void ddt_Course_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setEndDate();
         }
     }
 }

@@ -40,6 +40,24 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.TextBox tb_ClassID;
         
         /// <summary>
+        /// L_ErrMsgID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label L_ErrMsgID;
+        
+        /// <summary>
+        /// ddt_Course control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddt_Course;
+        
+        /// <summary>
         /// Start_Date control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.Calendar End_Date;
         
         /// <summary>
+        /// L_ErrMsgDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label L_ErrMsgDate;
+        
+        /// <summary>
         /// ddl_RegisterStatus control.
         /// </summary>
         /// <remarks>
@@ -74,15 +101,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddt_ClassStatus;
-        
-        /// <summary>
-        /// ddt_Course control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddt_Course;
         
         /// <summary>
         /// btn_Submit control.

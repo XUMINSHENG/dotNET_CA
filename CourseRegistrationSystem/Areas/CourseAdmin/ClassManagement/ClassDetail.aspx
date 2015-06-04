@@ -11,6 +11,19 @@
             <asp:TableCell>
                 <asp:TextBox runat="server" ID ="tb_ClassID"></asp:TextBox>
             </asp:TableCell>
+            <asp:TableCell>
+                  <asp:Label runat="server" ID ="L_ErrMsgID" ForeColor="#ff0000"></asp:Label>
+            </asp:TableCell>
+        </asp:TableRow>
+
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Label runat="server" Text="Course"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell>
+                <asp:DropDownList ID="ddt_Course" runat="server">
+                </asp:DropDownList>
+            </asp:TableCell>
         </asp:TableRow>
 
         <asp:TableRow>
@@ -52,6 +65,9 @@
                  <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
                  <WeekendDayStyle BackColor="#CCCCFF" /></asp:Calendar>
             </asp:TableCell>
+            <asp:TableCell>
+                  <asp:Label runat="server" ID ="L_ErrMsgDate" ForeColor="#ff0000"></asp:Label>
+            </asp:TableCell>
         </asp:TableRow>
 
         <asp:TableRow>
@@ -75,17 +91,6 @@
                     <asp:ListItem Text="Pending"></asp:ListItem>
                     <asp:ListItem Text="Confirm"></asp:ListItem>
                     <asp:ListItem Text ="Cancel"></asp:ListItem>
-                </asp:DropDownList>
-            </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow>
-            <asp:TableCell>
-                <asp:Label runat="server" Text="Course"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:DropDownList ID="ddt_Course" runat="server">
-
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>
