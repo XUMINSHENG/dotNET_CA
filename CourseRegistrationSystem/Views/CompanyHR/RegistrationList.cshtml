@@ -1,0 +1,92 @@
+﻿@model IEnumerable<CourseRegistration.Models.Registration>
+
+@{
+    ViewBag.Title = "RegistrationList";
+}
+
+<h2>RegistrationList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Sponsorship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DietaryRequirement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingPersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingAddressCountry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingAddressPostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sponsorship)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DietaryRequirement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingPersonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingAddressCountry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingAddressPostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Timestamp)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.RegistrationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RegistrationId })
+        </td>
+    </tr>
+}
+
+</table>
