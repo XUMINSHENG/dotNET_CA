@@ -84,8 +84,6 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
-            
-
             foreach (Registration reg in registrationList)
             {
                 ValidateRegistration(reg);

@@ -13,7 +13,7 @@ namespace CourseRegistration.Service
     // NOTE: In order to launch WCF Test Client for testing this service, please select CourseRegistrationService.svc or CourseRegistrationService.svc.cs at the Solution Explorer and start debugging.
     public class CourseRegistrationService : ICourseRegistrationService
     {
-        public Boolean RegisterCourseForEmployee(SvcParticipant svcParticipant, SvcCourseClass svcClass)
+        public Result RegisterCourseForEmployee(SvcParticipant svcParticipant, SvcCourseClass svcClass)
         {
 
             try
@@ -69,10 +69,10 @@ namespace CourseRegistration.Service
             }
             catch (Exception e)
             {
-     
-                return false;
+                return new Result(false, e.ToString());
+               
             }
-            return true;
+            return new Result(true,"");
         }
     }
 }

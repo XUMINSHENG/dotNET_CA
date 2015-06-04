@@ -12,6 +12,6 @@ namespace CourseRegistration.Service
     public interface ICourseRegistrationService
     {
         [OperationContract]
-        Boolean RegisterCourseForEmployee(SvcParticipant svcParticipant, SvcCourseClass svcCourseClass);
+        Result RegisterCourseForEmployee(SvcParticipant svcParticipant, SvcCourseClass svcCourseClass);
     }
 }
