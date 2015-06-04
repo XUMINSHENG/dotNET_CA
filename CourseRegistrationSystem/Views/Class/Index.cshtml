@@ -42,7 +42,13 @@
                 @item.EndDate.ToString("yyyy-MM-dd")
             </td>
             <td>
-                @Html.ActionLink("Register", "RegisterClass", new { id=item.ClassId })
+                @if(Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Register", "RegisterClassForHR", new { classId=item.ClassId })
+                }else{
+                    @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                }
+                
             </td>
         </tr>
     }

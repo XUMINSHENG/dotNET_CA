@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
 using CourseRegistrationSystem.Models;
+using Microsoft.AspNet.Identity;
+
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -24,17 +26,27 @@ namespace CourseRegistrationSystem.Controllers
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);
         }
-
-        public ActionResult RegisterClassForIU(String classId, String userId)
+        [Authorize(Roles = "IndividualUser")]
+        public ActionResult RegisterClassForIU(String classId)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             //get personal details to pre fill paticipant details
 
             return View(courseClass);
         }
-
-        public ActionResult RegisterClassForHR(String classId, int cmpId)
+        [HttpPost]
+        [Authorize(Roles = "IndividualUser")]
+        public ActionResult RegisterClassForIU(String classId, ParticipantViewModel participant, BillingViewModel billing)
         {
+            return View();
+        }
+        [Authorize(Roles = "CompanyHR")]
+        public ActionResult RegisterClassForHR(String classId)
+        {
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            int cmpId = loginHR.Company.CompanyId;
+
             Registration registration = new Registration();
 
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);

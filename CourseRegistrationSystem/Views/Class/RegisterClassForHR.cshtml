@@ -7,7 +7,7 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@ViewBag.CourseClass.ClassId</li>
+    <li>@Model.ClassId</li>
 </ul>
 
 <h2>@Model.ClassId Class Registration</h2>
@@ -24,6 +24,7 @@
 
 @{
     var participants = new List<CourseRegistrationSystem.Models.ParticipantViewModel>();
+    
 }
 @using (Html.BeginForm())
 {
@@ -33,11 +34,15 @@
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
             <h3 class="panel-title">Step1: Participant Details</h3>
         </div>
-        <div class="collapse" id="collapse1">
+        <div class="panel-collapse collapse in" id="collapse1">
             <div class="panel-body">
                 <div>
-                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</button>
-                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from your employee list</button>
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal1" data-whatever="">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal2" data-whatever="">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from your employee list
+                    </button>
                     <hr />
                 </div>
 
@@ -78,26 +83,44 @@
     </nav>
 }
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">New Participant</h4>
             </div>
             <div class="modal-body">
                 <p>One fine body&hellip;</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">View Upcoming Class</button>
+                <button type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Employee List</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Comfirm</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
 
 <script>
-    $('#myModal').on('show.bs.modal', function (event) {
+    $('#myModal1').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var recipient = button.data('whatever') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
