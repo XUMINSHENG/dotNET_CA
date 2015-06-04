@@ -10,7 +10,7 @@ namespace CourseRegistration.Service
     [DataContract]
     public class Result
     {
-        public Boolean Result { set; get; }
+        public Boolean bResult { set; get; }
 
         public String Message { set; get; }
 
@@ -18,7 +18,7 @@ namespace CourseRegistration.Service
 
         public Result(Boolean result, string message)
         {
-            Result = result;
+            bResult = result;
             Message = message;
         }
     }

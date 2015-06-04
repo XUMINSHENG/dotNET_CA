@@ -68,7 +68,7 @@
       <DependentUpon>AttendanceService.svc</DependentUpon>
     </Compile>
     <Compile Include="AttendanceModel.cs" />
-    <Compile Include="EnumModel.cs" />
+    <Compile Include="CommonModel.cs" />
     <Compile Include="CourseRegistrationModel.cs" />
     <Compile Include="CourseRegistrationService.svc.cs">
       <DependentUpon>CourseRegistrationService.svc</DependentUpon>
