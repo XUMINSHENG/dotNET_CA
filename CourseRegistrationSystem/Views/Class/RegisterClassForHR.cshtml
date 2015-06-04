@@ -1,4 +1,4 @@
-﻿@model CourseRegistration.Models.CourseClass
+﻿@using CourseRegistration.Models
 
 @{
     ViewBag.Title = "RegisterClassForHR";
@@ -7,25 +7,21 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Model.ClassId</li>
+    <li>@ViewBag.CourseClass.ClassId</li>
 </ul>
 
-<h2>@Model.ClassId Class Registration</h2>
+<h2>@ViewBag.CourseClass.ClassId Class Registration</h2>
 
-<h4>@Model.Course.CourseTitle</h4>
+<h4>@ViewBag.CourseClass.Course.CourseTitle</h4>
 
 <p>
-    @Model.Course.CourseDescription
+    @ViewBag.CourseClass.Course.CourseDescription
 </p>
 
-<p>Fee: @Model.Course.Fee</p>
-<p>Duration: @Model.Course.NumberOfDays days</p>
-<p>Start Date: @Model.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.EndDate.ToString("yyyy-MM-dd")</p>
+<p>Fee: @ViewBag.CourseClass.Course.Fee</p>
+<p>Duration: @ViewBag.CourseClass.Course.NumberOfDays days</p>
+<p>Start Date: @ViewBag.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @ViewBag.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@{
-    var participants = new List<CourseRegistrationSystem.Models.ParticipantViewModel>();
-    
-}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -37,27 +33,17 @@
         <div class="panel-collapse collapse in" id="collapse1">
             <div class="panel-body">
                 <div>
-                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal1" data-whatever="">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal1" data-whatever="add new">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Participant
                     </button>
                     <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal2" data-whatever="">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from your employee list
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add from Employee List
                     </button>
                     <hr />
                 </div>
-
-                @if (participants.Count == 0)
-                {
-                    <p>There is no participant. Please add one at least.</p>
-                }
-                else
-                {
-                    foreach (var p in participants)
-                    {
-                        <button type="button" class="btn btn-primary btn-lg btn-block">@p.FullName</button>
-                    }
-                }
-            
+                <div id="participants">
+                    <button type="button" class="btn btn-primary">FullName</button>
+                </div>         
             </div>
         </div>
     </div>
@@ -90,13 +76,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Participant</h4>
             </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add</button>
-            </div>
+            @using (Html.BeginForm())
+                {
+            @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    @Html.Partial("CreateParticipant");
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            }
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
@@ -108,25 +98,45 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Employee List</h4>
             </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
+            <div class="modal-body" id="modal2Body">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Comfirm</button>
+                <button type="button" class="btn btn-primary" id="empBtn">Comfirm</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 
 <script>
+    var paticipants;
+
     $('#myModal1').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('whatever') // Extract info from data-* attributes
+        //var button = $(event.relatedTarget) // Button that triggered the modal
+        //var recipient = button.data('whatever') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text(recipient)
-        modal.find('.modal-body p').text(recipient + "description")
+        //var modal = $(this)
+        //modal.find('.modal-title').text(recipient)
+        //modal.find('.modal-body p').text(recipient + "description")
+    })
+
+    $('#myModal2').on('show.bs.modal', function (event) {
+        $.get('GetEmployeeList', function (response) {
+            $('#modal2Body').html(response);
+        });
+    })
+
+    $('#empBtn').click(function (event) {
+        var inputs = document.getElementById('employeeList').getElementsByTagName('input');
+        for (var i = 0; i < inputs.length;i++) {
+            if (inputs[i].type == 'checkbox') {
+                if (inputs[i].checked) {
+                    console.log(inputs[i].name);
+                }
+            }
+        }
+        $('#myModal2').modal('hide')
     })
 </script>

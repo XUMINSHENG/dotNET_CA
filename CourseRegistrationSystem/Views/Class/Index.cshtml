@@ -26,63 +26,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    if (item.isOpenForRegister && item.StartDate > DateTime.Now)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.ClassId, "Details", "Class", new { id = item.ClassId }, new { })
-            </td>
-            <td>
-                @Html.ActionLink(item.Course.CourseTitle, "Details", "Course", new { code = item.Course.CourseCode }, new { })
-            </td>
-            <td>
-                @item.StartDate.ToString("yyyy-MM-dd")
-            </td>
-            <td>
-                @item.EndDate.ToString("yyyy-MM-dd")
-            </td>
-            <td>
-                @if(Request.IsAuthenticated)
-                {
-                    @Html.ActionLink("Register", "RegisterClassForHR", new { classId=item.ClassId })
-                }else{
-                    @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-                }
+   <tr>
+        <td>
+            @Html.ActionLink(item.ClassId, "Details", "Class", new { id = item.ClassId }, new { })
+        </td>
+        <td>
+            @Html.ActionLink(item.Course.CourseTitle, "Details", "Course", new { code = item.Course.CourseCode }, new { })
+        </td>
+        <td>
+            @item.StartDate.ToString("yyyy-MM-dd")
+        </td>
+        <td>
+            @item.EndDate.ToString("yyyy-MM-dd")
+        </td>
+        <td>
+            @if(Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Register", "RegisterClassForHR", new { classId=item.ClassId })
+            }else{
+                @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            }
                 
-            </td>
-        </tr>
-    }
+        </td>
+    </tr>
+    
 }
 
 </table>
 
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">View Upcoming Class</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-
-<script>
-    $('#myModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text(recipient)
-        modal.find('.modal-body p').text(recipient + "description")
-    })
-</script>

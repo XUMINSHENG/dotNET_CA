@@ -50,16 +50,27 @@ namespace CourseRegistrationSystem.Controllers
             Registration registration = new Registration();
 
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
-            IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
-            ViewBag.EmployeeList = participants;
-
-            return View(courseClass);
+            ViewBag.CourseClass = courseClass;
+            return View();
         }
-
+        [Authorize(Roles = "CompanyHR")]
         [HttpPost]
-        public ActionResult RegisterClassForHR(String classId, int cmpId, List<ParticipantViewModel> participants, BillingViewModel billing)
+        public ActionResult RegisterClassForHR(String classId, List<ParticipantViewModel> participants, BillingViewModel billing)
         {
             return View();
+        }
+        public ActionResult GetEmployeeList()
+        {
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            int cmpId = loginHR.Company.CompanyId;
+            IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
+            return PartialView(participants);
+        }
+        public ActionResult CreateParticipant()
+        {
+            Participant participant = new Participant();
+            return PartialView(participant);
         }
     }
 }

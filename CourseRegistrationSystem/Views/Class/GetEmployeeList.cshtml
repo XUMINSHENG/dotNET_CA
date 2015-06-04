@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CourseRegistration.Models.Participant>
+
+@foreach (var item in Model)
+{
+    <div class="checkbox" id="employeeList">
+        <label>
+            @item.FullName <input type="checkbox" id="@item.ParticipantId" name="@item.FullName">
+        </label>
+    </div>
+}
