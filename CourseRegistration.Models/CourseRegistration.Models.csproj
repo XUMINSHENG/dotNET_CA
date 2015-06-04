@@ -52,10 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assessment.cs" />
     <Compile Include="BaseModel.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyHR.cs" />
+    <Compile Include="Attendance.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CourseClass.cs" />
     <Compile Include="Enums.cs" />

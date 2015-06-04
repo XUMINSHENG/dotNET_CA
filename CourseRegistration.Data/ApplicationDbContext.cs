@@ -32,6 +32,8 @@ namespace CourseRegistration.Data
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyHR> CompanyHRs { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Assessment> Assessments { get; set; }
 
     }
 }

@@ -24,12 +24,15 @@ namespace CourseRegistration.Data
         UserManager<ApplicationUser> AppUserManager { get; set; }
         RoleManager<IdentityRole> AppRoleManager { get; }
         UserStore<ApplicationUser> AppUserStore { get; }
+        IRepository<Attendance> AttendanceRepository { get; }
+        IRepository<Assessment> AssessmentRepository { get; }
         void Save();
     }
 
     public partial class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _context;
+
         private IRepository<Instructor> _instructorRepository;
         private IRepository<Category> _categoryRepository;
         private IRepository<Course> _courseRepository;
@@ -44,6 +47,9 @@ namespace CourseRegistration.Data
         private UserStore<ApplicationUser> _userStore;
         private RoleStore<IdentityRole> _roleStore;
 
+        private IRepository<Attendance> _attendanceRepository;
+        private IRepository<Assessment> _assessmentRepository;
+        
         public UnitOfWork()
         {
             _context = new ApplicationDbContext();
@@ -153,6 +159,28 @@ namespace CourseRegistration.Data
                     _companyHRRepository = new BaseRepository<CompanyHR>(_context);
 
                 return _companyHRRepository;
+            }
+        }
+
+        public IRepository<Attendance> AttendanceRepository
+        {
+            get
+            {
+                if (_attendanceRepository == null)
+                    _attendanceRepository = new BaseRepository<Attendance>(_context);
+
+                return _attendanceRepository;
+            }
+        }
+
+        public IRepository<Assessment> AssessmentRepository
+        {
+            get
+            {
+                if (_assessmentRepository == null)
+                    _assessmentRepository = new BaseRepository<Assessment>(_context);
+
+                return _assessmentRepository;
             }
         }
 
