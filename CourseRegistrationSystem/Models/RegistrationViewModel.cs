@@ -7,12 +7,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseRegistrationSystem.Models
 {
-    public class RegistrationModel
+    public class RegistrationViewModel
     {
         [Required]
         public CourseClass courseClass { get; set; }
         
-        public Sponsorship sponsorship;
+        public Sponsorship sponsorship { get; set; }
+
+        public String billingAddress { get; set; }
+
+
         
     }
 }

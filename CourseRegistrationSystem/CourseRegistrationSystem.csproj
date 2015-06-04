@@ -267,9 +267,6 @@
     <Compile Include="Areas\SystemAdmin\SystemAdminHomePage.aspx.designer.cs">
       <DependentUpon>SystemAdminHomePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\User\Controllers\CompanyController.cs" />
-    <Compile Include="Areas\User\Controllers\IndividualController.cs" />
-    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\CompanyHRController.cs" />
@@ -282,7 +279,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\RegistrationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -325,7 +322,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\CourseAdmin\CourseAdmin.Master" />
     <Content Include="Areas\SystemAdmin\SystemAdmin.Master" />
-    <Content Include="Areas\User\Views\web.config" />
     <Content Include="Areas\CourseAdmin\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -469,10 +465,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\User\Models\" />
-    <Folder Include="Areas\User\Views\Company\" />
-    <Folder Include="Areas\User\Views\IndividualUser\" />
-    <Folder Include="Areas\User\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
