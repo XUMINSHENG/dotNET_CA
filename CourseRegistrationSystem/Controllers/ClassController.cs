@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
+using CourseRegistrationSystem.Models;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -38,14 +39,13 @@ namespace CourseRegistrationSystem.Controllers
 
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
-            ViewBag.CourseClass = courseClass;
             ViewBag.EmployeeList = participants;
 
             return View(courseClass);
         }
 
         [HttpPost]
-        public ActionResult RegisterClassForHR(int cmpId)
+        public ActionResult RegisterClassForHR(String classId, int cmpId, List<ParticipantViewModel> participants, BillingViewModel billing)
         {
             return View();
         }

@@ -1,5 +1,4 @@
-﻿@model CourseRegistration.Models.Registration
-@using CourseRegistration.Models
+﻿@model CourseRegistration.Models.CourseClass
 
 @{
     ViewBag.Title = "RegisterClassForHR";
@@ -24,7 +23,7 @@
 <p>Start Date: @Model.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.EndDate.ToString("yyyy-MM-dd")</p>
 
 @{
-    var participants = new List<Participant>();
+    var participants = new List<CourseRegistrationSystem.Models.ParticipantViewModel>();
 }
 @using (Html.BeginForm())
 {
@@ -48,7 +47,7 @@
                 }
                 else
                 {
-                    foreach (Participant p in participants)
+                    foreach (var p in participants)
                     {
                         <button type="button" class="btn btn-primary btn-lg btn-block">@p.FullName</button>
                     }
@@ -78,3 +77,33 @@
         </ul>
     </nav>
 }
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">View Upcoming Class</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script>
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text(recipient)
+        modal.find('.modal-body p').text(recipient + "description")
+    })
+</script>
