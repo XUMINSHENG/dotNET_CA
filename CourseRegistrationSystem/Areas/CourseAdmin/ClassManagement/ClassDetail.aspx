@@ -1,8 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassDetail.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassDetail" %>
-
-
-<body>
-    <form id="form1" runat="server">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassDetail.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master"  Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassDetail"  Title="Class Detail"%>
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
+ <div>
     <asp:Table ID="DataTable" runat="server">
         <asp:TableRow >
             <asp:TableCell>
@@ -104,5 +102,13 @@
             </asp:TableCell>
         </asp:TableFooterRow>
     </asp:Table>
-    </form>
-</body>
+    </div>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="Search">
+
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="subTitle">
+    Class Detail
+</asp:Content>

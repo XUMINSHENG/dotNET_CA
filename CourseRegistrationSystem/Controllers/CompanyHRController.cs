@@ -229,6 +229,35 @@ namespace CourseRegistrationSystem.Controllers
 
         #region Registration Functions
 
+        public ActionResult RegistrationList()
+        {
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            List<Registration> RegList = RegistrationBLL.Instance.getRegistrationByConds(
+                Util.C_String_All_Select,Util.C_String_All_Select,Util.C_String_All_Select,
+                Util.C_String_All_Select,Util.C_String_All_Select,loginHR.Company.CompanyName);
+            return View(RegList);
+        }
+
+        public ActionResult RegistrationDetails(int ID)
+        {
+            Registration Reg = RegistrationBLL.Instance.getRegistrationById(ID);
+            if (Reg == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Reg);
+        }
+
+        public ActionResult RegistrationDelete(int ID)
+        {
+            Registration Reg = RegistrationBLL.Instance.getRegistrationById(ID);
+            if (Reg == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Reg);
+        }
         #endregion
     }
 }

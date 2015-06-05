@@ -1,15 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassList.aspx.cs" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassList" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body  style="height: 424px">
-    <form id="form1" runat="server">
-    <div>
-                <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassList.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassList"  Title="Class List"%>
+<asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
+<div>
+    <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
             <asp:Table ID="SelectTable" runat="server">
                 <asp:TableRow>
                     <asp:TableCell Width="20%">
@@ -36,7 +28,7 @@
                         <label id="LblRecNo" runat="server"></label>
                     </asp:TableCell>
                     <asp:TableCell Width="20%" HorizontalAlign="Right">
-                        <asp:Button ID="BtnCreate" runat="server" Text="Create Course" OnClick="BTNCREATE_Click" />
+                        <asp:Button ID="BtnCreate" runat="server" Text="Create Class" OnClick="BTNCREATE_Click" />
                     </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
@@ -83,14 +75,14 @@
                                 CommandArgument='<%#Eval("ClassId") %>' OnClick="BTNViewDetail_Click" ></asp:LinkButton>
                         </ItemTemplate>
                         <HeaderStyle Width="100px" />
-                        <ItemStyle HorizontalAlign="Center" Width="120px" />
+                        <ItemStyle HorizontalAlign="Center" Width="100px" />
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
+                    <asp:TemplateField HeaderStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             Reg Num
                         </HeaderTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="120px" />
+                        <ItemStyle HorizontalAlign="Center" Width="100px" />
                         <ItemTemplate >
                             <asp:LinkButton runat="server" ID="RegNum" style="display:block;text-align:left"
                                 CommandArgument='<%#Eval("ClassId") %>' OnClick="RegNum_Click" ></asp:LinkButton>
@@ -117,13 +109,11 @@
                     <ItemStyle Width="70px" HorizontalAlign="Right" />
                     </asp:BoundField>
 
-                    <asp:BoundField DataField="Course.CourseTitle" HeaderText="Course" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                    <ControlStyle Width="100px" />
-                    <ItemStyle Width="100px" HorizontalAlign="Right" />
+                    <asp:BoundField DataField="Course.CourseTitle" HeaderText="Course" ControlStyle-Width="300px" ItemStyle-Width="300px" >
+                    <ControlStyle Width="300px" />
+                    <ItemStyle Width="300px" HorizontalAlign="Right" />
                     </asp:BoundField>
 
-                 
-                        
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                         <HeaderTemplate>
                             Opeation
@@ -147,6 +137,10 @@
         </asp:Panel>
     
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="Search" runat="server">
+
+</asp:Content>
+<asp:Content ContentPlaceHolderID="subTitle" runat ="server">
+    Class List
+</asp:Content>
