@@ -1,25 +1,25 @@
-﻿@model CourseRegistration.Models.CourseClass
-
+﻿
 @{
-    ViewBag.Title = "RegisterClass";
+    ViewBag.Title = "RegisterClassForIU";
 }
 
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Model.ClassId</li>
+    <li>@ViewBag.CourseClass.ClassId</li>
 </ul>
 
-<h2>@Model.ClassId Class Registration</h2>
+<h2>@ViewBag.CourseClass.ClassId Class Registration</h2>
 
-<h4>@Model.Course.CourseTitle</h4>
+<h4>@ViewBag.CourseClass.Course.CourseTitle</h4>
 
 <p>
-    @Model.Course.CourseDescription
+    @ViewBag.CourseClass.Course.CourseDescription
 </p>
 
-<p>Fee: @Model.Course.Fee</p>
-<p>Duration: @Model.Course.NumberOfDays days, from @Model.StartDate.ToString("yyyy-MM-dd") to @Model.EndDate.ToString("yyyy-MM-dd")</p>
+<p>Fee: @ViewBag.CourseClass.Course.Fee</p>
+<p>Duration: @ViewBag.CourseClass.Course.NumberOfDays days</p>
+<p>Start Date: @ViewBag.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @ViewBag.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
 <div class="panel panel-default">
     <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">

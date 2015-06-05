@@ -42,7 +42,7 @@
                     <hr />
                 </div>
                 <div id="participants">
-                    <button type="button" class="btn btn-primary">FullName</button>
+                    <p class="text-muted">Please add one participant at least.</p>
                 </div>         
             </div>
         </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="collapse" id="collapse2">
             <div class="panel-body">
-
+                @Html.Partial("CreateBilling");
             </div>
         </div>
     </div>
@@ -129,13 +129,21 @@
     })
 
     $('#empBtn').click(function (event) {
+        var checkedList = new Array();
         var inputs = document.getElementById('employeeList').getElementsByTagName('input');
-        for (var i = 0; i < inputs.length;i++) {
+        for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == 'checkbox') {
                 if (inputs[i].checked) {
-                    console.log(inputs[i].name);
+                    checkedList.push(inputs[i].id);
                 }
             }
+        }
+        console.log(checkedList);
+        if (checkedList.length !== 0) {
+            $.post('GetParticipantFromList', $.param({array:checkedList},true), function (response) {
+                console.log(response);
+                $('#participants').html(response);
+            });
         }
         $('#myModal2').modal('hide')
     })

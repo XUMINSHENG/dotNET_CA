@@ -26,13 +26,14 @@ namespace CourseRegistrationSystem.Controllers
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);
         }
-        [Authorize(Roles = "IndividualUser")]
+        
         public ActionResult RegisterClassForIU(String classId)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            ViewBag.CourseClass = courseClass;
             //get personal details to pre fill paticipant details
 
-            return View(courseClass);
+            return View();
         }
         [HttpPost]
         [Authorize(Roles = "IndividualUser")]
@@ -71,6 +72,33 @@ namespace CourseRegistrationSystem.Controllers
         {
             Participant participant = new Participant();
             return PartialView(participant);
+        }
+        public ActionResult CreateBilling()
+        {
+            BillingViewModel billing = new BillingViewModel();
+            return PartialView(billing);
+        }
+        [HttpPost]
+        public ActionResult GetParticipantFromList(List<int> array)
+        {
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            int cmpId = loginHR.Company.CompanyId;
+            IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
+            
+            List<Participant> list = new List<Participant>();
+            foreach (int i in array)
+            {
+                
+                foreach (Participant p in participants)
+                {
+                    if (i == p.ParticipantId)
+                    {
+                        list.Add(p);
+                    }
+                } 
+            }
+            return PartialView(list);
         }
     }
 }
