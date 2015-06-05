@@ -92,10 +92,7 @@ namespace CourseRegistration.BLL
             {
                 query = query.Where(x => x.Course.CourseCode == courseCode);
             }
-
-
             return query.ToList(); 
-            
         }
 
         public void DeleteCourseClass(CourseClass cc)
@@ -105,9 +102,17 @@ namespace CourseRegistration.BLL
             uow.Save();
         }
 
-        //        public List<> GetAttendSheet()
-//      {
-//        }
+        public List<Participant> GetStudentsByClassId(String classId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+
+            IEnumerable<Participant> studentList =
+                from reg in uow.CourseClassRepository.GetById(classId).Registrations
+                where reg.Status == RegistrationStatus.Successful
+                select reg.Participant;
+
+            return studentList.ToList();
+        }
 
     }
 }

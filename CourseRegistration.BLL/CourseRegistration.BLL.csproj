@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentBLL.cs" />
+    <Compile Include="AttendanceBLL.cs" />
     <Compile Include="BusinessExcepetion.cs" />
     <Compile Include="CompanyBLL.cs" />
     <Compile Include="EmailService.cs" />

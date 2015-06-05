@@ -26,5 +26,25 @@ namespace CourseRegistration.Service
         [DataMember]
         public String ContactNumber { get; set; }
 
+        public SvcStudent() { }
+
+        public SvcStudent(
+            int ParticipantId,
+            String IdNumber,
+            String FullName,
+            Gender Gender,
+            String Nationality,
+            String Email,
+            String ContactNumber)
+        {
+            this.ParticipantId = ParticipantId;
+            this.IdNumber = IdNumber;
+            this.FullName = FullName;
+            this.Gender = Gender;
+            this.Nationality = Nationality;
+            this.Email = Email;
+            this.ContactNumber = ContactNumber;
+        }
+
     }
 }

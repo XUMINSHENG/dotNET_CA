@@ -15,6 +15,6 @@ namespace CourseRegistration.Service
         List<SvcStudent> GetStudentList(DateTime date, String classId);
 
         [OperationContract]
-        Result SubmitAttendance(String participantId, String classId);
+        Result SubmitAttendance(int participantId, String classId);
     }
 }

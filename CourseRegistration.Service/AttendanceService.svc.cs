@@ -16,15 +16,41 @@ namespace CourseRegistration.Service
     {
         public List<SvcStudent> GetStudentList(DateTime date, String classId)
         {
+            List<SvcStudent> studentList = new List<SvcStudent>();
 
+            List<Participant> participantList = CourseClassBLL.Instance.GetStudentsByClassId(classId);
+            foreach (Participant p in participantList)
+            {
+                SvcStudent newStud = new SvcStudent(
+                    p.ParticipantId,
+                    p.IdNumber,
+                    p.FullName,
+                    (Service.Gender)p.Gender,
+                    p.Nationality,
+                    p.Email,
+                    p.ContactNumber
+                );
+                studentList.Add(newStud);
+            }
 
-            return null;
+            return studentList;
         }
 
 
-        public Result SubmitAttendance(String participantId, String classId)
+        public Result SubmitAttendance(int participantId, String classId)
         {
-
+            try
+            {
+                Attendance att = new Attendance();
+                att.Participant = ParticipantBLL.Instance.GetParticipantById(participantId);
+                att.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+                att.ClassDate = DateTime.Today;
+                AttendanceBLL.Instance.CreateAttendance(att);
+            }
+            catch (BusinessException e)
+            {
+                return new Result(false, e.ToString());
+            }
             return new Result(true, "");
         }
     }
