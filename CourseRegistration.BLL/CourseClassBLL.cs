@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using CourseRegistration.Models;
 using CourseRegistration.Data;
@@ -30,8 +31,7 @@ namespace CourseRegistration.BLL
         public CourseClass GetCourseClassById(String courseClassId)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.CourseClassRepository.GetAll().Where<CourseClass>(x => x.ClassId == courseClassId).Single(); 
-            
+            return uow.CourseClassRepository.GetById(courseClassId);
         }
 
         public int getRegNum(String courseClassId)
@@ -105,13 +105,19 @@ namespace CourseRegistration.BLL
         public List<Participant> GetStudentsByClassId(String classId)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            
+            List<Registration> regList =
+                uow.RegistrationRepository.GetAll()
+                    .Where(x => x.CourseClass.ClassId == classId &&
+                        x.Status == RegistrationStatus.Successful)
+                .Include(x => x.Participant).ToList();
 
-            IEnumerable<Participant> studentList =
-                from reg in uow.CourseClassRepository.GetById(classId).Registrations
-                where reg.Status == RegistrationStatus.Successful
-                select reg.Participant;
+            List<Participant> studentList = new List<Participant>();
+            foreach(Registration r in regList){
+                studentList.Add(r.Participant);
+            }
 
-            return studentList.ToList();
+            return studentList;
         }
 
     }

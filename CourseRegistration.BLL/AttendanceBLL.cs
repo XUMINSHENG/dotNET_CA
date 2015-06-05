@@ -46,7 +46,7 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
-            // student exists
+            // participant exists
             if (attendance.Participant == null || 
                 uow.ParticipantRepository.GetById(attendance.Participant.ParticipantId) == null)
             {
@@ -54,12 +54,37 @@ namespace CourseRegistration.BLL
             }
 
             // class exists
-            if (attendance.CourseClass == null || 
-                uow.CourseClassRepository.GetById(attendance.CourseClass.ClassId) == null)
+            if (attendance.CourseClass != null) 
+            {
+                CourseClass cl = uow.CourseClassRepository.GetById(attendance.CourseClass.ClassId);
+                if (cl == null)
+                {
+                    throw new BusinessException("invalid Class");
+                }
+
+                // date check
+                if (attendance.CreateDate.CompareTo(cl.StartDate) < 0 ||
+                    attendance.CreateDate.CompareTo(cl.EndDate) > 0)
+                {
+                    throw new BusinessException("invalid Date");
+                }
+            }
+            else
             {
                 throw new BusinessException("invalid Class");
             }
 
+            // student  enrolled class
+            if (uow.RegistrationRepository.GetAll()
+                .Where(x=>
+                    x.Participant.ParticipantId == attendance.Participant.ParticipantId &&
+                    x.CourseClass.ClassId == attendance.CourseClass.ClassId &&
+                    x.Status == RegistrationStatus.Successful
+                 ).Count() == 0 )
+            {
+                throw new BusinessException("student not in this class");
+            }
+            
             // previous record exists
             if (GetCountByClassAndParticipantAndDate(
                 attendance.CourseClass.ClassId,

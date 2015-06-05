@@ -10,8 +10,10 @@ namespace CourseRegistration.Service
     [DataContract]
     public class Result
     {
+        [DataMember]
         public Boolean bResult { set; get; }
-
+        
+        [DataMember]
         public String Message { set; get; }
 
         public Result() { }
