@@ -470,6 +470,7 @@
     <Content Include="Views\Class\GetParticipantFromList.cshtml" />
     <Content Include="Views\Class\CreateBilling.cshtml" />
     <Content Include="Views\Class\RegisterClassForIU.cshtml" />
+    <Content Include="Views\Class\RegisterClassForIUResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

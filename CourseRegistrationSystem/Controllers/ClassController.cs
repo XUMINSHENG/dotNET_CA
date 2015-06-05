@@ -26,20 +26,32 @@ namespace CourseRegistrationSystem.Controllers
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);
         }
-        
+        [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String classId)
         {
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             ViewBag.CourseClass = courseClass;
+            String loginUserId = User.Identity.GetUserId();
+            //Participant participant = ParticipantBLL.Instance.GetParticipantById(loginUserId);
             //get personal details to pre fill paticipant details
-
-            return View();
+            Participant participant = new Participant();
+            return View(participant);
         }
         [HttpPost]
         [Authorize(Roles = "IndividualUser")]
-        public ActionResult RegisterClassForIU(String classId, ParticipantViewModel participant, BillingViewModel billing)
+        public ActionResult RegisterClassForIU(String classId, Participant participant)
         {
-            return View();
+            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            ViewBag.CourseClass = courseClass;
+            ViewBag.Address = Request.Form["Address"];
+            ViewBag.Name = Request.Form["PersonName"];
+            ViewBag.Country = Request.Form["Country"];
+            ViewBag.Postcode = Request.Form["PostCode"];
+            //make up registration
+            //if no success
+            //return back
+            //if success
+            return View(participant);
         }
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)
@@ -56,7 +68,7 @@ namespace CourseRegistrationSystem.Controllers
         }
         [Authorize(Roles = "CompanyHR")]
         [HttpPost]
-        public ActionResult RegisterClassForHR(String classId, List<ParticipantViewModel> participants, BillingViewModel billing)
+        public ActionResult RegisterClassForHR(String classId, List<Participant> participants)
         {
             return View();
         }
