@@ -149,6 +149,8 @@ namespace CourseRegistration.BLL
             else
             {
                 await uow.AppUserStore.SetPasswordHashAsync(user, uow.AppUserManager.PasswordHasher.HashPassword(password));
+                if (user.isSysGenPassword)
+                    user.isSysGenPassword = false;
                 uow.Save();
                 return true;
             }

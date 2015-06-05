@@ -1,4 +1,5 @@
-﻿@using CourseRegistration.Models
+﻿
+@using CourseRegistration.Models
 
 @{
     ViewBag.Title = "RegisterClassForHR";
@@ -22,7 +23,7 @@
 <p>Duration: @ViewBag.CourseClass.Course.NumberOfDays days</p>
 <p>Start Date: @ViewBag.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @ViewBag.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("RegisterClassForHR", "Class", new { classId = @ViewBag.CourseClass.ClassId}))
 {
     @Html.AntiForgeryToken()
 
@@ -60,12 +61,12 @@
     </div>
 
 
-    <hr />
     <nav>
-        <ul class="pager">
+        <div class="pager">
             @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
-            <li class="next"><a href="#">Register</a></li>
-        </ul>
+            @*<li class="next"><a href="#">Register</a></li>*@
+            <button class="btn btn-primary" style="float:right;" type="submit">Register Now</button>
+        </div>
     </nav>
 }
 

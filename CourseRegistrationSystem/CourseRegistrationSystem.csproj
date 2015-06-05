@@ -470,7 +470,11 @@
     <Content Include="Views\Class\GetParticipantFromList.cshtml" />
     <Content Include="Views\Class\CreateBilling.cshtml" />
     <Content Include="Views\Class\RegisterClassForIU.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\CompanyHR\RegistrationDelete.cshtml" />
+=======
+    <Content Include="Views\Class\RegisterClassForIUResult.cshtml" />
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
