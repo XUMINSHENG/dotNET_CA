@@ -258,6 +258,22 @@ namespace CourseRegistrationSystem.Controllers
             }
             return View(Reg);
         }
+
+        [HttpPost]
+        public ActionResult RegistrationDelete(int id, FormCollection collection)
+        {
+            try
+            {
+                Registration Reg = RegistrationBLL.Instance.getRegistrationById(id);
+                UpdateModel(Reg);
+                RegistrationBLL.Instance.DeleteRegistration(Reg);
+                return RedirectToAction("RegistrationList");
+            }
+            catch
+            {
+                return View();
+            }
+        }
         #endregion
     }
 }
