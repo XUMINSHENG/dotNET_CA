@@ -21,7 +21,7 @@ namespace CourseRegistration.BLL
 
         public static RegistrationBLL Instance { get { return lazy.Value; } }
 
-
+        
         public void CreateForIndividualUser(Registration reg)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

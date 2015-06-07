@@ -20,7 +20,22 @@ namespace CourseRegistration.BLL
         private ParticipantBLL()
         {
         }
-
+        public Participant GetParticipantByUserId(String userId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            ApplicationUser user = UserBLL.Instance.GetUserById(userId);
+            IQueryable<Participant> pList = from participant in uow.ParticipantRepository.GetAll()
+                            where (participant.AppUser == user)
+                            select participant;
+            if (pList.Count() == 0)
+            {
+                return new Participant();
+            }
+            else
+            {
+                return pList.First();
+            }
+        }
         public void CreateForCompanyEmployee(Company c,Participant p)
         {
             // set value for employee

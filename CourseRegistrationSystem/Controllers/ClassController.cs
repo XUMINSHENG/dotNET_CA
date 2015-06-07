@@ -29,29 +29,27 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String classId)
         {
-            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
-            ViewBag.CourseClass = courseClass;
             String loginUserId = User.Identity.GetUserId();
-            //Participant participant = ParticipantBLL.Instance.GetParticipantById(loginUserId);
-            //get personal details to pre fill paticipant details
-            Participant participant = new Participant();
-            return View(participant);
+            //validate if already registered by user
+
+            //if have not been registered
+            Registration r = new Registration();
+            r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            r.Participant = ParticipantBLL.Instance.GetParticipantByUserId(loginUserId);
+            r.Sponsorship = Sponsorship.Self;
+
+            return View(r);
         }
         [HttpPost]
         [Authorize(Roles = "IndividualUser")]
-        public ActionResult RegisterClassForIU(String classId, Participant participant)
+        public ActionResult RegisterClassForIU(Registration r)
         {
-            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
-            ViewBag.CourseClass = courseClass;
-            ViewBag.Address = Request.Form["Address"];
-            ViewBag.Name = Request.Form["PersonName"];
-            ViewBag.Country = Request.Form["Country"];
-            ViewBag.Postcode = Request.Form["PostCode"];
-            //make up registration
-            //if no success
-            //return back
-            //if success
-            return View(participant);
+            //get result of registration
+            RegistrationBLL.Instance.CreateForIndividualUser(r);
+            //if no success return back 
+            return View(r);
+            //if success, go to confirm page
+            //confirm page is ready but no configure
         }
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)
