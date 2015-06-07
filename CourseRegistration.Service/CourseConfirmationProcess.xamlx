@@ -27,6 +27,9 @@
     <p1:TextExpression.References>
       <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID4">
         <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.Entity</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.ApplicationServices</p1:AssemblyReference>
@@ -42,14 +45,11 @@
         <p1:AssemblyReference>System.Web</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.Extensions</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.Services</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
         <p1:AssemblyReference>System.Xml</p1:AssemblyReference>
         <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.BLL</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Models</p1:AssemblyReference>
-        <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
-        <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
-        <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
-        <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
         <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Service</p1:AssemblyReference>
       </sco:Collection>
@@ -66,7 +66,7 @@
       <p1:Variable x:TypeArguments="x:Boolean" Default="False" Name="isNeedToAsk" />
       <p1:Variable x:TypeArguments="CorrelationHandle" Name="classIdHandle" />
     </p1:Sequence.Variables>
-    <Receive x:Name="__ReferenceID0" CanCreateInstance="True" DisplayName="ReceiveRequest" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="ReceiveClassId" ServiceContractName="p:IService">
+    <Receive x:Name="__ReferenceID0" CanCreateInstance="True" DisplayName="ReceiveRequest" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="ConfirmClassId" ServiceContractName="p:IService">
       <Receive.CorrelationInitializers>
         <QueryCorrelationInitializer>
           <QueryCorrelationInitializer.CorrelationHandle>
@@ -79,7 +79,7 @@
               <ssx:XPathMessageContextMarkup>
                 <x:String x:Key="xgSc">http://tempuri.org/</x:String>
               </ssx:XPathMessageContextMarkup>
-            </XPathMessageQuery.Namespaces>sm:body()/xgSc:ReceiveClassId/xgSc:classId</XPathMessageQuery>
+            </XPathMessageQuery.Namespaces>sm:body()/xgSc:ConfirmClassId/xgSc:classId</XPathMessageQuery>
         </QueryCorrelationInitializer>
       </Receive.CorrelationInitializers>
       <ReceiveParametersContent>
@@ -150,8 +150,8 @@
     </p1:If>
     <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendResponse" sap2010:WorkflowViewState.IdRef="SendReply_1">
       <SendParametersContent>
-        <p1:InArgument x:TypeArguments="x:String" x:Key="result">
-          <mca:CSharpValue x:TypeArguments="x:String">classId + "has been confirmed"</mca:CSharpValue>
+        <p1:InArgument x:TypeArguments="x:String" x:Key="classId">
+          <mca:CSharpValue x:TypeArguments="x:String">classId</mca:CSharpValue>
         </p1:InArgument>
         <p1:InArgument x:TypeArguments="x:String" x:Key="reg">
           <mca:CSharpValue x:TypeArguments="x:String">regNum.ToString()</mca:CSharpValue>
@@ -174,6 +174,14 @@
             <p1:Variable x:TypeArguments="x:Boolean" Default="False" Name="isDecideToConfirm" />
           </p1:Sequence.Variables>
           <Receive x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="ReceiveDecision" ServiceContractName="p:IService">
+            <Receive.CorrelatesOn>
+              <XPathMessageQuery x:Key="key1">
+                <XPathMessageQuery.Namespaces>
+                  <ssx:XPathMessageContextMarkup>
+                    <x:String x:Key="xgSc">http://tempuri.org/</x:String>
+                  </ssx:XPathMessageContextMarkup>
+                </XPathMessageQuery.Namespaces>sm:body()/xgSc:ReceiveDecision/xgSc:classId</XPathMessageQuery>
+            </Receive.CorrelatesOn>
             <Receive.CorrelatesWith>
               <p1:InArgument x:TypeArguments="CorrelationHandle">
                 <mca:CSharpValue x:TypeArguments="CorrelationHandle">classIdHandle</mca:CSharpValue>
@@ -216,13 +224,15 @@
           </p1:If>
           <SendReply Request="{x:Reference __ReferenceID1}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_2">
             <SendParametersContent>
-              <p1:InArgument x:TypeArguments="cs:Result" x:Key="result" />
+              <p1:InArgument x:TypeArguments="x:Boolean" x:Key="result">
+                <mca:CSharpValue x:TypeArguments="x:Boolean">isDecideToConfirm</mca:CSharpValue>
+              </p1:InArgument>
             </SendParametersContent>
           </SendReply>
         </p1:Sequence>
       </p1:If.Then>
     </p1:If>
-    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seCoPA+IBEQEBPQs9PQEEQDZAOQEDQjhCPwECRQVaDwKGAVsFZioBd2cFlgENAVGXAQWjAREBO6QBBeABDQEFSg9KYwKOAVcLV1gChwFjC2NWAX9eC15QAXhqC2pyAVJuCXkXAW18CZQBFwFZmgELmgFnAUqgAQugAVUBQ50BC50BWgE8pwELpwFVAQarAQneARcBDW8LeBcBbn0LiQETAWOKAQuTARcBWq4BPq4BRQEOsAELywEVAR7MAQvYARMBEtkBC90BFwEPdjp2PgF2chFyYwFvgAERgAFdAWSEAQ+EAXEBbIcBD4cBcwFrkQE6kQE/AWKNARGNAWMBW7MBEbMBZQEyxQERxQFpASm6ARW+ASgBKMgBEcgBXgEfzwERzwFhARPTAQ/TAXMBHdYBD9YBcQEc</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seCsPA+wBEQEBPQs9PQEEQDZAOQEDQjhCPwECRQVaDwKPAVsFZioCgAFnBZYBDQFalwEFowERAUSkAQXqAQ0BBUoPSmMClwFXC1dYApABYwtjVgKIAV4LXlACgQFqC2pyAVtuCXkXAXZ8CZQBFwFioAELoAFVAVOdAQudAVoBTJoBC5oBUAFFpwELpwFVAQarAQnoARcBDW8LeBcBd30LiQETAWyKAQuTARcBY64BPq4BRQEOsAEL0wEVASfUAQvgARMBG+EBC+cBFwEPdjp2PgF/chFyYwF4gAERgAFdAW2EAQ+EAXEBdYcBD4cBcwF0kQE6kQE/AWuNARGNAWMBZLsBEbsBZQE7zQERzQFpATLCARXGASgBMdABEdABXgEo1wER1wFhARzbAQ/bAXMBJt4BD94BcQEl5AER5AFhARA=</sads:DebugSymbol.Symbol>
   </p1:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
