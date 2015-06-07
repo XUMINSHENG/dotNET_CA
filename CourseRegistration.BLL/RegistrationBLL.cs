@@ -21,14 +21,12 @@ namespace CourseRegistration.BLL
 
         public static RegistrationBLL Instance { get { return lazy.Value; } }
 
-        
         public Boolean CreateForIndividualUser(Registration reg)
         {
-            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-
             //validate
             if (ValidateRegistration(reg))
             {
+                IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
                 // Participant exists or not
                 IQueryable<Participant> query =
                     from participant in uow.ParticipantRepository.GetAll()

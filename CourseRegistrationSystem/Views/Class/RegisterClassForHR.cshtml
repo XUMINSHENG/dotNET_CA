@@ -1,4 +1,4 @@
-﻿
+﻿@model CourseRegistrationSystem.Models.RegistrationViewModel
 @using CourseRegistration.Models
 
 @{
@@ -8,22 +8,22 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@ViewBag.CourseClass.ClassId</li>
+    <li>@Model.CourseClass.ClassId</li>
 </ul>
 
-<h2>@ViewBag.CourseClass.ClassId Class Registration</h2>
+<h2>@Model.CourseClass.ClassId Class Registration</h2>
 
-<h4>@ViewBag.CourseClass.Course.CourseTitle</h4>
+<h4>@Model.CourseClass.Course.CourseTitle</h4>
 
 <p>
-    @ViewBag.CourseClass.Course.CourseDescription
+    @Model.CourseClass.Course.CourseDescription
 </p>
 
-<p>Fee: @ViewBag.CourseClass.Course.Fee</p>
-<p>Duration: @ViewBag.CourseClass.Course.NumberOfDays days</p>
-<p>Start Date: @ViewBag.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @ViewBag.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
+<p>Fee: @Model.CourseClass.Course.Fee</p>
+<p>Duration: @Model.CourseClass.Course.NumberOfDays days</p>
+<p>Start Date: @Model.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@using (Html.BeginForm("RegisterClassForHR", "Class", new { classId = @ViewBag.CourseClass.ClassId}))
+@using (Html.BeginForm("RegisterClassForHR", "Class", new { r = Model }))
 {
     @Html.AntiForgeryToken()
 
@@ -55,8 +55,42 @@
         </div>
         <div class="collapse" id="collapse2">
             <div class="panel-body">
-                @Html.Partial("CreateBilling");
-            </div>
+                <div class="form-horizontal">
+                    <h4>Billing Address</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BillingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BillingPersonName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BillingPersonName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BillingPersonName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BillingAddressCountry, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BillingAddressCountry, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BillingAddressCountry, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BillingAddressPostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BillingAddressPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BillingAddressPostalCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 
@@ -100,7 +134,14 @@
                 <h4 class="modal-title">Employee List</h4>
             </div>
             <div class="modal-body" id="modal2Body">
-                
+                @foreach(var item in Model.Participants)
+                {
+                    <div class="checkbox">
+                        <label>
+                            @item.FullName <input type="checkbox" id="@item.ParticipantId" name="@item.FullName">
+                        </label>
+                    </div>
+                }
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -124,9 +165,9 @@
     })
 
     $('#myModal2').on('show.bs.modal', function (event) {
-        $.get('GetEmployeeList', function (response) {
-            $('#modal2Body').html(response);
-        });
+        //$.get('GetEmployeeList', function (response) {
+        //    $('#modal2Body').html(response);
+        //});
     })
 
     $('#empBtn').click(function (event) {

@@ -8,7 +8,6 @@ using CourseRegistration.BLL;
 using CourseRegistrationSystem.Models;
 using Microsoft.AspNet.Identity;
 
-
 namespace CourseRegistrationSystem.Controllers
 {
     public class ClassController : Controller
@@ -59,12 +58,11 @@ namespace CourseRegistrationSystem.Controllers
             String loginUserId = User.Identity.GetUserId();
             CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
             int cmpId = loginHR.Company.CompanyId;
-
-            Registration registration = new Registration();
-
-            CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
-            ViewBag.CourseClass = courseClass;
-            return View();
+            RegistrationViewModel r = new RegistrationViewModel();
+            r.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
+            r.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
+            
+            return View(r);
         }
         [Authorize(Roles = "CompanyHR")]
         [HttpPost]
