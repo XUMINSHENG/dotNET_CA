@@ -399,7 +399,7 @@ namespace CourseRegistrationSystem.Controllers
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            var updateResult = CourseRegistration.BLL.UserBLL.Instance.setPassword(user.Id, model.Password ,result.Succeeded);
+            var updateResult = CourseRegistration.BLL.UserBLL.Instance.setPasswordAsync(user.Id, model.Password ,result.Succeeded);
             if (updateResult.Result)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");

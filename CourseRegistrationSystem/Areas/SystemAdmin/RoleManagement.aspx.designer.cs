@@ -10,7 +10,7 @@
 namespace CourseRegistrationSystem.Areas.SystemAdmin {
     
     
-    public partial class RoleMgmt {
+    public partial class RoleManagement {
         
         /// <summary>
         /// form1 control.

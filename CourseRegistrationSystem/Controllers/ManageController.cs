@@ -229,7 +229,7 @@ namespace CourseRegistrationSystem.Controllers
                 return View(model);
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            var updateResult = CourseRegistration.BLL.UserBLL.Instance.setPassword(User.Identity.GetUserId(), model.NewPassword, result.Succeeded);
+            var updateResult = CourseRegistration.BLL.UserBLL.Instance.setPasswordAsync(User.Identity.GetUserId(), model.NewPassword, result.Succeeded);
             if (updateResult.Result)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());

@@ -21,6 +21,79 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             uow.AppUserManager.EmailService = new EmailService();
+            uow.Save();
+        }
+
+        public async Task<bool> ResetUserPassword(String userId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            var user = uow.AppUserManager.FindById(userId);
+            String pwd = Util.GeneratePassword();
+            user.isSysGenPassword = true;
+            var result = await setPasswordAsync(user.Id, pwd,true);
+            uow.Save();
+            MailUserCredentials(user.Id, user.UserName, pwd);
+            return result;
+        }
+
+        public ApplicationUser CreateAppUser(String userName,String email,String contactNumber, String roleName)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            // Create New User
+            var userRole = uow.AppRoleManager.FindByName(roleName);
+            ApplicationUser user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = userName,
+                Email = email,
+                PhoneNumber = contactNumber,
+                isSysGenPassword = true
+            };
+            if (userRole == null)
+            {
+                CourseRegistration.BLL.RoleBLL.Instance.CreateRole(roleName);
+                userRole = uow.AppRoleManager.FindByName(roleName);
+            }
+                
+            user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+            String pwd = Util.GeneratePassword();
+
+            uow.AppUserManager.Create(user, pwd);
+
+            uow.Save();
+            MailUserCredentials(user.Id, user.UserName, pwd);
+            return user;
+
+        }
+
+        public ApplicationUser UpdateAppUser(String userId,String userName, String email, String contactNumber,bool DisableAccount)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            // Update User Details
+            var user = uow.AppUserManager.FindById(userId);
+            user.UserName = userName;
+            user.Email = user.Email;
+            user.PhoneNumber = contactNumber;
+            if(DisableAccount)
+            {
+                uow.AppUserManager.RemovePassword(userId);
+            }
+            else if(user.PasswordHash == null)
+            {
+                ResetUserPassword(userId);
+            }
+            uow.Save();
+            return user;
+
+        }
+
+        public void MailUserCredentials(String userId,String userName,String password)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            if (uow.AppUserManager.EmailService == null) 
+                uow.AppUserManager.EmailService = new EmailService();
+            uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+            uow.Save();
         }
 
         public ApplicationUser CreateIndividualUser(Participant p)
@@ -47,7 +120,7 @@ namespace CourseRegistration.BLL
             p.AppUser = user;
             uow.ParticipantRepository.Insert(p);
             uow.Save();
-            uow.AppUserManager.SendEmail(user.Id, "Account Credentials", "Your Login Credentials are <br/> UserName:" + user.UserName + "<br/> Password:" + pwd);
+            MailUserCredentials(user.Id, user.UserName, pwd);
             return user;
 
         }
@@ -81,15 +154,15 @@ namespace CourseRegistration.BLL
             uow.CompanyHRRepository.Insert(HR);
 
             uow.Save();
-            uow.AppUserManager.SendEmail(user.Id, "Account Credentials", "Your Login Credentials are <br/> UserName:" + user.UserName + "<br/> Password:" + pwd);
+            MailUserCredentials(user.Id, user.UserName, pwd);
             return user;
 
         }
 
-        public void CreateCourseAdmin(ApplicationUser user)
+        public void CreateCourseAdmin()
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-
+            ApplicationUser user = new ApplicationUser();
             // Create New User
             var userRole = uow.AppRoleManager.FindByName(Util.C_Role_CourseAdmin);
             user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
@@ -140,7 +213,7 @@ namespace CourseRegistration.BLL
             }
         }
 
-        public async Task<bool> setPassword(string id,string password , bool status)
+        public async Task<bool> setPasswordAsync(string id,string password , bool status)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             ApplicationUser user = GetUserById(id);

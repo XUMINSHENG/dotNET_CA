@@ -246,12 +246,19 @@
     <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx.designer.cs">
       <DependentUpon>CourseAdminList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\SystemAdmin\RoleMgmt.aspx.cs">
-      <DependentUpon>RoleMgmt.aspx</DependentUpon>
+    <Compile Include="Areas\SystemAdmin\RoleManagement.aspx.cs">
+      <DependentUpon>RoleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Areas\SystemAdmin\RoleMgmt.aspx.designer.cs">
-      <DependentUpon>RoleMgmt.aspx</DependentUpon>
+    <Compile Include="Areas\SystemAdmin\RoleManagement.aspx.designer.cs">
+      <DependentUpon>RoleManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\SystemAdmin\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Areas\SystemAdmin\SystemAdmin.Master.cs">
       <DependentUpon>SystemAdmin.Master</DependentUpon>
@@ -297,7 +304,8 @@
     <Content Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx" />
     <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx" />
     <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx" />
-    <Content Include="Areas\SystemAdmin\RoleMgmt.aspx" />
+    <Content Include="Areas\SystemAdmin\RoleManagement.aspx" />
+    <Content Include="Areas\SystemAdmin\UserManagement.aspx" />
     <Content Include="Areas\SystemAdmin\SystemAdminHomePage.aspx" />
     <Content Include="Content\bootstrap-addition.css" />
     <Content Include="Content\bootstrap-datepicker.css" />

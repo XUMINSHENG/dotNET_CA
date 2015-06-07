@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace CourseRegistrationSystem.Areas.SystemAdmin
 {
-    public partial class RoleMgmt : System.Web.UI.Page
+    public partial class RoleManagement : System.Web.UI.Page
     {
         List<String> allRoleList = new List<String>();
         List<String> roleList = new List<String>();

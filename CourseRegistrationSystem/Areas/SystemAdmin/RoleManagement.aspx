@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RoleMgmt.aspx.cs" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.RoleMgmt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RoleManagement.aspx.cs" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.RoleManagement" %>
 
 <!DOCTYPE html>
 
