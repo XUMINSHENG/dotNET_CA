@@ -45,11 +45,13 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult RegisterClassForIU(Registration r)
         {
             //get result of registration
-            RegistrationBLL.Instance.CreateForIndividualUser(r);
+            //if success, go to confirm page
+            if (RegistrationBLL.Instance.CreateForIndividualUser(r))
+            {
+                return View("RegisterClassForIUResult",r);
+            }
             //if no success return back 
             return View(r);
-            //if success, go to confirm page
-            //confirm page is ready but no configure
         }
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)

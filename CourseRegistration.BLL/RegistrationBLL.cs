@@ -22,62 +22,64 @@ namespace CourseRegistration.BLL
         public static RegistrationBLL Instance { get { return lazy.Value; } }
 
         
-        public void CreateForIndividualUser(Registration reg)
+        public Boolean CreateForIndividualUser(Registration reg)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
 
             //validate
-            ValidateRegistration(reg);
-
-            // Participant exists or not
-            IQueryable<Participant> query = 
-                from participant in uow.ParticipantRepository.GetAll()
-                where
-                    (participant.IdNumber == reg.Participant.IdNumber && participant.Company == null)
-                select participant;
-
-            
-            if (query.Count() == 0)
+            if (ValidateRegistration(reg))
             {
-                // Participant does not exist
-                // Create New User
-                var userRole = uow.AppRoleManager.FindByName("IndividualUser");
-                ApplicationUser user = new ApplicationUser
+                // Participant exists or not
+                IQueryable<Participant> query =
+                    from participant in uow.ParticipantRepository.GetAll()
+                    where
+                        (participant.IdNumber == reg.Participant.IdNumber && participant.Company == null)
+                    select participant;
+
+
+                if (query.Count() == 0)
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = reg.Participant.IdNumber,
-                    Email = reg.Participant.Email,
-                    PhoneNumber = reg.Participant.ContactNumber,
-                    isSysGenPassword = true
-                };
-                user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+                    // Participant does not exist
+                    // Create New User
+                    var userRole = uow.AppRoleManager.FindByName("IndividualUser");
+                    ApplicationUser user = new ApplicationUser
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        UserName = reg.Participant.IdNumber,
+                        Email = reg.Participant.Email,
+                        PhoneNumber = reg.Participant.ContactNumber,
+                        isSysGenPassword = true
+                    };
+                    user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
 
-                String pwd = Util.GeneratePassword();
+                    String pwd = Util.GeneratePassword();
 
-                uow.AppUserManager.Create(user, pwd);
+                    uow.AppUserManager.Create(user, pwd);
 
-                // Create New Participant
-                reg.Participant.AppUser = user;
-                uow.ParticipantRepository.Insert(reg.Participant);
+                    // Create New Participant
+                    reg.Participant.AppUser = user;
+                    uow.ParticipantRepository.Insert(reg.Participant);
 
+                }
+                else
+                {
+                    // already exist
+                    // get participant record with same IdNo and Company == null
+                    Participant p = query.Single();
+                    // update existing one
+                    UpdateRegParticipant(p, reg.Participant);
+                    uow.ParticipantRepository.Edit(p);
+
+                    reg.Participant = p;
+                }
+
+                // Create Registration
+                uow.RegistrationRepository.Insert(reg);
+
+                uow.Save();
+                return true;
             }
-            else
-            {
-                // already exist
-                // get participant record with same IdNo and Company == null
-                Participant p = query.Single();
-                // update existing one
-                UpdateRegParticipant(p, reg.Participant);
-                uow.ParticipantRepository.Edit(p);
-
-                reg.Participant = p;
-            }
-
-            // Create Registration
-            uow.RegistrationRepository.Insert(reg);
-            
-            uow.Save();
-            
+            return false;
         }
 
         public void CreateForCompanyEmployee(List<Registration> registrationList)
@@ -197,13 +199,22 @@ namespace CourseRegistration.BLL
 
 
 
-        private void ValidateRegistration(Registration r)
+        private Boolean ValidateRegistration(Registration r)
         {
             // class open for reg
-
+            if (r.CourseClass.Status == ClassStatus.Cancel && DateTime.Now >= r.CourseClass.StartDate) {
+                return false;
+            }
             // this participant doesn't register this class
-
-
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            IQueryable<Registration> rList = from registration in uow.RegistrationRepository.GetAll()
+                                             where (registration.Participant == r.Participant && registration.CourseClass == r.CourseClass)
+                                             select registration;
+            if (rList.Count() != 0)
+            {
+                return false;
+            }
+            return true;
         }
 
 
