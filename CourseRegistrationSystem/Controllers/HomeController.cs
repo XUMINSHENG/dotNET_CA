@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
-
+using CourseRegistration.Models;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -13,6 +13,7 @@ namespace CourseRegistrationSystem.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.cList = CourseClassBLL.Instance.GetUpcomingClass();
             return View();
         }
 

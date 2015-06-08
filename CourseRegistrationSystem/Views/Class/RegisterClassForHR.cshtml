@@ -8,7 +8,8 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Model.CourseClass.ClassId</li>
+    <li>@Html.ActionLink(Model.CourseClass.ClassId, "Details", "Class", new { id = Model.CourseClass.ClassId }, new { })</li>
+    <li>Registration</li>
 </ul>
 
 <h2>@Model.CourseClass.ClassId Class Registration</h2>
@@ -23,10 +24,9 @@
 <p>Duration: @Model.CourseClass.Course.NumberOfDays days</p>
 <p>Start Date: @Model.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@using (Html.BeginForm("RegisterClassForHR", "Class", new { r = Model }))
+@using (Html.BeginForm("RegisterClassForHR", "Class", FormMethod.Post, new { r=Model}))
 {
     @Html.AntiForgeryToken()
-
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
             <h3 class="panel-title">Step1: Participant Details</h3>
@@ -53,7 +53,7 @@
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
             <h3 class="panel-title">Step2: Bill Details</h3>
         </div>
-        <div class="collapse" id="collapse2">
+        <div class="collapse in" id="collapse2">
             <div class="panel-body">
                 <div class="form-horizontal">
                     <h4>Billing Address</h4>
@@ -91,15 +91,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 
-
-    <nav>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Employee List</h4>
+                </div>
+                <div class="modal-body" id="modal2Body">
+                    @foreach (var item in Model.Participants)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                @item.FullName <input type="checkbox" value="@item.ParticipantId" name="@item.ParticipantId">
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="empBtn">Comfirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <nav>
         <div class="pager">
             @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
             @*<li class="next"><a href="#">Register</a></li>*@
-            <button class="btn btn-primary" style="float:right;" type="submit">Register Now</button>
+            <input class="btn btn-primary" style="float:right;" type="submit" value="Register Now" />
         </div>
     </nav>
 }
@@ -115,7 +140,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="modal-body">
-                    @Html.Partial("CreateParticipant");
+                    @*@Html.Partial("CreateParticipant");*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -126,34 +151,17 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Employee List</h4>
-            </div>
-            <div class="modal-body" id="modal2Body">
-                @foreach(var item in Model.Participants)
-                {
-                    <div class="checkbox">
-                        <label>
-                            @item.FullName <input type="checkbox" id="@item.ParticipantId" name="@item.FullName">
-                        </label>
-                    </div>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="empBtn">Comfirm</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
-    var paticipants;
+    //var participants;
+    var curParticipants;
 
+    $(document).ready(function () {
+        curParticipants = [];
+    });
+
+    //new participant modal
     $('#myModal1').on('show.bs.modal', function (event) {
         //var button = $(event.relatedTarget) // Button that triggered the modal
         //var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -164,29 +172,80 @@
         //modal.find('.modal-body p').text(recipient + "description")
     })
 
+    //employeeList modal
     $('#myModal2').on('show.bs.modal', function (event) {
         //$.get('GetEmployeeList', function (response) {
         //    $('#modal2Body').html(response);
         //});
+
+        //var inputs = document.getElementById('participants').getElementsByTagName('input');
+        //if (inputs.length != 0) {
+        //    for (var i = 0; i < participants.length; i++) {
+        //        inputs[i].checked = participants[i].selected;
+        //    }
+        //}
+        
+    })
+
+    $('#myModal2').on('hidden.bs.modal', function (event) {
+        var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == 'checkbox') {
+                inputs[i].checked = false;
+            }
+        }
+        var selected;
+        for (var j = 0; j < curParticipants.length; j++) {
+            selected = null;
+            selected = document.getElementsByName(curParticipants[j]);
+            if (selected != null) {
+                selected[0].checked = true;
+            }
+        }
+        
     })
 
     $('#empBtn').click(function (event) {
+        changeParticipants();
+        $('#myModal2').modal('hide')
+    })
+
+    function compare(array1, array2) {
+        return (array1.length == array2.length) && array1.every(function (element, index) {
+            return element == array2[index]});
+    }
+
+    function changeParticipants() {
         var checkedList = new Array();
-        var inputs = document.getElementById('employeeList').getElementsByTagName('input');
+
+        //$("input[name='employee']").each(function () {
+        //    console($(this).attr('checked'));
+        //    if ($(this).attr('checked') == true) {
+        //        checkedList.push($(this).attr('value'));
+        //    }
+        //})
+
+        var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == 'checkbox') {
                 if (inputs[i].checked) {
-                    checkedList.push(inputs[i].id);
+                    checkedList.push(inputs[i].value);
                 }
             }
         }
-        console.log(checkedList);
-        if (checkedList.length !== 0) {
-            $.post('GetParticipantFromList', $.param({array:checkedList},true), function (response) {
-                console.log(response);
-                $('#participants').html(response);
-            });
+   
+        if (checkedList.length !== 0 ) {
+            if (!compare(curParticipants,checkedList)) {
+                $.post('GetParticipantFromList', $.param({ array: checkedList }, true), function (response) {
+                    console.log(response);
+                    $('#participants').html(response);
+                }).done(function () {
+                    curParticipants = checkedList;
+                })
+            }
+        } else {
+            curParticipants = checkedList;
+            $('#participants').html('<p class="text-muted">Please add one participant at least.</p>');
         }
-        $('#myModal2').modal('hide')
-    })
+    }
 </script>

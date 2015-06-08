@@ -80,42 +80,48 @@ namespace CourseRegistration.BLL
             return false;
         }
 
-        public void CreateForCompanyEmployee(List<Registration> registrationList)
+        public List<Registration> CreateForCompanyEmployee(List<Registration> registrationList)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            List<Registration> failedList = new List<Registration>();
 
             foreach (Registration reg in registrationList)
             {
-                ValidateRegistration(reg);
-
-                // Participant exists or not
-                IQueryable<Participant> query =
-                    from participant in uow.ParticipantRepository.GetAll()
-                    where
-                        (participant.IdNumber == reg.Participant.IdNumber && 
-                        participant.Company.CompanyId == reg.Participant.Company.CompanyId)
-                    select participant;
-
-                // Participant does not exist
-                if (query.Count() == 0)
+                if (ValidateRegistration(reg))
                 {
-                    // EF automatically Create Participant
+                    // Participant exists or not
+                    IQueryable<Participant> query =
+                        from participant in uow.ParticipantRepository.GetAll()
+                        where
+                            (participant.IdNumber == reg.Participant.IdNumber &&
+                            participant.Company.CompanyId == reg.Participant.Company.CompanyId)
+                        select participant;
+
+                    // Participant does not exist
+                    if (query.Count() == 0)
+                    {
+                        // EF automatically Create Participant
+                    }
+                    else
+                    {
+                        // get participant record with same IdNo and Company == passed
+                        Participant p = query.Single();
+                        // update existing one
+                        UpdateRegParticipant(p, reg.Participant);
+                        uow.ParticipantRepository.Edit(p);
+
+                        reg.Participant = p;
+
+                    }
+                    uow.RegistrationRepository.Insert(reg);
                 }
                 else
                 {
-                    // get participant record with same IdNo and Company == passed
-                    Participant p = query.Single();
-                    // update existing one
-                    UpdateRegParticipant(p,reg.Participant);
-                    uow.ParticipantRepository.Edit(p);
-
-                    reg.Participant = p;
-
-                }
-                uow.RegistrationRepository.Insert(reg);
+                    failedList.Add(reg);
+                } 
             }
             uow.Save();
-
+            return failedList;    
         }
 
         public Registration getRegistrationById(int id)

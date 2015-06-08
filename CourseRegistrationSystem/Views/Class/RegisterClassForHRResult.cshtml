@@ -1,0 +1,115 @@
+﻿@model IEnumerable<CourseRegistration.Models.Registration>
+@using CourseRegistration.Models;
+
+@{
+    ViewBag.Title = "RegisterClassForHRResult";
+}
+
+<h2>RegisterClassForHRResult</h2>
+
+<div>
+    <h4>Successful registration</h4>
+    <hr />
+    @foreach (var item in Model)
+    {
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("FullName")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Participant.FullName)
+            </dd>
+
+        </dl>
+
+    }
+</div>
+
+@if (ViewBag.fList.Count != 0)
+{
+    <div>
+        <h4>Failed registration</h4>
+        <hr />
+        @foreach (Registration item in ViewBag.fList)
+        {
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName("FullName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Participant.FullName)
+                </dd>
+
+            </dl>
+
+        }
+    </div>
+}
+
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().BillingAddress)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().BillingAddress)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().BillingPersonName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().BillingPersonName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().BillingAddressCountry)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().BillingAddressCountry)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().BillingAddressPostalCode)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().BillingAddressPostalCode)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().Status)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().CreateDate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().CreateDate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.First().Timestamp)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.First().Timestamp)
+    </dd>
+</dl>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

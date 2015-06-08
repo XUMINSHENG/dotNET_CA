@@ -17,8 +17,13 @@ namespace CourseRegistrationSystem.Controllers
             
             return View(categories);
         }
-
-      
+        [HttpPost]
+        public ActionResult Search()
+        {
+            String s = Request.Form["Search"];
+            List<Course> courses = CourseBLL.Instance.SearchCourse(s);
+            return PartialView(courses);
+        }
 
         // GET: Course/Details/5
         public ActionResult Details(string code)

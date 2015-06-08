@@ -477,10 +477,11 @@
     <Content Include="Views\Class\GetEmployeeList.cshtml" />
     <Content Include="Views\Class\CreateParticipant.cshtml" />
     <Content Include="Views\Class\GetParticipantFromList.cshtml" />
-    <Content Include="Views\Class\CreateBilling.cshtml" />
     <Content Include="Views\Class\RegisterClassForIU.cshtml" />
     <Content Include="Views\CompanyHR\RegistrationDelete.cshtml" />
     <Content Include="Views\Class\RegisterClassForIUResult.cshtml" />
+    <Content Include="Views\Class\RegisterClassForHRResult.cshtml" />
+    <Content Include="Views\Course\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

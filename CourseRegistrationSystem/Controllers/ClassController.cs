@@ -35,7 +35,6 @@ namespace CourseRegistrationSystem.Controllers
             Registration r = new Registration();
             r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             r.Participant = ParticipantBLL.Instance.GetParticipantByUserId(loginUserId);
-            r.Sponsorship = Sponsorship.Self;
 
             return View(r);
         }
@@ -43,7 +42,10 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(Registration r)
         {
-            //get result of registration
+
+            //get result of registration & configure
+            r.Sponsorship = Sponsorship.Self;
+            r.DietaryRequirement = r.Participant.DietaryRequirement;
             //if success, go to confirm page
             if (RegistrationBLL.Instance.CreateForIndividualUser(r))
             {
@@ -66,9 +68,42 @@ namespace CourseRegistrationSystem.Controllers
         }
         [Authorize(Roles = "CompanyHR")]
         [HttpPost]
-        public ActionResult RegisterClassForHR(String classId, List<Participant> participants)
+        public ActionResult RegisterClassForHR(RegistrationViewModel r)
         {
-            return View();
+            String id = Request.Form["p.IdNumber"];
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            Company company = loginHR.Company;
+            String checkbox;
+            Registration reg;
+            List<Registration> rList = new List<Registration>();
+            foreach (Participant item in r.Participants)
+            {
+                checkbox = null;
+                checkbox = Request.Form[item.ParticipantId];
+                if (checkbox != null && checkbox == item.ParticipantId.ToString())
+                {
+                    //selectedList.Add(item);
+                    reg = new Registration();
+                    reg.CourseClass = r.CourseClass;
+                    reg.Participant = item;
+                    reg.BillingAddress = r.BillingAddress;
+                    reg.BillingPersonName = r.BillingPersonName;
+                    reg.BillingAddressCountry = r.BillingAddressCountry;
+                    reg.BillingAddressPostalCode = r.BillingAddressPostalCode;
+                    reg.Sponsorship = Sponsorship.Company;
+                    reg.OrganizationSize = company.OrganizationSize;
+                    reg.DietaryRequirement = item.DietaryRequirement;
+                    rList.Add(reg);
+                }
+            }
+            if(rList.Count!=0){
+                IEnumerable<Registration> failedList = RegistrationBLL.Instance.CreateForCompanyEmployee(rList);
+                ViewBag.fList = failedList;
+                return View(rList);
+            }
+
+            return View(r);
         }
         public ActionResult GetEmployeeList()
         {
@@ -83,10 +118,9 @@ namespace CourseRegistrationSystem.Controllers
             Participant participant = new Participant();
             return PartialView(participant);
         }
-        public ActionResult CreateBilling()
+        public ActionResult EditParticipant(Participant p)
         {
-            BillingViewModel billing = new BillingViewModel();
-            return PartialView(billing);
+            return PartialView(p);
         }
         [HttpPost]
         public ActionResult GetParticipantFromList(List<int> array)

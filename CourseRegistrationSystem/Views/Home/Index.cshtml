@@ -74,4 +74,20 @@
     </div>
 </div>
 
-<div></div>
+<div>
+    <h3 class="text-primary">Upcoming Classes:</h3>
+    @if (ViewBag.cList.Count == 0)
+    {
+        <p>There are no classes in recent three months.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (CourseRegistration.Models.CourseClass item in ViewBag.cList)
+            {
+                <li>@Html.ActionLink(item.Course.CourseTitle + " - " + item.ClassId, "Details", "Class", new { id = item.ClassId }, new { })</li>
+            }
+        </ul>
+    }
+    
+</div>

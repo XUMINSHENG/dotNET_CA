@@ -68,6 +68,23 @@ namespace CourseRegistration.BLL
             return query.ToList();
         }
 
+        public List<CourseClass> GetUpcomingClass()
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+
+            DateTime d = DateTime.Now.AddMonths(3);
+
+            IQueryable<CourseClass> query =
+                from courseClass in uow.CourseClassRepository.GetAll()
+                where courseClass.isOpenForRegister &&
+                    DateTime.Now < courseClass.StartDate &&
+                    d > courseClass.StartDate &&
+                    courseClass.Status != ClassStatus.Cancel
+                select courseClass;
+
+            return query.ToList();
+        }
+
         public void UpdateCourseClass(CourseClass cc)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

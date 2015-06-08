@@ -7,7 +7,7 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Html.DisplayFor(model => Model.Course.CourseTitle)</li>
+    <li>@Html.DisplayFor(model => Model.ClassId)</li>
 </ul>
 
 <h2>@Model.ClassId Class <small>for @Model.Course.CourseTitle</small></h2>
@@ -43,6 +43,22 @@
 
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Back to List", "Index")
+    @if (Request.IsAuthenticated)
+    {
+        if (User.IsInRole("IndividualUser"))
+        {
+            @Html.ActionLink("Register", "RegisterClassForIU", new { classId = Model.ClassId }, new { @style="float:right"})
+        }
+        else
+        {
+            @Html.ActionLink("Register", "RegisterClassForHR", new { classId = Model.ClassId }, new { @style="float:right"})
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    }
 </p>

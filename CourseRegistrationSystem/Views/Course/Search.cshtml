@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CourseRegistration.Models.Course>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfDays)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    //if (item.enabled)
+    //{
+        <tr>
+            <td>
+                @Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { })
+                @*@Html.DisplayFor(modelItem => item.CourseTitle)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfDays)
+            </td>
+        </tr>
+    //}
+}
+
+</table>
