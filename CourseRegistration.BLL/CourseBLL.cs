@@ -66,9 +66,9 @@ namespace CourseRegistration.BLL
             IQueryable<Course> categoryQuery = uow.CourseRepository.GetAll().Where<Course>(x => x.Category.CategoryName.ToUpper().Contains(keyWord));
             //instructor
             IQueryable<Course> instructorQuery = from course in uow.CourseRepository.GetAll()
-                                                    where
-                                                        (from instructor in course.Instructors where instructor.InstructorName.ToUpper().Contains(keyWord) select true).FirstOrDefault() != null
-                                                    select course;
+                                                where
+                                                 course.Instructors.Any(y => y.InstructorName.ToUpper().Contains(keyWord))
+                                                select course;
 
             //description
             IQueryable<Course> descriptionQuery = uow.CourseRepository.GetAll().Where<Course>(x => x.CourseDescription.ToUpper().Contains(keyWord));
