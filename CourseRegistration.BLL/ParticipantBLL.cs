@@ -23,9 +23,8 @@ namespace CourseRegistration.BLL
         public Participant GetParticipantByUserId(String userId)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            ApplicationUser user = UserBLL.Instance.GetUserById(userId);
             IQueryable<Participant> pList = from participant in uow.ParticipantRepository.GetAll()
-                            where (participant.AppUser == user)
+                            where (participant.AppUser.Id == userId)
                             select participant;
             if (pList.Count() == 0)
             {

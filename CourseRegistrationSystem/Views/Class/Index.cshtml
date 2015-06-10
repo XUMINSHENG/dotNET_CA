@@ -42,18 +42,19 @@
         <td>
             @if(Request.IsAuthenticated)
             {
-                if (User.IsInRole("IndividualUser"))
-                {
-                    @Html.ActionLink("Register", "RegisterClassForIU", new { classId=item.ClassId })
+                if (User.IsInRole("CompanyHR"))
+                {                    
+                    @Html.ActionLink("Register", "RegisterClassForHR", new { classId = item.ClassId })
                 }
                 else
                 {
-                    @Html.ActionLink("Register", "RegisterClassForHR", new { classId = item.ClassId })
+                    @Html.ActionLink("Register", "RegisterClassForIU", new { classId = item.ClassId })
                 }
             }
             else
             {
-                @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                @Html.ActionLink("Register", "RegisterClass", new { classId = item.ClassId })
+                @*@Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@
             }
                 
         </td>

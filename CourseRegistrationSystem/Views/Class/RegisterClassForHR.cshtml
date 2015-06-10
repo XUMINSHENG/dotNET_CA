@@ -24,9 +24,13 @@
 <p>Duration: @Model.CourseClass.Course.NumberOfDays days</p>
 <p>Start Date: @Model.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@using (Html.BeginForm("RegisterClassForHR", "Class", FormMethod.Post, new { r=Model}))
+@using (Html.BeginForm("RegisterClassForHR", "Class", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => Model.CourseClass.ClassId)
+    
+    List<Participant> pList = new List<Participant>();   
+    
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
             <h3 class="panel-title">Step1: Participant Details</h3>
@@ -42,7 +46,17 @@
                     </button>
                     <hr />
                 </div>
-                <div id="participants">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="newParticipants">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id ="participants">
+
+                        </div>
+                    </div>
                     <p class="text-muted">Please add one participant at least.</p>
                 </div>         
             </div>
@@ -136,11 +150,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Participant</h4>
             </div>
-            @using (Html.BeginForm())
+            @using (Ajax.BeginForm("CreateParticipant", "Class",new { @id="create" }, new AjaxOptions { OnBegin="createBegin", OnSuccess="createSuccess", OnFailure="createFailure", HttpMethod="POST"}))
             {
                 @Html.AntiForgeryToken()
+                @Html.Hidden("ParticipantList")
                 <div class="modal-body">
-                    @*@Html.Partial("CreateParticipant");*@
+                    @Html.Partial("CreateParticipant")
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -154,6 +169,7 @@
 
 
 <script>
+    var testData = "testData";
     //var participants;
     var curParticipants;
 
@@ -213,6 +229,27 @@
     function compare(array1, array2) {
         return (array1.length == array2.length) && array1.every(function (element, index) {
             return element == array2[index]});
+    }
+
+    function createBegin() {
+        console.log("i am beginning");
+        //check if idnumber is existed in local
+
+        var jsonarray = [{ name: "test1" }, { name: "test2" }];
+        console.log(jsonarray);
+        var json = JSON.stringify(jsonarray);
+        console.log(json);
+        document.getElementById('ParticipantList').setAttribute('value', json);
+    }
+
+    function createFailure(response) {
+        //check if existed in db
+        alert("Failed to create.")
+    }
+
+    function createSuccess(response) {
+        console.log("i am successful");
+        console.log(response);
     }
 
     function changeParticipants() {

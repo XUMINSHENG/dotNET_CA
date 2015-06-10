@@ -7,6 +7,7 @@ using CourseRegistration.Models;
 using CourseRegistration.BLL;
 using CourseRegistrationSystem.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -25,15 +26,43 @@ namespace CourseRegistrationSystem.Controllers
             CourseClass courseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             return View(courseClass);
         }
+        public ActionResult RegisterClass(String classId)
+        {
+            Registration r = new Registration();
+            r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            r.Participant = new Participant();
+            return View(r);
+        }
+        [HttpPost]
+        public ActionResult RegisterClass(Registration r)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("IndividualUser"))
+                {
+                    return RedirectToAction("RegisterClassForIU");
+                }
+                if (User.IsInRole("CompanyHR"))
+                {
+                    return RedirectToAction("RegisterClassForHR");
+                }
+            }
+            else
+            {
+                //verify if the user existed based on the information
+                //if not, register a new one as individual user and finish the class registration
+                //if yes, help them login and turn to iu action
+            }
+            return View(r);
+        }
+
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String classId)
         {
-            String loginUserId = User.Identity.GetUserId();
-            //validate if already registered by user
-
-            //if have not been registered
             Registration r = new Registration();
             r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            
+            String loginUserId = User.Identity.GetUserId();
             r.Participant = ParticipantBLL.Instance.GetParticipantByUserId(loginUserId);
 
             return View(r);
@@ -42,18 +71,19 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(Registration r)
         {
-
             //get result of registration & configure
             r.Sponsorship = Sponsorship.Self;
             r.DietaryRequirement = r.Participant.DietaryRequirement;
+            
             //if success, go to confirm page
             if (RegistrationBLL.Instance.CreateForIndividualUser(r))
             {
                 return View("RegisterClassForIUResult",r);
-            }
+            }            
             //if no success return back 
             return View(r);
         }
+
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)
         {
@@ -66,8 +96,8 @@ namespace CourseRegistrationSystem.Controllers
             
             return View(r);
         }
-        [Authorize(Roles = "CompanyHR")]
         [HttpPost]
+        [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(RegistrationViewModel r)
         {
             String id = Request.Form["p.IdNumber"];
@@ -115,8 +145,19 @@ namespace CourseRegistrationSystem.Controllers
         }
         public ActionResult CreateParticipant()
         {
-            Participant participant = new Participant();
-            return PartialView(participant);
+            //ViewBag.Participant = new Participant();
+            return PartialView();
+        }
+        public class test
+        {
+            public String name { get; set; }
+        }
+        [HttpPost]
+        public JsonResult CreateParticipant(Participant p)
+        {
+            String json = Request.Form["ParticipantList"];
+            test[] data = JsonConvert.DeserializeObject<test[]>(json);
+            return Json(data);
         }
         public ActionResult EditParticipant(Participant p)
         {

@@ -137,5 +137,22 @@ namespace CourseRegistration.BLL
             return studentList;
         }
 
+        public Boolean VerifyClass(String id)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            IQueryable<CourseClass> query =
+                from courseClass in uow.CourseClassRepository.GetAll()
+                where courseClass.isOpenForRegister &&
+                    DateTime.Now < courseClass.StartDate &&
+                    courseClass.Status != ClassStatus.Cancel &&
+                    courseClass.ClassId == id
+                select courseClass;
+            if (query.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

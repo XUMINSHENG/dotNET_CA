@@ -212,7 +212,7 @@ namespace CourseRegistration.BLL
             // this participant doesn't register this class
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             IQueryable<Registration> rList = from registration in uow.RegistrationRepository.GetAll()
-                                             where (registration.Participant == r.Participant && registration.CourseClass == r.CourseClass)
+                                             where (registration.Participant.IdNumber == r.Participant.IdNumber && registration.CourseClass.ClassId == r.CourseClass.ClassId)
                                              select registration;
             if (rList.Count() != 0)
             {
