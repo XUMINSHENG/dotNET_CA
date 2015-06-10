@@ -154,7 +154,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.Hidden("ParticipantList")
-                <div class="modal-body">
+                <div class="modal-body" id="myModal1Body">
                     @Html.Partial("CreateParticipant")
                 </div>
                 <div class="modal-footer">
@@ -169,11 +169,11 @@
 
 
 <script>
-    var testData = "testData";
-    //var participants;
+    var newParticipants;
     var curParticipants;
 
     $(document).ready(function () {
+        newParticipants = [];
         curParticipants = [];
     });
 
@@ -250,7 +250,13 @@
     function createSuccess(response) {
         console.log("i am successful");
         console.log(response);
+        $.get('/Class/CreateParticipant').done(function (response) {
+            $('#myModal1Body').html(response);
+            $('#myModal1').modal('hide');
+        })
     }
+
+    
 
     function changeParticipants() {
         var checkedList = new Array();
