@@ -50,6 +50,9 @@
         <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.BLL</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Models</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
         <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Service</p1:AssemblyReference>
       </sco:Collection>
@@ -129,10 +132,16 @@
               </p1:InArgument>
             </p1:If.Condition>
             <p1:If.Then>
-              <cs:CancelationActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_1" />
+              <cs:CancelationActivity ClassID="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_5" />
             </p1:If.Then>
             <p1:If.Else>
-              <cs:ConfirmationActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="ConfirmationActivity_1" />
+              <cs:ConfirmationActivity sap2010:WorkflowViewState.IdRef="ConfirmationActivity_3">
+                <cs:ConfirmationActivity.ClassId>
+                  <p1:InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">classId</mca:CSharpValue>
+                  </p1:InArgument>
+                </cs:ConfirmationActivity.ClassId>
+              </cs:ConfirmationActivity>
             </p1:If.Else>
           </p1:If>
           <p1:Assign sap2010:WorkflowViewState.IdRef="Assign_1">
@@ -216,10 +225,10 @@
               </p1:InArgument>
             </p1:If.Condition>
             <p1:If.Then>
-              <cs:ConfirmationActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="ConfirmationActivity_2" />
+              <cs:ConfirmationActivity ClassId="{x:Null}" sap2010:WorkflowViewState.IdRef="ConfirmationActivity_4" />
             </p1:If.Then>
             <p1:If.Else>
-              <cs:CancelationActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_2" />
+              <cs:CancelationActivity ClassID="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_6" />
             </p1:If.Else>
           </p1:If>
           <SendReply Request="{x:Reference __ReferenceID1}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_2">
@@ -232,7 +241,7 @@
         </p1:Sequence>
       </p1:If.Then>
     </p1:If>
-    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seCsPA+wBEQEBPQs9PQEEQDZAOQEDQjhCPwECRQVaDwKPAVsFZioCgAFnBZYBDQFalwEFowERAUSkAQXqAQ0BBUoPSmMClwFXC1dYApABYwtjVgKIAV4LXlACgQFqC2pyAVtuCXkXAXZ8CZQBFwFioAELoAFVAVOdAQudAVoBTJoBC5oBUAFFpwELpwFVAQarAQnoARcBDW8LeBcBd30LiQETAWyKAQuTARcBY64BPq4BRQEOsAEL0wEVASfUAQvgARMBG+EBC+cBFwEPdjp2PgF/chFyYwF4gAERgAFdAW2EAQ+EAXEBdYcBD4cBcwF0kQE6kQE/AWuNARGNAWMBZLsBEbsBZQE7zQERzQFpATLCARXGASgBMdABEdABXgEo1wER1wFhARzbAQ/bAXMBJt4BD94BcQEl5AER5AFhARA=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seCwPA/UBEQEBQAtAPQEEQzZDOQEDRThFPwECSAVdDwKWAV4FaSoChwFqBZ8BDQFaoAEFrAERAUStAQXzAQ0BBU0PTWMCngFaC1pYApcBZgtmVgKPAWELYVACiAFtC21yAVtxCXwXAX1/CZ0BFwFiqQELqQFVAVOmAQumAVoBTKMBC6MBUAFFsAELsAFVAQa0AQnxARcBDXILexcBfoABC5IBEwFskwELnAEXAWO3AT63AUUBDrkBC9wBFQEn3QEL6QETARvqAQvwARcBD3k6eT4ChgF1EXVjAX+DARGDAV0BbYcBD4cBdAF8igEPkAEpAXSaATqaAT8Ba5YBEZYBYwFkxAERxAFlATvWARHWAWkBMssBFc8BKAEx2QER2QFeASjgARHgAWEBHOQBD+QBdgEm5wEP5wF0ASXtARHtAWEBEI0BFY0BWgF1</sads:DebugSymbol.Symbol>
   </p1:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -246,8 +255,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CancelationActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="ConfirmationActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="CancelationActivity_5" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ConfirmationActivity_3" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,210" />
       <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="464,62" />
       <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,436">
@@ -260,8 +269,8 @@
       <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="775,586" />
       <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="775,90" />
       <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="464,90" />
-      <sap2010:ViewStateData Id="ConfirmationActivity_2" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="CancelationActivity_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ConfirmationActivity_4" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="CancelationActivity_6" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,210" />
       <sap2010:ViewStateData Id="SendReply_2" sap:VirtualizedContainerService.HintSize="464,90" />
       <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="486,594">

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Activities;
+using CourseRegistration.Models;
+using CourseRegistration.BLL;
 
 namespace CourseRegistration.Service
 {
@@ -10,14 +12,17 @@ namespace CourseRegistration.Service
     public sealed class ConfirmationActivity : CodeActivity
     {
         // Define an activity input argument of type string
-        public InArgument<string> Text { get; set; }
+        public InArgument<string> ClassId { get; set; }
 
         // If your activity returns a value, derive from CodeActivity<TResult>
         // and return the value from the Execute method.
         protected override void Execute(CodeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            string text = context.GetValue(this.Text);
+            string classID = context.GetValue(this.ClassId);
+            CourseClass courseclass = CourseClassBLL.Instance.GetCourseClassById(classID);
+            courseclass.Status = ClassStatus.Confirmed;
+            CourseClassBLL.Instance.UpdateCourseClass(courseclass);
             Console.WriteLine("confirm");
             System.Diagnostics.Debug.WriteLine("confirm");
         }
