@@ -87,81 +87,96 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)
         {
-            String loginUserId = User.Identity.GetUserId();
-            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
-            int cmpId = loginHR.Company.CompanyId;
-            RegistrationViewModel r = new RegistrationViewModel();
-            r.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
-            r.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
+            int cmpId = GetCompanyId();
+            ViewBag.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
+            ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
             
-            return View(r);
+            return View();
         }
         [HttpPost]
         [Authorize(Roles = "CompanyHR")]
-        public ActionResult RegisterClassForHR(RegistrationViewModel r)
+        public ActionResult RegisterClassForHR()
         {
-            String id = Request.Form["p.IdNumber"];
+            String classId = Request.Form["ClassId"];
+            ViewBag.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+
+            ViewBag.Address = Request.Form["Address"];
+            ViewBag.Country = Request.Form["Country"];
+            ViewBag.Postalcode = Request.Form["PostalCode"];
+            ViewBag.PersonName = Request.Form["PersonName"];
+
             String loginUserId = User.Identity.GetUserId();
             CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
             Company company = loginHR.Company;
-            String checkbox;
+            
             Registration reg;
             List<Registration> rList = new List<Registration>();
-            foreach (Participant item in r.Participants)
+
+            String jsonString = Request.Form["NewParticipantList"];
+            Participant[] participants = JsonConvert.DeserializeObject<Participant[]>(jsonString);
+
+            foreach (Participant item in participants)
             {
-                checkbox = null;
-                checkbox = Request.Form[item.ParticipantId];
-                if (checkbox != null && checkbox == item.ParticipantId.ToString())
-                {
+                   
                     //selectedList.Add(item);
                     reg = new Registration();
-                    reg.CourseClass = r.CourseClass;
+                    reg.CourseClass = ViewBag.CourseClass;
                     reg.Participant = item;
-                    reg.BillingAddress = r.BillingAddress;
-                    reg.BillingPersonName = r.BillingPersonName;
-                    reg.BillingAddressCountry = r.BillingAddressCountry;
-                    reg.BillingAddressPostalCode = r.BillingAddressPostalCode;
+                    reg.BillingAddress = ViewBag.Address;
+                    reg.BillingPersonName = ViewBag.PersonName;
+                    reg.BillingAddressCountry = ViewBag.Country;
+                    reg.BillingAddressPostalCode = ViewBag.PostalCode;
                     reg.Sponsorship = Sponsorship.Company;
                     reg.OrganizationSize = company.OrganizationSize;
                     reg.DietaryRequirement = item.DietaryRequirement;
                     rList.Add(reg);
-                }
+                
             }
-            if(rList.Count!=0){
+            if (rList.Count != 0)
+            {
                 IEnumerable<Registration> failedList = RegistrationBLL.Instance.CreateForCompanyEmployee(rList);
                 ViewBag.fList = failedList;
-                return View(rList);
+                return View();
             }
 
-            return View(r);
+            return View();
         }
-        public ActionResult GetEmployeeList()
+        public int GetCompanyId()
         {
             String loginUserId = User.Identity.GetUserId();
             CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
             int cmpId = loginHR.Company.CompanyId;
-            IEnumerable<Participant> participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
-            return PartialView(participants);
+            
+            return cmpId;
         }
         public ActionResult CreateParticipant()
         {
-            //ViewBag.Participant = new Participant();
-            return PartialView();
-        }
-        public class test
-        {
-            public String name { get; set; }
+            Participant p = new Participant();
+
+            return PartialView(p);
         }
         [HttpPost]
-        public JsonResult CreateParticipant(Participant p)
+        public Boolean CreateParticipant(Participant p)
         {
-            String json = Request.Form["ParticipantList"];
-            test[] data = JsonConvert.DeserializeObject<test[]>(json);
-            return Json(data);
+            //String jsonString = Request.Form["NewParticipant"];
+            //Participant[] participants = JsonConvert.DeserializeObject<Participant[]>(jsonString);
+            //return Json(participants);
+            int cmpId = GetCompanyId();
+            List<Participant> newList = (List<Participant>)Session["NewParticipant"];
+            if(Session["NewParticipant"] == null || newList.Count == 0){
+                if(ParticipantBLL.Instance.GetCmpParticipantByIdNumber(cmpId,p.IdNumber).Count == 0){
+                    
+                }
+                return true;
+            }else{
+                return false;
+            }
+            //Session["NewParticipantList"] = 
+            
         }
-        public ActionResult EditParticipant(Participant p)
+        public ActionResult EditParticipant(List<Participant> pList)
         {
-            return PartialView(p);
+            return PartialView(pList);
         }
         [HttpPost]
         public ActionResult GetParticipantFromList(List<int> array)

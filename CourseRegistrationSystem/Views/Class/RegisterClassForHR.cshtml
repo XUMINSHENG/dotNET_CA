@@ -1,4 +1,4 @@
-﻿@model CourseRegistrationSystem.Models.RegistrationViewModel
+﻿
 @using CourseRegistration.Models
 
 @{
@@ -8,28 +8,21 @@
 <ul class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Class", "Index", "Class")</li>
-    <li>@Html.ActionLink(Model.CourseClass.ClassId, "Details", "Class", new { id = Model.CourseClass.ClassId }, new { })</li>
+    <li>@Html.ActionLink((String)ViewBag.CourseClass.ClassId, "Details", "Class", new { id = ViewBag.CourseClass.ClassId }, new { })</li>
     <li>Registration</li>
 </ul>
 
-<h2>@Model.CourseClass.ClassId Class Registration</h2>
+<h2>@Html.Encode(ViewBag.CourseClass.ClassId) Class Registration</h2>
 
-<h4>@Model.CourseClass.Course.CourseTitle</h4>
+<h4>@Html.Encode(ViewBag.CourseClass.Course.CourseTitle)</h4>
 
 <p>
-    @Model.CourseClass.Course.CourseDescription
+    @Html.Encode(ViewBag.CourseClass.Course.CourseDescription)
 </p>
 
-<p>Fee: @Model.CourseClass.Course.Fee</p>
-<p>Duration: @Model.CourseClass.Course.NumberOfDays days</p>
-<p>Start Date: @Model.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
-
-@using (Html.BeginForm("RegisterClassForHR", "Class", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => Model.CourseClass.ClassId)
-    
-    List<Participant> pList = new List<Participant>();   
+<p>Fee: @Html.Encode(ViewBag.CourseClass.Course.Fee)</p>
+<p>Duration: @Html.Encode(ViewBag.CourseClass.Course.NumberOfDays) days</p>
+<p>Start Date: @Html.Encode(ViewBag.CourseClass.StartDate.ToString("yyyy-MM-dd")) & End Date: @Html.Encode(ViewBag.CourseClass.EndDate.ToString("yyyy-MM-dd"))</p>
     
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
@@ -53,16 +46,22 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div id ="participants">
+                        <div id ="oldParticipants">
 
                         </div>
                     </div>
-                    <p class="text-muted">Please add one participant at least.</p>
                 </div>         
             </div>
         </div>
     </div>
 
+@using (Html.BeginForm("RegisterClassForHR", "Class", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ClassId",(String)ViewBag.CourseClass.ClassId)
+    @Html.Hidden("NewParticipantList")
+    @Html.Hidden("OldParticipantList")
+    
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
             <h3 class="panel-title">Step2: Bill Details</h3>
@@ -74,34 +73,30 @@
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BillingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Address", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+                            @Html.Editor("Address", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.Address } })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BillingPersonName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("PersonName", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BillingPersonName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.BillingPersonName, "", new { @class = "text-danger" })
+                            @Html.Editor("PersonName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.PersonName } })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BillingAddressCountry, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Country", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BillingAddressCountry, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.BillingAddressCountry, "", new { @class = "text-danger" })
+                            @Html.Editor("Country", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.Country } })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BillingAddressPostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("PostalCode", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BillingAddressPostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.BillingAddressPostalCode, "", new { @class = "text-danger" })
+                            @Html.Editor("PostalCode", new { htmlAttributes = new { @class = "form-control" ,@value=ViewBag.PostalCode } })
                         </div>
                     </div>
                 </div>
@@ -109,31 +104,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Employee List</h4>
-                </div>
-                <div class="modal-body" id="modal2Body">
-                    @foreach (var item in Model.Participants)
-                    {
-                        <div class="checkbox">
-                            <label>
-                                @item.FullName <input type="checkbox" value="@item.ParticipantId" name="@item.ParticipantId">
-                            </label>
-                        </div>
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="empBtn">Comfirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
      <nav>
         <div class="pager">
             @*<li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>*@
@@ -153,7 +123,7 @@
             @using (Ajax.BeginForm("CreateParticipant", "Class",new { @id="create" }, new AjaxOptions { OnBegin="createBegin", OnSuccess="createSuccess", OnFailure="createFailure", HttpMethod="POST"}))
             {
                 @Html.AntiForgeryToken()
-                @Html.Hidden("ParticipantList")
+                @Html.Hidden("NewParticipant")
                 <div class="modal-body" id="myModal1Body">
                     @Html.Partial("CreateParticipant")
                 </div>
@@ -166,15 +136,39 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Employee List</h4>
+            </div>
+            <div class="modal-body" id="modal2Body">
+                @foreach (var item in ViewBag.Participants)
+                {
+                    <div class="checkbox">
+                        <label>
+                            @item.FullName <input type="checkbox" value="@item.ParticipantId" name="@item.ParticipantId">
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="empBtn">Comfirm</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
     var newParticipants;
-    var curParticipants;
+    var oldParticipants;
 
     $(document).ready(function () {
         newParticipants = [];
-        curParticipants = [];
+        oldParticipants = [];
     });
 
     //new participant modal
@@ -226,20 +220,61 @@
         $('#myModal2').modal('hide')
     })
 
+    
+
     function compare(array1, array2) {
         return (array1.length == array2.length) && array1.every(function (element, index) {
             return element == array2[index]});
     }
 
+    //instead of model in createParticipant page
+    //function getNewParticipant() {
+    //    var participant = {};
+    //    var area = document.getElementById(id);
+    //    participant.IdNumber = document.getElementById('newp_IdNumber').getAttribute('value');
+    //    participant.Salutation = document.getElementById('newp_Salutation').getAttribute('value');
+    //    participant.JobTitle = document.getElementById('newp_JobTitle').getAttribute('value');
+    //    participant.Department = document.getElementById('newp_Department').getAttribute('value');
+    //    participant.FullName = document.getElementById('newp_FullName').getAttribute('value');
+    //    participant.Gender = document.getElementById('newp_Gender').getAttribute('value');
+    //    participant.Nationality = document.getElementById('newp_Nationality').getAttribute('value');
+    //    participant.DateOfBirth = document.getElementById('newp_DateOfBirth').getAttribute('value');
+    //    participant.Email = document.getElementById('newp_Email').getAttribute('value');
+    //    participant.ContactNumber = document.getElementById('newp_ContactNumber').getAttribute('value');
+    //    participant.DietaryRequirement = document.getElementById('newp_DietaryRequirement').getAttribute('value');
+    //    participant.SalaryRange = document.getElementById('newp_SalaryRange').getAttribute('value');
+    //    return participant;
+    //}
+
+    function insertNewParticipant(participant) {
+        console.log(participant);
+        $('#newParticipants').append()
+    }
+
     function createBegin() {
         console.log("i am beginning");
         //check if idnumber is existed in local
+        var length = newParticipants.length;
+        if (length != 0) {
+            for (var i = 0; i < length; i++) {
+
+            }
+        }
 
         var jsonarray = [{ name: "test1" }, { name: "test2" }];
         console.log(jsonarray);
-        var json = JSON.stringify(jsonarray);
-        console.log(json);
-        document.getElementById('ParticipantList').setAttribute('value', json);
+
+        //var json = JSON.stringify(jsonarray);
+        //console.log(json);
+        //document.getElementById('ParticipantNew').setAttribute('value', json);
+        //var value = document.getElementById('ParticipantNew').getAttribute('value');
+        //if ( value !== null && value !== "") {
+        //    return true;
+        //} else {
+        //    alert("can not submit");
+        //    return false;
+        //}
+        return false;
     }
 
     function createFailure(response) {
@@ -250,10 +285,16 @@
     function createSuccess(response) {
         console.log("i am successful");
         console.log(response);
-        $.get('/Class/CreateParticipant').done(function (response) {
-            $('#myModal1Body').html(response);
-            $('#myModal1').modal('hide');
-        })
+        if (response) {
+            //clear the data of create participant modal
+            $.get('/Class/CreateParticipant').done(function (response) {
+                $('#myModal1Body').html(response);
+            });
+            //add new participant into NewParticipants div
+        } else {
+            alert("The participant is existed in your employee list. Please choose from list.");
+        }
+        $('#myModal1').modal('hide');
     }
 
     

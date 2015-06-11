@@ -70,8 +70,17 @@ namespace CourseRegistration.BLL
             return uow.ParticipantRepository.GetById(id);
         }
 
+        public List<Participant> GetParticipantByIdNumber(String id)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == id).ToList();
+        }
 
-
+        public List<Participant> GetCmpParticipantByIdNumber(int cmpId, String idNumber)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == idNumber && x.Company.CompanyId == cmpId).ToList();
+        }
         public void EditParticipant(Participant p)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
