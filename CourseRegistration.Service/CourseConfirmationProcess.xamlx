@@ -26,8 +26,11 @@
     </p1:TextExpression.Namespaces>
     <p1:TextExpression.References>
       <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID4">
+        <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
         <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
         <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
         <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
         <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
         <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
@@ -50,9 +53,6 @@
         <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.BLL</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Models</p1:AssemblyReference>
-        <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
-        <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
-        <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
         <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
         <p1:AssemblyReference>CourseRegistration.Service</p1:AssemblyReference>
       </sco:Collection>
@@ -132,7 +132,13 @@
               </p1:InArgument>
             </p1:If.Condition>
             <p1:If.Then>
-              <cs:CancelationActivity ClassID="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_5" />
+              <cs:CancelationActivity sap2010:WorkflowViewState.IdRef="CancelationActivity_5">
+                <cs:CancelationActivity.ClassID>
+                  <p1:InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">classId</mca:CSharpValue>
+                  </p1:InArgument>
+                </cs:CancelationActivity.ClassID>
+              </cs:CancelationActivity>
             </p1:If.Then>
             <p1:If.Else>
               <cs:ConfirmationActivity sap2010:WorkflowViewState.IdRef="ConfirmationActivity_3">
@@ -173,7 +179,7 @@
     <p1:If sap2010:WorkflowViewState.IdRef="If_3">
       <p1:If.Condition>
         <p1:InArgument x:TypeArguments="x:Boolean">
-          <mca:CSharpValue x:TypeArguments="x:Boolean">isNeedToAsk</mca:CSharpValue>
+          <mca:CSharpValue x:TypeArguments="x:Boolean">isNeedToAsk == true;</mca:CSharpValue>
         </p1:InArgument>
       </p1:If.Condition>
       <p1:If.Then>
@@ -221,14 +227,26 @@
           <p1:If sap2010:WorkflowViewState.IdRef="If_4">
             <p1:If.Condition>
               <p1:InArgument x:TypeArguments="x:Boolean">
-                <mca:CSharpValue x:TypeArguments="x:Boolean">isDecideToConfirm</mca:CSharpValue>
+                <mca:CSharpValue x:TypeArguments="x:Boolean">isDecideToConfirm == true;</mca:CSharpValue>
               </p1:InArgument>
             </p1:If.Condition>
             <p1:If.Then>
-              <cs:ConfirmationActivity ClassId="{x:Null}" sap2010:WorkflowViewState.IdRef="ConfirmationActivity_4" />
+              <cs:ConfirmationActivity sap2010:WorkflowViewState.IdRef="ConfirmationActivity_4">
+                <cs:ConfirmationActivity.ClassId>
+                  <p1:InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">classId</mca:CSharpValue>
+                  </p1:InArgument>
+                </cs:ConfirmationActivity.ClassId>
+              </cs:ConfirmationActivity>
             </p1:If.Then>
             <p1:If.Else>
-              <cs:CancelationActivity ClassID="{x:Null}" sap2010:WorkflowViewState.IdRef="CancelationActivity_6" />
+              <cs:CancelationActivity sap2010:WorkflowViewState.IdRef="CancelationActivity_6">
+                <cs:CancelationActivity.ClassID>
+                  <p1:InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">classId</mca:CSharpValue>
+                  </p1:InArgument>
+                </cs:CancelationActivity.ClassID>
+              </cs:CancelationActivity>
             </p1:If.Else>
           </p1:If>
           <SendReply Request="{x:Reference __ReferenceID1}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_2">
@@ -241,7 +259,7 @@
         </p1:Sequence>
       </p1:If.Then>
     </p1:If>
-    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seCwPA/UBEQEBQAtAPQEEQzZDOQEDRThFPwECSAVdDwKWAV4FaSoChwFqBZ8BDQFaoAEFrAERAUStAQXzAQ0BBU0PTWMCngFaC1pYApcBZgtmVgKPAWELYVACiAFtC21yAVtxCXwXAX1/CZ0BFwFiqQELqQFVAVOmAQumAVoBTKMBC6MBUAFFsAELsAFVAQa0AQnxARcBDXILexcBfoABC5IBEwFskwELnAEXAWO3AT63AUUBDrkBC9wBFQEn3QEL6QETARvqAQvwARcBD3k6eT4ChgF1EXVjAX+DARGDAV0BbYcBD4cBdAF8igEPkAEpAXSaATqaAT8Ba5YBEZYBYwFkxAERxAFlATvWARHWAWkBMssBFc8BKAEx2QER2QFeASjgARHgAWEBHOQBD+QBdgEm5wEP5wF0ASXtARHtAWEBEI0BFY0BWgF1</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0dEOlxkb3RORVRfQ0FcQ291cnNlUmVnaXN0cmF0aW9uLlNlcnZpY2VcQ291cnNlQ29uZmlybWF0aW9uUHJvY2Vzcy54YW1seC8PA4cCEQEBQAtAPQEEQzZDOQEDRThFPwECSAVdDwKvAV4FaSoCoAFqBaUBDQFspgEFsgERAVazAQWFAg0BBU0PTWMCtwFaC1pYArABZgtmVgKoAWELYVACoQFtC21yAW1xCXwXApYBfwmjARcBdK8BC68BVQFlrAELrAFaAV6pAQupAVABV7YBC7YBXgEGugEJgwIXAQ1yC3sXApcBgAELmAETAX6ZAQuiARcBdb0BPr0BRQEOvwEL4gEVATnjAQv7ARMBG/wBC4ICFwEPeTp5PgKfAXURdWMCmAGDARGDAV0Bf4cBD40BKAKOAZABD5YBKQKGAaABOqABPwF9nAERnAFjAXbKARHKAWUBTdwBEdwBaQFE0QEV1QEoAUPfARHfAV4BOuYBEeYBagEc6gEP8AEpAS/zAQ/5ASgBJf8BEf8BYQEQigEVigFaAo8BkwEVkwFaAocB7QEV7QFaATD2ARX2AVoBJg==</sads:DebugSymbol.Symbol>
   </p1:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -280,8 +298,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="775,744" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="797,1816">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="775,740" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="797,1812">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
