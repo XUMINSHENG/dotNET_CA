@@ -11,12 +11,12 @@ namespace ConsoleHost
         static void Main(string[] args)
         {
 
-            using (System.ServiceModel.ServiceHost host = new System.ServiceModel.ServiceHost(typeof(CourseRegistration.Service.AttendanceService)))
-            using (System.ServiceModel.ServiceHost host1 = new System.ServiceModel.ServiceHost(typeof(CourseRegistration.Service.CourseRegistrationService)))
+            using (System.ServiceModel.ServiceHost host_Attendance_Service = new System.ServiceModel.ServiceHost(typeof(CourseRegistration.Service.AttendanceService)))
+            using (System.ServiceModel.ServiceHost host_Course_Registration_Service = new System.ServiceModel.ServiceHost(typeof(CourseRegistration.Service.CourseRegistrationService)))
 
             {
-                host.Open();
-                host1.Open();
+                host_Attendance_Service.Open();
+                host_Course_Registration_Service.Open();
                 Console.WriteLine("Host started @ " + DateTime.Now.ToString());
                 Console.ReadLine();
             }

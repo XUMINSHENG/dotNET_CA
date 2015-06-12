@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserNameValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -63,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CourseRegistration.BLL\CourseRegistration.BLL.csproj">
+      <Project>{d6012b68-8b14-4f78-9060-4e7626bc1fcc}</Project>
+      <Name>CourseRegistration.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CourseRegistration.Service\CourseRegistration.Service.csproj">
       <Project>{c98eb79c-783d-44c4-bfe6-9b7e92a76075}</Project>
       <Name>CourseRegistration.Service</Name>
