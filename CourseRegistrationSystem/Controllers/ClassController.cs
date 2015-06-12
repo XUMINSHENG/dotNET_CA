@@ -90,7 +90,7 @@ namespace CourseRegistrationSystem.Controllers
             int cmpId = GetCompanyId();
             ViewBag.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
             ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
-            
+            Session["ParticipantList"] = new List<Participant>();
             return View();
         }
         [HttpPost]
@@ -152,27 +152,33 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult CreateParticipant()
         {
             Participant p = new Participant();
-
+            p.DateOfBirth = DateTime.Now;
             return PartialView(p);
         }
         [HttpPost]
-        public Boolean CreateParticipant(Participant p)
+        public String CreateParticipant(Participant p)
         {
-            //String jsonString = Request.Form["NewParticipant"];
-            //Participant[] participants = JsonConvert.DeserializeObject<Participant[]>(jsonString);
-            //return Json(participants);
             int cmpId = GetCompanyId();
-            List<Participant> newList = (List<Participant>)Session["NewParticipant"];
-            if(Session["NewParticipant"] == null || newList.Count == 0){
-                if(ParticipantBLL.Instance.GetCmpParticipantByIdNumber(cmpId,p.IdNumber).Count == 0){
-                    
+            List<Participant> newList = (List<Participant>)Session["ParticipantList"];
+            if(newList != null && newList.Count != 0){
+                foreach (Participant item in newList)
+                {
+                    if (item.IdNumber == p.IdNumber)
+                    {
+                        return null;
+                    }
                 }
-                return true;
-            }else{
-                return false;
             }
-            //Session["NewParticipantList"] = 
-            
+            if (ParticipantBLL.Instance.GetCmpParticipantByIdNumber(cmpId, p.IdNumber).Count == 0)
+            {
+                newList.Add(p);
+                Session["ParticipantList"] = newList;
+                return p.FullName;
+            }
+            else
+            {
+                return null;
+            }
         }
         public ActionResult EditParticipant(List<Participant> pList)
         {

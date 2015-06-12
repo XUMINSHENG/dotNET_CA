@@ -31,7 +31,7 @@
         <div class="panel-collapse collapse in" id="collapse1">
             <div class="panel-body">
                 <div>
-                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal1" data-whatever="add new">
+                    <button type="button" class="btn btn-default btn-sm" id="addParticipant">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Participant
                     </button>
                     <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal2" data-whatever="">
@@ -115,23 +115,8 @@
 
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">New Participant</h4>
-            </div>
-            @using (Ajax.BeginForm("CreateParticipant", "Class",new { @id="create" }, new AjaxOptions { OnBegin="createBegin", OnSuccess="createSuccess", OnFailure="createFailure", HttpMethod="POST"}))
-            {
-                @Html.AntiForgeryToken()
-                @Html.Hidden("NewParticipant")
-                <div class="modal-body" id="myModal1Body">
-                    @Html.Partial("CreateParticipant")
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-            }
+        <div class="modal-content" id="modal1Content">
+            
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
@@ -148,7 +133,7 @@
                 {
                     <div class="checkbox">
                         <label>
-                            @item.FullName <input type="checkbox" value="@item.ParticipantId" name="@item.ParticipantId">
+                            @item.FullName <input type="checkbox" value="@item.FullName" name="@item.ParticipantId" id="@item.ParticipantId">
                         </label>
                     </div>
                 }
@@ -163,23 +148,22 @@
 
 
 <script>
-    var newParticipants;
-    var oldParticipants;
+    var curParticipants;
 
     $(document).ready(function () {
-        newParticipants = [];
-        oldParticipants = [];
+        curParticipants = [];
     });
+
+    $('#addParticipant').click(function (event) {
+        $.get('CreateParticipant', function (response) {
+            $('#modal1Content').html(response);
+            $('#myModal1').modal('show');
+        });
+    })
 
     //new participant modal
     $('#myModal1').on('show.bs.modal', function (event) {
-        //var button = $(event.relatedTarget) // Button that triggered the modal
-        //var recipient = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //var modal = $(this)
-        //modal.find('.modal-title').text(recipient)
-        //modal.find('.modal-body p').text(recipient + "description")
+        
     })
 
     //employeeList modal
@@ -207,62 +191,59 @@
         var selected;
         for (var j = 0; j < curParticipants.length; j++) {
             selected = null;
-            selected = document.getElementsByName(curParticipants[j]);
+            selected = document.getElementById(curParticipants[j]);
             if (selected != null) {
-                selected[0].checked = true;
+                selected.checked = true;
             }
         }
         
     })
 
     $('#empBtn').click(function (event) {
-        changeParticipants();
+        
+        var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == 'checkbox') {
+                if (inputs[i].checked) {
+                    if(checkParticipants(inputs[i].value)){
+                        curParticipants.push(inputs[i].value);
+                        $('#oldParticipants').append('<button type="button" class="btn btn-primary btn-lg btn-block">'+inputs[i].value+'</button>');
+                    }
+                }
+            }
+        }
+
         $('#myModal2').modal('hide')
     })
 
-    
+    function checkParticipants(id){
+        if(curParticipants.length != 0){
+            for(var i = 0; i<curParticipants.length;i++){
+                if(id==curParticipants[i]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     function compare(array1, array2) {
         return (array1.length == array2.length) && array1.every(function (element, index) {
             return element == array2[index]});
     }
 
-    //instead of model in createParticipant page
-    //function getNewParticipant() {
-    //    var participant = {};
-    //    var area = document.getElementById(id);
-    //    participant.IdNumber = document.getElementById('newp_IdNumber').getAttribute('value');
-    //    participant.Salutation = document.getElementById('newp_Salutation').getAttribute('value');
-    //    participant.JobTitle = document.getElementById('newp_JobTitle').getAttribute('value');
-    //    participant.Department = document.getElementById('newp_Department').getAttribute('value');
-    //    participant.FullName = document.getElementById('newp_FullName').getAttribute('value');
-    //    participant.Gender = document.getElementById('newp_Gender').getAttribute('value');
-    //    participant.Nationality = document.getElementById('newp_Nationality').getAttribute('value');
-    //    participant.DateOfBirth = document.getElementById('newp_DateOfBirth').getAttribute('value');
-    //    participant.Email = document.getElementById('newp_Email').getAttribute('value');
-    //    participant.ContactNumber = document.getElementById('newp_ContactNumber').getAttribute('value');
-    //    participant.DietaryRequirement = document.getElementById('newp_DietaryRequirement').getAttribute('value');
-    //    participant.SalaryRange = document.getElementById('newp_SalaryRange').getAttribute('value');
-    //    return participant;
-    //}
-
-    function insertNewParticipant(participant) {
-        console.log(participant);
-        $('#newParticipants').append()
-    }
-
     function createBegin() {
         console.log("i am beginning");
         //check if idnumber is existed in local
-        var length = newParticipants.length;
-        if (length != 0) {
-            for (var i = 0; i < length; i++) {
+        //var length = newParticipants.length;
+        //if (length != 0) {
+        //    for (var i = 0; i < length; i++) {
 
-            }
-        }
+        //    }
+        //}
 
-        var jsonarray = [{ name: "test1" }, { name: "test2" }];
-        console.log(jsonarray);
+        //var jsonarray = [{ name: "test1" }, { name: "test2" }];
+        //console.log(jsonarray);
 
         //var json = JSON.stringify(jsonarray);
         //console.log(json);
@@ -274,40 +255,28 @@
         //    alert("can not submit");
         //    return false;
         //}
-        return false;
+        return true;
     }
 
     function createFailure(response) {
-        //check if existed in db
-        alert("Failed to create.")
+        //network issue
+        alert("Failed to create. Please try again.")
     }
 
-    function createSuccess(response) {
+    function createSuccess(name) {
         console.log("i am successful");
-        console.log(response);
-        if (response) {
-            //clear the data of create participant modal
-            $.get('/Class/CreateParticipant').done(function (response) {
-                $('#myModal1Body').html(response);
-            });
+        console.log(name);
+        if (name!=null) {
             //add new participant into NewParticipants div
+            $("#newParticipants").append('<button type="button" class="btn btn-primary btn-lg btn-block">'+name+'</button>');
         } else {
-            alert("The participant is existed in your employee list. Please choose from list.");
+            alert("The participant is existed. Please choose from list.");
         }
         $('#myModal1').modal('hide');
     }
 
-    
-
     function changeParticipants() {
         var checkedList = new Array();
-
-        //$("input[name='employee']").each(function () {
-        //    console($(this).attr('checked'));
-        //    if ($(this).attr('checked') == true) {
-        //        checkedList.push($(this).attr('value'));
-        //    }
-        //})
 
         var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
@@ -318,7 +287,7 @@
             }
         }
    
-        if (checkedList.length !== 0 ) {
+        if (checkedList.length != 0 ) {
             if (!compare(curParticipants,checkedList)) {
                 $.post('GetParticipantFromList', $.param({ array: checkedList }, true), function (response) {
                     console.log(response);
