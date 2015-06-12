@@ -225,7 +225,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 
             this.DropDownClass.DataSource = list;
             this.DropDownClass.DataValueField = "ClassId";
-            this.DropDownClass.DataTextField = "StartDate";
+            this.DropDownClass.DataTextField = "ClassId";
             this.DropDownClass.DataBind();
 
             ListItem AllItem = new ListItem("Select All", Util.C_String_All_Select);

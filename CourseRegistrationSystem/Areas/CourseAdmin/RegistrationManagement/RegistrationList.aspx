@@ -31,13 +31,13 @@
                     </asp:TableCell>
                     <asp:TableCell Width="10%">
                         <label>
-                            ClassStartDate:
+                            ClassId:
                         </label>
                     </asp:TableCell>
                     <asp:TableCell Width="20%">
                         <asp:DropDownList ID="DropDownClass" runat="server" Width="220px"
                             OnSelectedIndexChanged="DropDownClass_SelectedIndexChanged"
-                            AutoPostBack="true"  DataTextFormatString="{0:dd-MMM-yyyy}">
+                            AutoPostBack="true">
                             <asp:ListItem>Select All</asp:ListItem>
                         </asp:DropDownList>
                     </asp:TableCell>
