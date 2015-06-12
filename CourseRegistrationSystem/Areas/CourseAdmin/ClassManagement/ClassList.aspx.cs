@@ -12,11 +12,17 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
     public partial class ClassList : System.Web.UI.Page
     {
+        String courseID;
         protected void Page_Load(object sender, EventArgs e)
         {
+            courseID =  WebFormHelper.GetSessionFieldAndRemove(Session, WebFormHelper.C_PrimaryKey, "");
             if (!Page.IsPostBack)
             {
                 Bind_CourseList();
+                if (courseID != null)
+                {
+                    DropDownCourse.SelectedValue = courseID;
+                }
                 Bind_ClassList();
             }
         }
@@ -144,7 +150,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void RegNum_Click(object sender, EventArgs e)
         {
-
+            String classId = ((Button)sender).CommandArgument.ToString();
+            Session.Add(WebFormHelper.C_PrimaryKey, classId);
+            Response.Redirect("~/Areas/CourseAdmin/RegistrationManagement/RegistrationList.aspx");
         }
         protected void BTNDELETE_Click(object sender, EventArgs e)
         {
