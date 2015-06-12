@@ -16,6 +16,9 @@ namespace CourseRegistration.Service
     {
         public List<SvcStudent> GetStudentList(DateTime date, String classId)
         {
+
+            String userName = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+
             List<SvcStudent> studentList = new List<SvcStudent>();
 
             List<Participant> participantList = CourseClassBLL.Instance.GetStudentsByClassId(classId);

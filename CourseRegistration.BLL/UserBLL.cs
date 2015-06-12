@@ -237,5 +237,11 @@ namespace CourseRegistration.BLL
             
         }
 
+        public bool ValidateUser(String userName, String password)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return (uow.AppUserManager.Find(userName, password) != null);
+        }
+
     }
 }

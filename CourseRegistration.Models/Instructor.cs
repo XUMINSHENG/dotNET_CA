@@ -28,5 +28,7 @@ namespace CourseRegistration.Models
             }
         }
 
+        public virtual ApplicationUser AppUser { get; set; }
+
     }
 }
