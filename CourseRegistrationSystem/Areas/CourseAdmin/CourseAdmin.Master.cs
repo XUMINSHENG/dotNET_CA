@@ -29,5 +29,10 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin
         {
 
         }
+
+        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("/Home/Index");
+        }
     }
 }

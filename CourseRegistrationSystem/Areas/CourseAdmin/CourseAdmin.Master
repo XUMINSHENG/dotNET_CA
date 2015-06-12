@@ -12,7 +12,7 @@
 
     <div>
         <asp:Panel ID ="Title" runat="server" Font-Size="X-Large" Font-Name="Verdana">
-        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/logo128.png" />
+        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/logo128.png" OnClick="ImageButton1_Click"/>
         <asp:ContentPlaceHolder ID="subTitle" runat="server">        
         Title
         </asp:ContentPlaceHolder>
