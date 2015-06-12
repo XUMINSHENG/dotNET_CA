@@ -12,7 +12,7 @@ namespace CourseRegistration.BLL
 {
     public class UserBLL
     {
-    private static readonly Lazy<UserBLL> lazy =
+        private static readonly Lazy<UserBLL> lazy =
             new Lazy<UserBLL>(() => new UserBLL());
       
         public static UserBLL Instance { get { return lazy.Value; } }
