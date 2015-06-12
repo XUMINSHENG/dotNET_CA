@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CourseRegistrationSystem.Controllers
 {
+    [Authorize(Roles = Util.C_Role_CompanyHR)]
     public class CompanyHRController : Controller
     {
         // GET: CompanyHR
@@ -92,29 +93,59 @@ namespace CourseRegistrationSystem.Controllers
 
         #region Company Functions
 
-        // GET: CompanyHR
+        // GET: CompanyHR/CompanyHRdetails
+        public ActionResult CompanyHRdetails()
+        {
+            return PartialView();
+        }
+        // GET: CompanyHR/CompanyDetails
+        public ActionResult CompanyDetails()
+        {
+            return PartialView();
+        }
+
+        // GET: CompanyHR/CompanyInfo
         public ActionResult CompanyInfo()
         {
             String loginUserId = User.Identity.GetUserId();
             CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
-            Company company = loginHR.Company;
-
-            return View(company);
+            return View(loginHR);
         }
 
         // POST: CompanyHR/CompanyInfo/5
         [HttpPost]
-        public ActionResult CompanyInfo(Company company)
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanyInfo(CompanyHR companyHr,Company company)
         {
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            //loginHR = companyHr;
+            loginHR.Name = companyHr.Name;
+            loginHR.ContactNumber = companyHr.ContactNumber;
+            loginHR.FaxNumber = companyHr.FaxNumber;
+            loginHR.JobTitle = companyHr.JobTitle;
+            loginHR.Company.BillingAddress = company.BillingAddress;
+            loginHR.Company.BillingAddressCountry = company.BillingAddressCountry;
+            loginHR.Company.BillingAddressPostalCode = company.BillingAddressPostalCode;
+            loginHR.Company.BillingPersonName = company.BillingPersonName;
+            loginHR.Company.CompanyAddress = company.CompanyAddress;
+            loginHR.Company.CompanyName = company.CompanyName;
+            loginHR.Company.CompanyUEN = company.CompanyUEN;
+            loginHR.Company.Country = company.Country;
+            loginHR.Company.OrganizationSize = company.OrganizationSize;
+            loginHR.Company.PostalCode = company.PostalCode;
+
             try
             {
                 // TODO: Add update logic here
+                //loginHR.Company = company;
+                CourseRegistration.BLL.CompanyHRBLL.Instance.EditCompanyHR(loginHR);
 
                 return RedirectToAction("CompanyInfo");
             }
             catch
             {
-                return View();
+                return View(loginHR);
             }
         }
 

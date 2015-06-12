@@ -483,6 +483,8 @@
     <Content Include="Views\IndividualUser\PersonalInfoEdit.cshtml" />
     <Content Include="Views\IndividualUser\RegistrationList.cshtml" />
     <Content Include="Views\IndividualUser\PersonalInfo.cshtml" />
+    <Content Include="Views\CompanyHR\CompanyDetails.cshtml" />
+    <Content Include="Views\CompanyHR\CompanyHrDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
