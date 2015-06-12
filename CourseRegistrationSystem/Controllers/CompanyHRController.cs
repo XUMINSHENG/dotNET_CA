@@ -234,8 +234,8 @@ namespace CourseRegistrationSystem.Controllers
             String loginUserId = User.Identity.GetUserId();
             CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
             List<Registration> RegList = RegistrationBLL.Instance.getRegistrationByConds(
-                Util.C_String_All_Select,Util.C_String_All_Select,Util.C_String_All_Select,
-                Util.C_String_All_Select,Util.C_String_All_Select,loginHR.Company.CompanyName);
+                Util.C_String_All_Select, Util.C_String_All_Select, Util.C_String_All_Select,
+                Util.C_String_All_Select, Util.C_String_All_Select, loginHR.Company.CompanyName);
             return View(RegList);
         }
 

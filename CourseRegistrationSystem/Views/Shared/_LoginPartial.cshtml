@@ -6,24 +6,38 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                @if(User.IsInRole("CompanyHR")){
+            <li class="dropdown">
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="dropdown-toggle"})
+                
+                @if (User.IsInRole("CompanyHR"))
+                {
                     <ul class="dropdown-menu">
-                        <li class="dropdown-sub">
-                            <li>@Html.ActionLink("Company Information", "CompanyInfo", "CompanyHR")</li>
-                            <li>@Html.ActionLink("Employee List", "EmployeeList", "CompanyHR")</li>
-                            <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
-                        </li>
+                        <li>@Html.ActionLink("Company Information", "CompanyInfo", "CompanyHR")</li>
+                        <li>@Html.ActionLink("Employee List", "EmployeeList", "CompanyHR")</li>
+                        <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
                     </ul>
                 }
                 else if (User.IsInRole("IndividualUser"))
                 {
                     <ul class="dropdown-menu">
-                        <li class="dropdown-sub">
-                        <li>@Html.ActionLink("Personal Information", "CompanyInfo", "CompanyHR")</li>
+                        <li>@Html.ActionLink("Personal Information", "PersonalInfo", "IndividualUser")</li>
+                        <li>@Html.ActionLink("Registration List", "RegistrationList", "IndividualUser")</li>
+                    </ul>
+                }
+                
+                @if (User.IsInRole("SystemAdmin"))
+                {
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Personal Information", "PersonalInfo", "IndividualUser")</li>
                         <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
-                        </li>
+                    </ul>
+                }
+
+                @if (User.IsInRole("CourseAdmin"))
+                {
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Personal Information", "PersonalInfo", "IndividualUser")</li>
+                        <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
                     </ul>
                 }
         </li>
