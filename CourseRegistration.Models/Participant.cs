@@ -29,7 +29,7 @@ namespace CourseRegistration.Models
         public Gender Gender { get; set; }
         public String Nationality{ get;set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth{ get;set; }
         [Required]
         [DataType(DataType.EmailAddress)]

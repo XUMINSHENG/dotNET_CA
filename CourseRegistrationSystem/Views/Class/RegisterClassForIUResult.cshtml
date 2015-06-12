@@ -1,109 +1,109 @@
-﻿@model CourseRegistration.Models.Participant
+﻿@model CourseRegistration.Models.Registration
 
 @{
     ViewBag.Title = "RegisterClassForIUResult";
 }
 
-<h2>Register For @ViewBag.CourseClass.classId successfully!</h2>
+<h2>Register For @Html.Encode(Model.CourseClass.Course.CourseTitle) - @Html.Encode(Model.CourseClass.ClassId) successfully!</h2>
 
 <div>
     <h4>Participant Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.IdNumber)
+            @Html.DisplayNameFor(model => model.Participant.IdNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdNumber)
+            @Html.DisplayFor(model => model.Participant.IdNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Salutation)
+            @Html.DisplayNameFor(model => model.Participant.Salutation)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Salutation)
+            @Html.DisplayFor(model => model.Participant.Salutation)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EmploymentStatus)
+            @Html.DisplayNameFor(model => model.Participant.EmploymentStatus)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EmploymentStatus)
+            @Html.DisplayFor(model => model.Participant.EmploymentStatus)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
+            @Html.DisplayNameFor(model => model.Participant.CompanyName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CompanyName)
+            @Html.DisplayFor(model => model.Participant.CompanyName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.JobTitle)
+            @Html.DisplayNameFor(model => model.Participant.JobTitle)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.JobTitle)
+            @Html.DisplayFor(model => model.Participant.JobTitle)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Department)
+            @Html.DisplayNameFor(model => model.Participant.Department)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Department)
+            @Html.DisplayFor(model => model.Participant.Department)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.DisplayNameFor(model => model.Participant.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FullName)
+            @Html.DisplayFor(model => model.Participant.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.Participant.Gender)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Gender)
+            @Html.DisplayFor(model => model.Participant.Gender)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Nationality)
+            @Html.DisplayNameFor(model => model.Participant.Nationality)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nationality)
+            @Html.DisplayFor(model => model.Participant.Nationality)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => model.Participant.DateOfBirth)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @Html.DisplayFor(model => model.Participant.DateOfBirth)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Participant.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Participant.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ContactNumber)
+            @Html.DisplayNameFor(model => model.Participant.ContactNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ContactNumber)
+            @Html.DisplayFor(model => model.Participant.ContactNumber)
         </dd>
 
         <dt>
@@ -123,19 +123,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SalaryRange)
+            @Html.DisplayNameFor(model => model.Participant.SalaryRange)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SalaryRange)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
+            @Html.DisplayFor(model => model.Participant.SalaryRange)
         </dd>
 
         <dt>

@@ -3,14 +3,32 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @if(User.IsInRole("CompanyHR")){
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-sub">
+                            <li>@Html.ActionLink("Company Information", "CompanyInfo", "CompanyHR")</li>
+                            <li>@Html.ActionLink("Employee List", "EmployeeList", "CompanyHR")</li>
+                            <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
+                        </li>
+                    </ul>
+                }
+                else if (User.IsInRole("IndividualUser"))
+                {
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-sub">
+                        <li>@Html.ActionLink("Personal Information", "CompanyInfo", "CompanyHR")</li>
+                        <li>@Html.ActionLink("Registration List", "RegistrationList", "CompanyHR")</li>
+                        </li>
+                    </ul>
+                }
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        </ul>
     }
 }
 else

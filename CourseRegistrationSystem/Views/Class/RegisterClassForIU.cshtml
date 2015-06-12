@@ -110,7 +110,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Participant.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.Participant.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Participant.DateOfBirth, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                         @Html.ValidationMessageFor(model => model.Participant.DateOfBirth, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -214,4 +214,8 @@
     </div>
 </nav>
     
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

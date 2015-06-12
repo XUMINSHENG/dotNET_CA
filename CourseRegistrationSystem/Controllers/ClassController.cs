@@ -74,7 +74,7 @@ namespace CourseRegistrationSystem.Controllers
             //get result of registration & configure
             r.Sponsorship = Sponsorship.Self;
             r.DietaryRequirement = r.Participant.DietaryRequirement;
-            
+            r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(r.CourseClass.ClassId);
             //if success, go to confirm page
             if (RegistrationBLL.Instance.CreateForIndividualUser(r))
             {
