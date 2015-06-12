@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.BLL", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.Service", "CourseRegistration.Service\CourseRegistration.Service.csproj", "{C98EB79C-783D-44C4-BFE6-9B7E92A76075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHost", "ConsoleHost\ConsoleHost.csproj", "{AF1C98D5-5AB0-45B5-8737-D4988F2FD556}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C98EB79C-783D-44C4-BFE6-9B7E92A76075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF1C98D5-5AB0-45B5-8737-D4988F2FD556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF1C98D5-5AB0-45B5-8737-D4988F2FD556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF1C98D5-5AB0-45B5-8737-D4988F2FD556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF1C98D5-5AB0-45B5-8737-D4988F2FD556}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
