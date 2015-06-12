@@ -9,12 +9,13 @@ using Microsoft.AspNet.Identity;
 
 namespace CourseRegistrationSystem.Controllers
 {
+    [Authorize(Roles = Util.C_Role_IndividualUser)]
     public class IndividualUserController : Controller
     {
 
         #region PersonalInfo Functions
 
-        [Authorize(Roles = "IndividualUser")]
+        
         public ActionResult PersonalInfo()
         {
             String loginUserId = User.Identity.GetUserId();
@@ -23,7 +24,6 @@ namespace CourseRegistrationSystem.Controllers
         }
 
 
-        [Authorize(Roles = "IndividualUser")]
         public ActionResult PersonalInfoEdit()
         {
             String loginUserId = User.Identity.GetUserId();
@@ -31,7 +31,6 @@ namespace CourseRegistrationSystem.Controllers
             return View(individualUser);
         }
 
-        [Authorize(Roles = "IndividualUser")]
         [HttpPost]
         public ActionResult PersonalInfoEdit(int id, FormCollection collection)
         {
