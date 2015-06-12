@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistrationSystem", "CourseRegistrationSystem\CourseRegistrationSystem.csproj", "{541A0BE6-52D4-4BBA-ADFE-D91907F91CE6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C98EB79C-783D-44C4-BFE6-9B7E92A76075} = {C98EB79C-783D-44C4-BFE6-9B7E92A76075}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseRegistration.Models", "CourseRegistration.Models\CourseRegistration.Models.csproj", "{074CC324-7CA6-4285-A175-6115BFA2BE17}"
 EndProject

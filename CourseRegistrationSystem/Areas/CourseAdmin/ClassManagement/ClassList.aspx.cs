@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using CourseRegistration.BLL;
 using CourseRegistration.Models;
 using CourseRegistrationSystem.Areas.CourseAdmin.Shared;
+using System.ServiceModel;
 
 namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 {
@@ -160,6 +161,14 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             CourseClass CourseClass = CourseClassBLL.Instance.GetCourseClassById(ClassId);
             CourseClassBLL.Instance.DeleteCourseClass(CourseClass);
             Bind_ClassList();
+        }
+
+        protected void BTNCheckClassReg(object sender, EventArgs e)
+        {
+            ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
+            string classID = "8";
+            bool result;
+            client.ConfirmClassId(ref classID, out result);
         }
     }
 }
