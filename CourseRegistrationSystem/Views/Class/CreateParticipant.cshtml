@@ -1,8 +1,12 @@
 ﻿@model CourseRegistration.Models.Participant
     
-@using (Ajax.BeginForm("CreateParticipant", "Class", new { @id = "create" }, new AjaxOptions { OnBegin = "createBegin", OnSuccess = "createSuccess", OnFailure = "createFailure", HttpMethod = "POST" }))
+@using (Ajax.BeginForm("CreateParticipant", "Class", new { @id = "create" }, new AjaxOptions { OnBegin = "createBegin", OnSuccess = "createSuccess(data)", OnFailure = "createFailure", HttpMethod = "POST" }))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Company)
+    @Html.HiddenFor(model => model.CompanyName)
+    @Html.HiddenFor(model => model.OrganizationSize)
+    @Html.HiddenFor(model => model.EmploymentStatus)
     
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

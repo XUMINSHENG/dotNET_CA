@@ -70,10 +70,10 @@ namespace CourseRegistration.BLL
             return uow.ParticipantRepository.GetById(id);
         }
 
-        public List<Participant> GetParticipantByIdNumber(String id)
+        public Participant GetParticipantByIdNumber(String id)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == id).ToList();
+            return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == id).ToList().First();
         }
 
         public List<Participant> GetCmpParticipantByIdNumber(int cmpId, String idNumber)

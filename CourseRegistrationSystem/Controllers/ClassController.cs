@@ -9,6 +9,7 @@ using CourseRegistrationSystem.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
+
 namespace CourseRegistrationSystem.Controllers
 {
     public class ClassController : Controller
@@ -91,6 +92,7 @@ namespace CourseRegistrationSystem.Controllers
             ViewBag.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
             ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
             Session["ParticipantList"] = new List<Participant>();
+            Session["EmployeeList"] = new List<Participant>();
             return View();
         }
         [HttpPost]
@@ -99,6 +101,9 @@ namespace CourseRegistrationSystem.Controllers
         {
             String classId = Request.Form["ClassId"];
             ViewBag.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+
+            List<Participant> newParticipant = (List<Participant>)Session["ParticipantList"];
+            List<Participant> oldParticipant = (List<Participant>)Session["EmployeeList"];
 
             ViewBag.Address = Request.Form["Address"];
             ViewBag.Country = Request.Form["Country"];
@@ -112,13 +117,13 @@ namespace CourseRegistrationSystem.Controllers
             Registration reg;
             List<Registration> rList = new List<Registration>();
 
-            String jsonString = Request.Form["NewParticipantList"];
-            Participant[] participants = JsonConvert.DeserializeObject<Participant[]>(jsonString);
+            //String jsonString = Request.Form["NewParticipantList"];
+            //Participant[] participants = JsonConvert.DeserializeObject<Participant[]>(jsonString);
 
-            foreach (Participant item in participants)
+            if (newParticipant.Count != 0)
             {
-                   
-                    //selectedList.Add(item);
+                foreach (Participant item in newParticipant)
+                {
                     reg = new Registration();
                     reg.CourseClass = ViewBag.CourseClass;
                     reg.Participant = item;
@@ -130,13 +135,32 @@ namespace CourseRegistrationSystem.Controllers
                     reg.OrganizationSize = company.OrganizationSize;
                     reg.DietaryRequirement = item.DietaryRequirement;
                     rList.Add(reg);
-                
+                }
             }
+
+            if (oldParticipant.Count != 0)
+            {
+                foreach (Participant item in oldParticipant)
+                {
+                    reg = new Registration();
+                    reg.CourseClass = ViewBag.CourseClass;
+                    reg.Participant = item;
+                    reg.BillingAddress = ViewBag.Address;
+                    reg.BillingPersonName = ViewBag.PersonName;
+                    reg.BillingAddressCountry = ViewBag.Country;
+                    reg.BillingAddressPostalCode = ViewBag.PostalCode;
+                    reg.Sponsorship = Sponsorship.Company;
+                    reg.OrganizationSize = company.OrganizationSize;
+                    reg.DietaryRequirement = item.DietaryRequirement;
+                    rList.Add(reg);
+                }
+            }
+            
             if (rList.Count != 0)
             {
                 IEnumerable<Registration> failedList = RegistrationBLL.Instance.CreateForCompanyEmployee(rList);
                 ViewBag.fList = failedList;
-                return View();
+                return View(rList);
             }
 
             return View();
@@ -152,13 +176,21 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult CreateParticipant()
         {
             Participant p = new Participant();
-            p.DateOfBirth = DateTime.Now;
+
             return PartialView(p);
         }
         [HttpPost]
         public String CreateParticipant(Participant p)
         {
-            int cmpId = GetCompanyId();
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            int cmpId = loginHR.Company.CompanyId;
+            
+            p.CompanyName = loginHR.Company.CompanyName;
+            p.Company = loginHR.Company;
+            p.EmploymentStatus = "Employeed";
+            p.OrganizationSize = loginHR.Company.OrganizationSize;
+ 
             List<Participant> newList = (List<Participant>)Session["ParticipantList"];
             if(newList != null && newList.Count != 0){
                 foreach (Participant item in newList)
@@ -173,16 +205,97 @@ namespace CourseRegistrationSystem.Controllers
             {
                 newList.Add(p);
                 Session["ParticipantList"] = newList;
-                return p.FullName;
+                
+                Dictionary<string,string> dic = new Dictionary<string,string>();
+                dic.Add("name", p.FullName);
+                dic.Add("id", p.IdNumber);
+                return JsonConvert.SerializeObject(dic);
             }
             else
             {
                 return null;
             }
         }
-        public ActionResult EditParticipant(List<Participant> pList)
+        [HttpPost]
+        public void AddParticipant(int id)
         {
-            return PartialView(pList);
+            List<Participant> list = (List<Participant>)Session["EmployeeList"];
+            int i = 0;
+            for (i = 0; i < list.Count;i++ )
+            {
+                if (list[i].ParticipantId == id)
+                {
+                    Response.StatusCode = 404;
+                    break;
+                }
+            }
+            if (i >= list.Count)
+            {
+                Participant p = ParticipantBLL.Instance.GetParticipantById(id);
+                list.Add(p);
+                Session["EmployeeList"] = list;
+            }
+            
+        }
+        public ActionResult EditParticipant(string id)
+        {
+            List<Participant> list = (List<Participant>)Session["ParticipantList"];
+            if (list.Count != 0 && list != null)
+            {
+                foreach (Participant item in list)
+                {
+                    if (item.IdNumber == id)
+                    {
+                        return PartialView(item);
+                    }
+                }
+            }
+            Participant p = ParticipantBLL.Instance.GetParticipantByIdNumber(id);
+            if (p != null)
+            {
+                return PartialView(p);
+            }
+            else
+            {
+                return PartialView();
+            }
+            
+        }
+        [HttpPost]
+        public void EditParticipant(Participant p)
+        {
+            List<Participant> list = (List<Participant>)Session["ParticipantList"];
+            Boolean check1 = false;
+            Boolean check2 = false;
+            if (list.Count != 0 && list != null)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].IdNumber == p.IdNumber)
+                    {
+                        list[i] = p;
+                        check1 = true;
+                    }
+                }
+            }
+            if (check1)
+            {
+                Session["ParticipantList"] = list;
+            }else{
+                List<Participant> list2 = (List<Participant>)Session["EmployeeList"];
+                if(list2.Count!=0 && list2!=null){
+                    for(int j=0;j<list2.Count;j++){
+                        if(list2[j].ParticipantId == p.ParticipantId)
+                        {
+                            list2[j] = p;
+                            check2 = true;
+                        }
+                    }
+                }
+                if(check2){
+                     Session["EmployeeList"] = list2;
+                }
+            }
         }
         [HttpPost]
         public ActionResult GetParticipantFromList(List<int> array)
