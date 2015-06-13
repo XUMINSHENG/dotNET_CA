@@ -180,6 +180,7 @@ namespace CourseRegistrationSystem.Controllers
             return PartialView(p);
         }
         [HttpPost]
+        [Authorize(Roles = "CompanyHR")]
         public String CreateParticipant(Participant p)
         {
             String loginUserId = User.Identity.GetUserId();
@@ -216,26 +217,31 @@ namespace CourseRegistrationSystem.Controllers
                 return null;
             }
         }
-        [HttpPost]
-        public void AddParticipant(int id)
+        public class employee
         {
-            List<Participant> list = (List<Participant>)Session["EmployeeList"];
-            int i = 0;
-            for (i = 0; i < list.Count;i++ )
+            public string id { get; set; }
+            public string name { get; set; }
+        }
+        [HttpPost]
+        [Authorize(Roles = "CompanyHR")]
+        public void AddParticipants(string jsonstring)
+        {
+            employee[] participants = JsonConvert.DeserializeObject<employee[]>(jsonstring);
+            List<Participant> list = new List<Participant>();
+            if (participants.Length != 0)
             {
-                if (list[i].ParticipantId == id)
+                Participant p;
+                foreach (employee item in participants)
                 {
-                    Response.StatusCode = 404;
-                    break;
+                    p = null;
+                    p = ParticipantBLL.Instance.GetParticipantByIdNumber(item.id);
+                    if (p != null)
+                    {
+                        list.Add(p);
+                    }
                 }
             }
-            if (i >= list.Count)
-            {
-                Participant p = ParticipantBLL.Instance.GetParticipantById(id);
-                list.Add(p);
-                Session["EmployeeList"] = list;
-            }
-            
+            Session["EmployeeList"] = list;
         }
         public ActionResult EditParticipant(string id)
         {
@@ -262,11 +268,10 @@ namespace CourseRegistrationSystem.Controllers
             
         }
         [HttpPost]
-        public void EditParticipant(Participant p)
+        [Authorize(Roles = "CompanyHR")]
+        public string EditParticipant(Participant p)
         {
             List<Participant> list = (List<Participant>)Session["ParticipantList"];
-            Boolean check1 = false;
-            Boolean check2 = false;
             if (list.Count != 0 && list != null)
             {
                 for (int i = 0; i < list.Count; i++)
@@ -274,26 +279,51 @@ namespace CourseRegistrationSystem.Controllers
                     if (list[i].IdNumber == p.IdNumber)
                     {
                         list[i] = p;
-                        check1 = true;
+                        Session["ParticipantList"] = list;
+                        return p.IdNumber;
                     }
                 }
             }
-            if (check1)
-            {
-                Session["ParticipantList"] = list;
-            }else{
-                List<Participant> list2 = (List<Participant>)Session["EmployeeList"];
-                if(list2.Count!=0 && list2!=null){
-                    for(int j=0;j<list2.Count;j++){
-                        if(list2[j].ParticipantId == p.ParticipantId)
-                        {
-                            list2[j] = p;
-                            check2 = true;
-                        }
+            List<Participant> list2 = (List<Participant>)Session["EmployeeList"];
+            if(list2.Count!=0 && list2!=null){
+                for(int j=0;j<list2.Count;j++){
+                    if(list2[j].ParticipantId == p.ParticipantId)
+                    {
+                        list2[j] = p;
+                        Session["EmployeeList"] = list2;
+                        return p.IdNumber;
                     }
                 }
-                if(check2){
-                     Session["EmployeeList"] = list2;
+            }
+            return null;
+        }
+        [HttpPost]
+        [Authorize(Roles = "CompanyHR")]
+        public void DeleteNewParticipant(string id)
+        {
+            List<Participant> list = (List<Participant>)Session["ParticipantList"];
+            foreach (Participant p in list)
+            {
+                if (p.IdNumber == id)
+                {
+                    list.Remove(p);
+                    Session["ParticipantList"] = list;
+                    break;
+                }
+            }
+        }
+        [HttpPost]
+        [Authorize(Roles = "CompanyHR")]
+        public void DeleteOldParticipant(string id)
+        {
+            List<Participant> list = (List<Participant>)Session["EmployeeList"];
+            foreach (Participant p in list)
+            {
+                if (p.IdNumber == id)
+                {
+                    list.Remove(p);
+                    Session["EmployeeList"] = list;
+                    break;
                 }
             }
         }

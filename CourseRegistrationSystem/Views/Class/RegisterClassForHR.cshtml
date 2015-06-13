@@ -31,7 +31,7 @@
         <div class="panel-collapse collapse in" id="collapse1">
             <div class="panel-body">
                 <div>
-                    <button type="button" class="btn btn-default btn-sm" id="addParticipant">
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal1" id="addParticipant">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Participant
                     </button>
                     <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal2" data-whatever="">
@@ -39,7 +39,7 @@
                     </button>
                     <hr />
                 </div>
-                <div class="row">
+                <div class="row" id="allParticipants">
                     <div class="col-lg-6">
                         <div id="newParticipants">
 
@@ -116,7 +116,7 @@
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" id="modal1Content">
-            
+            @Html.Partial("CreateParticipant")
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
@@ -133,7 +133,7 @@
                 {
                     <div class="checkbox">
                         <label>
-                            @item.FullName <input type="checkbox" value="@item.FullName" name="@item.ParticipantId" id="@item.ParticipantId">
+                            @item.FullName <input type="checkbox" value="@item.FullName" name="@item.IdNumber" id="@item.IdNumber">
                         </label>
                     </div>
                 }
@@ -146,24 +146,39 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modal3Content">
+            
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 
 <script>
     var curParticipants;
+    var employeeList;
 
     $(document).ready(function () {
         curParticipants = [];
+        employeeList = [];
+        var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == 'checkbox') {
+                employeeList.push({ id: inputs[i].id, name: inputs[i].value });
+            }
+        }
     });
 
-    $('#addParticipant').click(function (event) {
-        $.get('CreateParticipant', function (response) {
-            $('#modal1Content').html(response);
-            $('#myModal1').modal('show');
-        });
-    })
+    //$('#addParticipant').click(function (event) {
+    //    $.get('CreateParticipant', function (response) {
+    //        $('#modal1Content').html(response);
+    //        $('#myModal1').modal('show');
+    //    });
+    //})
 
     //new participant modal
     $('#myModal1').on('show.bs.modal', function (event) {
-        
+
     })
 
     //employeeList modal
@@ -178,10 +193,10 @@
         //        inputs[i].checked = participants[i].selected;
         //    }
         //}
-        
+
     })
 
-    $('#myModal2').on('hidden.bs.modal', function (event) {
+    function checkModal2Body() {
         var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == 'checkbox') {
@@ -191,40 +206,85 @@
         var selected;
         for (var j = 0; j < curParticipants.length; j++) {
             selected = null;
-            selected = document.getElementById(curParticipants[j]);
+            selected = document.getElementById(curParticipants[j].id);
             if (selected != null) {
                 selected.checked = true;
             }
         }
-        
+    }
+
+    $('#myModal2').on('hidden.bs.modal', function (event) {
+        checkModal2Body();
     })
 
     $('#empBtn').click(function (event) {
-        
+        var list = [];
         var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == 'checkbox') {
-                if (inputs[i].checked) {
-                    if(checkParticipants(inputs[i].value)){
-                        curParticipants.push(inputs[i].value);
-                        $('#oldParticipants').append('<button type="button" class="btn btn-primary btn-lg btn-block">'+inputs[i].value+'</button>');
-                    }
+                if (checkParticipants(inputs[i].id, inputs[i].checked)) {
+                    list.push({ id: inputs[i].id, name: inputs[i].value });
                 }
             }
         }
+        console.log(list);
+        var str = JSON.stringify(list);
+        console.log(str);
+        $.ajax({
+            url: '@Url.Action("AddParticipants")',
+            type: 'POST',
+            datatype: "json",
+            traditional: true,
+            data: {
+                jsonstring: JSON.stringify(list)
+            },
+            success: function () {
+                curParticipants = list;
+                for(var j=0;j<curParticipants.length;j++){
+                    $('#oldParticipants').append('<button type="button" class="btn btn-primary btn-lg btn-block" onclick="editParticipant(this)" id="btn' + curParticipants[j].id + '">' + curParticipants[j].name + '</button>');
+                }
+                console.log(curParticipants);
+                $('#myModal2').modal('hide');
+            },
+            error: function (event, request, settings) {
+                alert("Add failed. Please try again.")
+            }
+            //,
+            //timeout: 20000
+        });
+        //$.post("AddParticipants", { jsonstring: str }, function () {
 
-        $('#myModal2').modal('hide')
-    })
+        //}).done(function (data, status) {
+        //    curParticipants = [];
+        //    console.log(data + " " + status);
+        //    if (status == 'success') {
+        //        curParticipants = list;
+        //        for(var j=0;j<curParticipants.length;j++){
+        //            $('#oldParticipants').append('<button type="button" class="btn btn-primary btn-lg btn-block" onclick="editParticipant(this)" id="btn' + curParticipants[j].id + '">' + curParticipants[j].name + '</button>');
+        //        }
+        //        console.log(curParticipants);
+        //            $('#myModal2').modal('hide');
+        //    } else {
+        //        alert("Add failed. Please try again.")
+        //    }
+        //})
+    });
 
-    function checkParticipants(id){
+    function checkParticipants(id,exist){
         if(curParticipants.length != 0){
             for(var i = 0; i<curParticipants.length;i++){
-                if(id==curParticipants[i]){
+                if (id == curParticipants[i].id) {
+                    if (!exist) {
+                        curParticipants.splice(i,1)
+                    }
                     return false;
                 }
             }
         }
-        return true;
+        if (exist) {
+            return true;
+        }
+        return false;
     }
 
     function compare(array1, array2) {
@@ -232,8 +292,21 @@
             return element == array2[index]});
     }
 
+    function editParticipant(btn) {
+        console.log(btn);
+        var idNumber = btn.id.substring(3);
+        console.log(idNumber);
+        $.get("EditParticipant", {id:idNumber}, function (data, status) {
+            $('#modal3Content').html(data);
+
+        }).done(function () {
+            $('#myModal3').modal('show');
+        })
+    }
+
     function createBegin() {
         console.log("i am beginning");
+
         //check if idnumber is existed in local
         //var length = newParticipants.length;
         //if (length != 0) {
@@ -255,50 +328,53 @@
         //    alert("can not submit");
         //    return false;
         //}
-        return true;
+        //return true;
     }
 
     function createFailure(response) {
         //network issue
-        alert("Failed to create. Please try again.")
+        alert("The participant is existed. Please choose from list.");
     }
 
-    function createSuccess(name) {
+    function createSuccess(jsonstring) {
         console.log("i am successful");
-        console.log(name);
-        if (name!=null) {
+        var json = jQuery.parseJSON(jsonstring);
+        console.log(json);
+        console.log(json.id);
+        if (json!=null) {
             //add new participant into NewParticipants div
-            $("#newParticipants").append('<button type="button" class="btn btn-primary btn-lg btn-block">'+name+'</button>');
+            $("#newParticipants").append('<button type="button" class="btn btn-primary btn-lg btn-block" onclick="editParticipant(this)" id="btn' + json.id + '">' + json.name + '</button>');
+            $('#myModal1').modal('hide');
         } else {
             alert("The participant is existed. Please choose from list.");
         }
-        $('#myModal1').modal('hide');
+
     }
 
-    function changeParticipants() {
-        var checkedList = new Array();
+    //function changeParticipants() {
+    //    var checkedList = new Array();
 
-        var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].type == 'checkbox') {
-                if (inputs[i].checked) {
-                    checkedList.push(inputs[i].value);
-                }
-            }
-        }
-   
-        if (checkedList.length != 0 ) {
-            if (!compare(curParticipants,checkedList)) {
-                $.post('GetParticipantFromList', $.param({ array: checkedList }, true), function (response) {
-                    console.log(response);
-                    $('#participants').html(response);
-                }).done(function () {
-                    curParticipants = checkedList;
-                })
-            }
-        } else {
-            curParticipants = checkedList;
-            $('#participants').html('<p class="text-muted">Please add one participant at least.</p>');
-        }
-    }
+    //    var inputs = document.getElementById('modal2Body').getElementsByTagName('input');
+    //    for (var i = 0; i < inputs.length; i++) {
+    //        if (inputs[i].type == 'checkbox') {
+    //            if (inputs[i].checked) {
+    //                checkedList.push(inputs[i].value);
+    //            }
+    //        }
+    //    }
+
+    //    if (checkedList.length != 0 ) {
+    //        if (!compare(curParticipants,checkedList)) {
+    //            $.post('GetParticipantFromList', $.param({ array: checkedList }, true), function (response) {
+    //                console.log(response);
+    //                $('#participants').html(response);
+    //            }).done(function () {
+    //                curParticipants = checkedList;
+    //            })
+    //        }
+    //    } else {
+    //        curParticipants = checkedList;
+    //        $('#participants').html('<p class="text-muted">Please add one participant at least.</p>');
+    //    }
+    //}
 </script>
