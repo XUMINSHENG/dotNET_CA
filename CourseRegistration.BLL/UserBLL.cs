@@ -199,6 +199,12 @@ namespace CourseRegistration.BLL
             return uow.AppUserManager.FindById(id);
         }
 
+        public ApplicationUser GetUserByName(String userName)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.AppUserManager.FindByName(userName);
+        }
+
         public async Task<bool> ConfirmEmail(string id,bool status)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

@@ -6,7 +6,8 @@ using System.ServiceModel;
 using System.Text;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseRegistration.Service
 {
@@ -14,10 +15,20 @@ namespace CourseRegistration.Service
     // NOTE: In order to launch WCF Test Client for testing this service, please select AttendanceService.svc or AttendanceService.svc.cs at the Solution Explorer and start debugging.
     public class AttendanceService : IAttendanceService
     {
+        //[System.Security.Permissions.PrincipalPermission(System.Security.Permissions.SecurityAction.Demand, Role = Util.C_Role_IndividualUser)]
         public List<SvcStudent> GetStudentList(DateTime date, String classId)
         {
 
+            if (CourseClassBLL.Instance.GetCourseClassById(classId)==null)
+            {
+                throw new FaultException("invalid classId");
+            }
+
             String userName = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            if (InstructorBLL.Instance.CheckInstructorClass(userName,classId) == false)
+            {
+                throw new FaultException("no right to access this info of this class");
+            }
 
             List<SvcStudent> studentList = new List<SvcStudent>();
 
