@@ -12,14 +12,16 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
 {
     public partial class RegistrationList : System.Web.UI.Page
     {
-
+        String classID;
         protected void Page_Load(object sender, EventArgs e)
         {
+            classID = WebFormHelper.GetSessionFieldAndRemove(Session, WebFormHelper.C_PrimaryKey, "");
             if (!Page.IsPostBack)
             {
                 Bind_CategoryList();
                 Bind_CourseList();
                 Bind_ClassList();
+                DropDownClass.SelectedValue = classID;
                 Bind_RegistrationList();
             }
         }

@@ -151,7 +151,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void RegNum_Click(object sender, EventArgs e)
         {
-            String classId = ((Button)sender).CommandArgument.ToString();
+            String classId = ((LinkButton)sender).CommandArgument.ToString();
             Session.Add(WebFormHelper.C_PrimaryKey, classId);
             Response.Redirect("~/Areas/CourseAdmin/RegistrationManagement/RegistrationList.aspx");
         }

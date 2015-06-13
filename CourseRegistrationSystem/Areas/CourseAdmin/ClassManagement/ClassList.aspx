@@ -78,6 +78,12 @@
                         <ItemStyle HorizontalAlign="Center" Width="100px" />
                     </asp:TemplateField>
 
+                    
+                    <asp:BoundField DataField="Course.CourseTitle" HeaderText="Course" ControlStyle-Width="300px" ItemStyle-Width="300px" >
+                    <ControlStyle Width="300px" />
+                    <ItemStyle Width="300px" HorizontalAlign="Right" />
+                    </asp:BoundField>
+
                     <asp:TemplateField HeaderStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             Reg Num
@@ -107,11 +113,6 @@
                     <asp:BoundField DataField="Status" HeaderText="Status" ControlStyle-Width="100px" ItemStyle-Width="100px">
                     <ControlStyle Width="100px" />
                     <ItemStyle Width="70px" HorizontalAlign="Right" />
-                    </asp:BoundField>
-
-                    <asp:BoundField DataField="Course.CourseTitle" HeaderText="Course" ControlStyle-Width="300px" ItemStyle-Width="300px" >
-                    <ControlStyle Width="300px" />
-                    <ItemStyle Width="300px" HorizontalAlign="Right" />
                     </asp:BoundField>
 
                     <asp:TemplateField ItemStyle-HorizontalAlign="Center">
