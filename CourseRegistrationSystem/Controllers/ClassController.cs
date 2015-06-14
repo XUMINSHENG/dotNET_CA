@@ -127,6 +127,7 @@ namespace CourseRegistrationSystem.Controllers
                     reg = new Registration();
                     reg.CourseClass = ViewBag.CourseClass;
                     reg.Participant = item;
+                    reg.Participant.Company = company;
                     reg.BillingAddress = ViewBag.Address;
                     reg.BillingPersonName = ViewBag.PersonName;
                     reg.BillingAddressCountry = ViewBag.Country;

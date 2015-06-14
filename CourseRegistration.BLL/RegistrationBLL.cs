@@ -113,6 +113,8 @@ namespace CourseRegistration.BLL
                         reg.Participant = p;
 
                     }
+
+                    // insert registration
                     uow.RegistrationRepository.Insert(reg);
                 }
                 else

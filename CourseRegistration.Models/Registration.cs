@@ -20,7 +20,7 @@ namespace CourseRegistration.Models
         public OrganizationSize OrganizationSize { get; set; }
         [Display(Name = "Address")]
         public String BillingAddress { get; set; }
-        [Display(Name = "PersonName")]
+        [Display(Name = "BillingPerson")]
         public String BillingPersonName { get; set; }
         [Display(Name = "Country")]
         public String BillingAddressCountry { get; set; }

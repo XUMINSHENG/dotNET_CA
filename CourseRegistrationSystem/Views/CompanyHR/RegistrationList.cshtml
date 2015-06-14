@@ -21,25 +21,10 @@
         </th>
         
         <th>
-            @Html.DisplayNameFor(model => model.Sponsorship)
+            @Html.DisplayNameFor(model => model.Participant.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DietaryRequirement)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrganizationSize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingPersonName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingAddressCountry)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingAddressPostalCode)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
@@ -59,25 +44,10 @@
             @Html.DisplayFor(modelItem => item.CourseClass.StartDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sponsorship)
+            @Html.DisplayFor(modelItem => item.Participant.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DietaryRequirement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrganizationSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingPersonName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingAddressCountry)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingAddressPostalCode)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
