@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace CourseRegistrationSystem.Controllers
 {
+    //private ApplicationUserManager _userManager;
     public class ClassController : Controller
     {
         // GET: Class
@@ -50,16 +51,30 @@ namespace CourseRegistrationSystem.Controllers
             else
             {
                 //verify if the user existed based on the information
-                var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(r.Participant);
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                return RedirectToAction("Index", "Home");
                 //if not, register a new one as individual user and finish the class registration
                 //if yes, help them login and turn to iu action
+
+                //var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(r.Participant);
+                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //return RedirectToAction("Index", "Home");
+                
             }
             return View(r);
         }
+
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
 
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String classId)
