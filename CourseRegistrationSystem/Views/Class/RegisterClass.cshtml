@@ -25,6 +25,8 @@
 @using (Html.BeginForm("RegisterClass", "Class", new { r = Model }))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.CourseClass)
+    
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
             <h3 class="panel-title">Step1: Participant Details</h3>

@@ -9,7 +9,6 @@ using CourseRegistrationSystem.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
-
 namespace CourseRegistrationSystem.Controllers
 {
     public class ClassController : Controller
@@ -51,6 +50,11 @@ namespace CourseRegistrationSystem.Controllers
             else
             {
                 //verify if the user existed based on the information
+                var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(r.Participant);
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("Index", "Home");
                 //if not, register a new one as individual user and finish the class registration
                 //if yes, help them login and turn to iu action
             }
