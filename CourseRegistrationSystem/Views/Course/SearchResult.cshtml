@@ -1,10 +1,30 @@
 ﻿@model IEnumerable<CourseRegistration.Models.Course>
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "SearchResult";
 }
 
 <h2>Search</h2>
+
+@foreach (var item in Model)
+{
+    //if (item.enabled)
+    //{
+    <h3>@Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { })</h3>
+    @if (item.CourseDescription == null || item.CourseDescription == "")
+    {
+        <p>The description of this course is nothing now.</p>
+    }
+    else
+    {
+        @Html.DisplayFor(modelItem => item.CourseDescription)
+    }
+    <p>Fee: @Html.DisplayFor(modelItem => item.Fee)</p>
+    <p>Duration: @Html.DisplayFor(modelItem => item.NumberOfDays)</p>
+       
+    
+    //}
+}
 
 <table class="table">
     <tr>

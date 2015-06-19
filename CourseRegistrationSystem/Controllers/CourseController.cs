@@ -17,8 +17,17 @@ namespace CourseRegistrationSystem.Controllers
             
             return View(categories);
         }
+        public ActionResult Search(String content)
+        {
+            List<Course> courses = new List<Course>(); ;
+            if (!String.IsNullOrEmpty(content))
+            {
+                courses = CourseBLL.Instance.SearchCourse(content);
+            }
+            return View(courses);
+        }
         [HttpPost]
-        public ActionResult Search()
+        public ActionResult SearchResult()
         {
             String s = Request.Form["Search"];
             List<Course> courses = CourseBLL.Instance.SearchCourse(s);

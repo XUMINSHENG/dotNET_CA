@@ -497,7 +497,7 @@
     <Content Include="Views\CompanyHR\RegistrationDelete.cshtml" />
     <Content Include="Views\Class\RegisterClassForIUResult.cshtml" />
     <Content Include="Views\Class\RegisterClassForHRResult.cshtml" />
-    <Content Include="Views\Course\Search.cshtml" />
+    <Content Include="Views\Course\SearchResult.cshtml" />
     <Content Include="Views\IndividualUser\PersonalInfoEdit.cshtml" />
     <Content Include="Views\IndividualUser\RegistrationList.cshtml" />
     <Content Include="Views\IndividualUser\PersonalInfo.cshtml" />
