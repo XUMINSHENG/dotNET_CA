@@ -345,7 +345,10 @@
             //add new participant into NewParticipants div
             $("#newParticipants").append('<button type="button" class="btn btn-primary btn-lg btn-block" onclick="editParticipant(this)" id="btn' + json.id + '">' + json.name + '</button>');
             $('#myModal1').modal('hide');
+            $("#modal1Content").load('@Url.Action("CreateParticipant", "Class")');
         } else {
+            $('#myModal1').modal('hide');
+            $("#modal1Content").load('@Url.Action("CreateParticipant", "Class")');
             alert("The participant is existed. Please choose from list.");
         }
 

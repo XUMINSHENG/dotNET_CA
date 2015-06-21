@@ -10,19 +10,22 @@
         <ul class="nav nav-sidebar">
             <li class="active"><a>Category</a></li>
             <li>@Html.ActionLink("Introduction","Index","Course")</li>
-            @foreach (Category item in Model)
+            @foreach (var item in Model)
             {
                 <li>
                     @Ajax.ActionLink(item.CategoryName, "CourseList", "Course", new { categoryId = item.CategoryId },
                  new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "courselist" })
-            </li>
+                </li>
             }
 
         </ul>
         @*<hr style="border-color:#428bca;" />*@
         <ul class="nav nav-sidebar">
             <li class="active"><a>Upcoming Class</a></li>
-            <li>@Html.ActionLink("Class1", "Index", "Classes")</li>
+            @*@foreach (CourseClass item in ViewBag.cList)
+            {
+                <li>@Html.ActionLink(item.ClassId, "Details", "Class", new { id=item.ClassId}, new { })</li>
+            }*@
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
@@ -51,15 +54,15 @@
                     </th>
                 </tr>
 
-                @foreach (var item in Model)
+                @foreach (var i in Model)
                 {
                     <tr>
                         <td>
-                            @Ajax.ActionLink(item.CategoryName, "CourseList", "Course", new { categoryId = item.CategoryId },
+                            @Ajax.ActionLink(i.CategoryName, "CourseList", "Course", new { categoryId = i.CategoryId },
                  new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "courselist" })
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Courses.Count)
+                            @Html.DisplayFor(modelItem => i.Courses.Count)
                         </td>
                     </tr>
                 }

@@ -1,9 +1,5 @@
 ﻿@using CourseRegistration.Models
 
-@*@{
-    List<Category> categories = CategoryBLL.Instance.GetAllCategories();
-}*@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +16,7 @@
     <div class="container" style="padding-top:5px;padding-bottom:2px;">
         <a class="logo" href="~/Home/Index"></a>
         @using (Ajax.BeginForm("SearchResult", "Course", null,
-                new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "main-content" }))
+                new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "main-content", OnBegin = "searchBegin", OnComplete = "searchComplete" }))
         {
             <div class="input-group search">
                 @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Search for..." })
@@ -109,5 +105,14 @@
 
     
     @RenderSection("scripts", required: false)
+    <script>
+        function searchBegin() {
+
+        }
+
+        function searchComplete() {
+
+        }
+    </script>
 </body>
 </html>

@@ -33,32 +33,19 @@
             @Html.DisplayFor(model => model.EndDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.isOpenForRegister)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.isOpenForRegister)
-        </dd>
-
     </dl>
 </div>
 
 <p>
     @Html.ActionLink("Back to List", "Index")
-    @if (Request.IsAuthenticated)
+    @if (Model.isOpenForRegister)
     {
-        if (User.IsInRole("IndividualUser"))
-        {
-            @Html.ActionLink("Register", "RegisterClassForIU", new { classId = Model.ClassId }, new { @style="float:right"})
-        }
-        else
-        {
-            @Html.ActionLink("Register", "RegisterClassForHR", new { classId = Model.ClassId }, new { @style="float:right"})
-        }
+        
+        @Html.ActionLink("Register", "RegisterClass", new { classId = Model.ClassId }, new { @style="float:right"})
+        
     }
     else
     {
-        @Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        <span class="text-right">Coming soon for register</span>
     }
 </p>

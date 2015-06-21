@@ -111,9 +111,18 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "CompanyHR")]
         public ActionResult RegisterClassForHR(String classId)
         {
-            int cmpId = GetCompanyId();
+            //int cmpId = GetCompanyId();
+            String loginUserId = User.Identity.GetUserId();
+            CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(loginUserId);
+            Company company = loginHR.Company;
+            int cmpId = company.CompanyId;
+
             ViewBag.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
             ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
+            ViewBag.Address = company.BillingAddress;
+            ViewBag.PersonName = company.BillingPersonName;
+            ViewBag.Country = company.BillingAddressCountry;
+            ViewBag.PostalCode = company.BillingAddressPostalCode;
             Session["ParticipantList"] = new List<Participant>();
             Session["EmployeeList"] = new List<Participant>();
             return View();
@@ -184,7 +193,7 @@ namespace CourseRegistrationSystem.Controllers
             {
                 IEnumerable<Registration> failedList = RegistrationBLL.Instance.CreateForCompanyEmployee(rList);
                 ViewBag.fList = failedList;
-                return View(rList);
+                return View("RegisterClassForHRResult",rList);
             }
 
             return View();

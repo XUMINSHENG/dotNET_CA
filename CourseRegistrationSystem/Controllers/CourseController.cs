@@ -14,7 +14,7 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Index()
         {
             List<Category> categories = CategoryBLL.Instance.GetAllCategories();
-            
+            ViewBag.cList = CourseClassBLL.Instance.GetUpcomingClass();
             return View(categories);
         }
         public ActionResult Search(String content)
@@ -29,8 +29,15 @@ namespace CourseRegistrationSystem.Controllers
         [HttpPost]
         public ActionResult SearchResult()
         {
-            String s = Request.Form["Search"];
-            List<Course> courses = CourseBLL.Instance.SearchCourse(s);
+            ViewBag.Search = Request.Form["Search"];
+            List<Course> courses;
+            if (ViewBag.Search!=null && ViewBag.Search!=""){
+                courses = CourseBLL.Instance.SearchCourse(ViewBag.Search);
+            }
+            else
+            {
+                courses = new List<Course>();
+            }
             return PartialView("SearchResult",courses);
         }
 
@@ -38,6 +45,14 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Details(string code)
         {
             Course course = CourseBLL.Instance.GetCourseByCode(code);
+            ViewBag.Classes = new List<CourseClass>();
+            foreach (var item in course.CourseClasses)
+            {
+                if (item.isOpenForRegister && item.StartDate > DateTime.Now)
+                {
+                    ViewBag.Classes.Add(item);
+                }
+            }
             return View(course);
         }
 

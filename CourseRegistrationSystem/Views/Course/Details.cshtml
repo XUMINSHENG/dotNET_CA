@@ -12,7 +12,6 @@
 <h2>@Model.CourseTitle</h2>
 
 <div>
-    <h4>Course Overview</h4>
     <p>@Model.CourseDescription</p>
     
     <dl class="dl-horizontal">
@@ -36,14 +35,11 @@
 
     </dl>
     <hr />
-    <h2>Available Classes:</h2>
+    <h2>Available Classes <small>@ViewBag.Classes.Count class</small></h2>
     <ul>
-        @foreach (var item in Model.CourseClasses)
-        {
-            if (item.isOpenForRegister && item.StartDate > DateTime.Now)
-            {
-                <li>@Html.ActionLink(item.ClassId, "Details", "Class", new { id = item.ClassId }, new { })</li>
-            }
+        @foreach (CourseRegistration.Models.CourseClass item in ViewBag.Classes)
+        {           
+            <li>@Html.ActionLink(item.ClassId, "Details", "Class", new { id = item.ClassId }, new { })</li>
         }
     </ul>
 </div>
