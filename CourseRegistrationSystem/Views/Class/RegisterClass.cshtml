@@ -10,6 +10,8 @@
     <li>@Model.CourseClass.ClassId</li>
 </ul>
 
+<div class="alert alert-warning" role="alert">If you already have an account, @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) first would be appreciated.</div>
+
 <h2>@Model.CourseClass.ClassId Class Registration</h2>
 
 <h4>@Model.CourseClass.Course.CourseTitle</h4>
@@ -22,10 +24,10 @@
 <p>Duration: @Model.CourseClass.Course.NumberOfDays days</p>
 <p>Start Date: @Model.CourseClass.StartDate.ToString("yyyy-MM-dd") & End Date: @Model.CourseClass.EndDate.ToString("yyyy-MM-dd")</p>
 
-@using (Html.BeginForm("RegisterClass", "Class", new { r = Model }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.CourseClass)
+    @Html.HiddenFor(model => model.CourseClass.ClassId)
     
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">

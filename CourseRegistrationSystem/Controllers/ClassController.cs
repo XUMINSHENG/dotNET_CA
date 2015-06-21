@@ -29,10 +29,21 @@ namespace CourseRegistrationSystem.Controllers
         }
         public ActionResult RegisterClass(String classId)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("IndividualUser"))
+                {
+                    return RedirectToAction("RegisterClassForIU");
+                }
+                if (User.IsInRole("CompanyHR"))
+                {
+                    return RedirectToAction("RegisterClassForHR");
+                }
+            }
             Registration r = new Registration();
             r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
             r.Participant = new Participant();
-            return View(r);
+            return View(r); 
         }
         [HttpPost]
         public ActionResult RegisterClass(Registration r)
@@ -55,26 +66,19 @@ namespace CourseRegistrationSystem.Controllers
                 //if yes, help them login and turn to iu action
 
                 //var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(r.Participant);
-                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //return RedirectToAction("Index", "Home");
-                
+                //if (user != null)
+                //{
+                    r.Sponsorship = Sponsorship.Self;
+                    r.DietaryRequirement = r.Participant.DietaryRequirement;
+                    r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(r.CourseClass.ClassId);
+                    if (RegistrationBLL.Instance.CreateForIndividualUser(r))
+                    {
+                        return View("RegisterClassForIUResult", r);
+                    }  
+                //}    
             }
             return View(r);
         }
-
-        //public ApplicationUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    }
-        //    private set
-        //    {
-        //        _userManager = value;
-        //    }
-        //}
 
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String classId)

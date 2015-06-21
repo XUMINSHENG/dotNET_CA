@@ -4,11 +4,12 @@
     ViewBag.Title = "RegisterClassForIUResult";
 }
 
-<h2>Register For @Html.Encode(Model.CourseClass.Course.CourseTitle) - @Html.Encode(Model.CourseClass.ClassId) successfully!</h2>
-
+<h2>Register For @Html.Encode(Model.CourseClass.Course.CourseTitle) &amp; @Html.Encode(Model.CourseClass.ClassId) successfully!</h2>
+<h4>Thanks for your registration!</h4>
+<hr />
 <div>
-    <h4>Participant Details</h4>
-    <hr />
+    <h4>Your Participant Details</h4>
+    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Participant.IdNumber)
@@ -130,24 +131,8 @@
             @Html.DisplayFor(model => model.Participant.SalaryRange)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Timestamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Timestamp)
-        </dd>
-
     </dl>
 </div>
-<p>|
+<p>
     @Html.ActionLink("Back to List", "Index")
 </p>
