@@ -77,15 +77,17 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             }
             else
             {
+                L_ErrMsgID.Text = "";
                 Course course = CourseBLL.Instance.GetCourseByCode(ddt_Course.SelectedValue);
                 DateTime least = Start_Date.TodaysDate;
                 least = least.AddDays(course.NumberOfDays-1);
-                if (least < End_Date.TodaysDate)
+                if (least > End_Date.TodaysDate)
                 {
                     L_ErrMsgDate.Text = course.CourseTitle + " need to least " + course.NumberOfDays + "day!";
                     return false;
                 }  
             }
+            L_ErrMsgDate.Text = "";
             return true;
         }
 
