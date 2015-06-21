@@ -4,29 +4,31 @@
     ViewBag.Title = "SearchResult";
 }
 
-<h2>Search</h2>
+<h2>Search <i><small>@Model.Count() results</small></i></h2>
 
+<hr />
 @foreach (var item in Model)
 {
     //if (item.enabled)
     //{
-    <h3>@Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { })</h3>
-    @if (item.CourseDescription == null || item.CourseDescription == "")
-    {
-        <p>The description of this course is nothing now.</p>
-    }
-    else
-    {
-        @Html.DisplayFor(modelItem => item.CourseDescription)
-    }
-    <p>Fee: @Html.DisplayFor(modelItem => item.Fee)</p>
-    <p>Duration: @Html.DisplayFor(modelItem => item.NumberOfDays)</p>
+    <h4>@Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { })</h4>
+    <p>
+        @if (item.CourseDescription == null || item.CourseDescription == "")
+        {
+            @Html.Display("The description of this course is nothing now.")
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => item.CourseDescription)
+        }
+    </p>
+    <p><mark>Fee: @Html.DisplayFor(modelItem => item.Fee) | Duration: @Html.DisplayFor(modelItem => item.NumberOfDays)</mark></p>
        
-    
+    <hr />
     //}
 }
 
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseTitle)
@@ -49,7 +51,6 @@
         <tr>
             <td>
                 @Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { })
-                @*@Html.DisplayFor(modelItem => item.CourseTitle)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CourseDescription)
@@ -64,4 +65,4 @@
     //}
 }
 
-</table>
+</table>*@
