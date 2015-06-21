@@ -19,7 +19,7 @@
   <xs:element name="ReceiveDecision">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="isConfirm" type="xs:boolean" />
+        <xs:element minOccurs="0" name="isConfirm" type="xs:int" />
         <xs:element minOccurs="0" name="classId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -27,7 +27,7 @@
   <xs:element name="ReceiveDecisionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="result" type="xs:boolean" />
+        <xs:element minOccurs="0" name="result" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

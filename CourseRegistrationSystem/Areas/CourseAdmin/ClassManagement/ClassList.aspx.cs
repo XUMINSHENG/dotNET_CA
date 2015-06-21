@@ -72,7 +72,22 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 if (obj != null)
                 {
                     String classId = obj.ToString();
-                    ((LinkButton)e.Row.FindControl("RegNum")).Text = CourseClassBLL.Instance.getRegNum(classId).ToString();
+                    int RegNum = CourseClassBLL.Instance.getRegNum(classId);
+                    ((LinkButton)e.Row.FindControl("RegNum")).Text =
+                       RegNum.ToString();
+                    CourseClass courseClass = CourseClassBLL.Instance.
+                        GetCourseClassById(classId);
+                    DateTime startDate = courseClass.StartDate;
+                    DateTime today = new Calendar().TodaysDate;
+                    ClassStatus classStatue = courseClass.Status;
+                    if (classStatue == ClassStatus.Pending && today.AddDays(7) >= startDate)
+                    {
+                        ((Button)e.Row.FindControl("BtnCheckRegNum")).Visible = true;
+                    }
+                    else
+                    {
+                        ((Button)e.Row.FindControl("BtnCheckRegNum")).Visible = false;
+                    }
                 }
             }
         }
@@ -163,12 +178,17 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             Bind_ClassList();
         }
 
-        protected void BTNCheckClassReg(object sender, EventArgs e)
+
+        protected void BtnCheckRegNum_Click(object sender, EventArgs e)
         {
+            String ClassId = ((Button)sender).CommandArgument.ToString();
             ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
-            string classID = "8";
-            bool result;
-            client.ConfirmClassId(ref classID, out result);
+            bool result = true;
+            client.ConfirmClassId(ref ClassId, out result);
+            if (result == true)
+            {
+                client.ReceiveDecision(1,ClassId);
+            }
         }
     }
 }

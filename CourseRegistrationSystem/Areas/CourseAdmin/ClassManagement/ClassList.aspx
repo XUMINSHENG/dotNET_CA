@@ -124,11 +124,17 @@
                                 OnClick="BTNEDIT_Click" 
                                 CommandArgument='<%# Bind("ClassId") %>' Width="50px" />
 
+                           
+
                             <asp:Button ID="BtnDel" runat="server" Font-Size="9pt" Text="Delete" 
                                 OnClick="BTNDELETE_Click" 
                                 CommandArgument='<%# Bind("ClassId") %>' 
                                 OnClientClick='javascript:return confirm("This record will be deleted?");'
                                 Width="50px" />
+
+                             <asp:Button ID="BtnCheckRegNum" runat="server" Font-Size="9" Text="Change Status"
+                                onClick="BtnCheckRegNum_Click"
+                                 CommandArgument='<%# Bind("ClassId") %>' Width="108px" />
 
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
