@@ -7,6 +7,7 @@
                 <asp:Label runat="server" Text="Class ID"></asp:Label>
             </asp:TableCell>
             <asp:TableCell>
+                <asp:Label runat="server" ID="lb_CourseCode"></asp:Label>
                 <asp:TextBox runat="server" ID ="tb_ClassID"></asp:TextBox>
             </asp:TableCell>
             <asp:TableCell>
@@ -19,7 +20,7 @@
                 <asp:Label runat="server" Text="Course"></asp:Label>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:DropDownList ID="ddt_Course" runat="server">
+                <asp:DropDownList ID="ddt_Course" runat="server"  OnSelectedIndexChanged="ddt_Course_SelectedIndexChanged" AutoPostBack="True">
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>

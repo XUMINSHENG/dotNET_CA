@@ -132,9 +132,17 @@
             <asp:Panel ID="BtnPanel" runat="server" >
                 <asp:Panel ID="EditPanel" runat="server" HorizontalAlign="Center">
                     <asp:Button runat="server" Text="Edit" ID="BtnEdit" OnClick="BtnEdit_Click" Width="80px" ValidationGroup="ValidGroup" />
+                    <asp:Button runat="server" Text="Delete" 
+                        OnClick="BtnDelete_Click" 
+                        OnClientClick='javascript:return confirm("This record will be deleted?");' 
+                        Width="80px"/>
                     <asp:Button runat="server" Text="Back" OnClick="BtnBack_Click"  Width="80px"/>
                 </asp:Panel>
                 <asp:Panel ID="ViewPanel" runat="server" HorizontalAlign="Center">
+                    <asp:Button runat="server" Text="Delete" 
+                        OnClick="BtnDelete_Click" 
+                        OnClientClick='javascript:return confirm("This record will be deleted?");' 
+                        Width="80px"/>
                     <asp:Button runat="server" Text="Back" OnClick="BtnBack_Click" Width="80px" />
                 </asp:Panel>
             </asp:Panel>

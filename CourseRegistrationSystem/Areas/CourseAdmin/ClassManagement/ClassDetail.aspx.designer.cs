@@ -22,6 +22,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement {
         protected global::System.Web.UI.WebControls.Table DataTable;
         
         /// <summary>
+        /// lb_CourseCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_CourseCode;
+        
+        /// <summary>
         /// tb_ClassID control.
         /// </summary>
         /// <remarks>

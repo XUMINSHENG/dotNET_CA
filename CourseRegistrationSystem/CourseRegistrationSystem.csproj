@@ -212,13 +212,6 @@
     <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationList.aspx.designer.cs">
       <DependentUpon>RegistrationList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx.cs">
-      <DependentUpon>RegistrationMoving.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx.designer.cs">
-      <DependentUpon>RegistrationMoving.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx.cs">
       <DependentUpon>ResetPwdForIRH&amp;HR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,20 +227,6 @@
       <DependentUpon>CourseAdmin.Master</DependentUpon>
     </Compile>
     <Compile Include="Areas\CourseAdmin\Shared\WebFormHelper.cs" />
-    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx.cs">
-      <DependentUpon>CourseAdminDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx.designer.cs">
-      <DependentUpon>CourseAdminDetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx.cs">
-      <DependentUpon>CourseAdminList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx.designer.cs">
-      <DependentUpon>CourseAdminList.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Areas\SystemAdmin\RoleManagement.aspx.cs">
       <DependentUpon>RoleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -306,10 +285,7 @@
     <Content Include="Areas\CourseAdmin\CourseAdminHomePage.aspx" />
     <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationDetail.aspx" />
     <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationList.aspx" />
-    <Content Include="Areas\CourseAdmin\RegistrationManagement\RegistrationMoving.aspx" />
     <Content Include="Areas\CourseAdmin\ResetPwdForIRH&amp;HR.aspx" />
-    <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminDetail.aspx" />
-    <Content Include="Areas\SystemAdmin\CourseAdminManagement\CourseAdminList.aspx" />
     <Content Include="Areas\SystemAdmin\RoleManagement.aspx" />
     <Content Include="Areas\SystemAdmin\UserManagement.aspx" />
     <Content Include="Areas\SystemAdmin\SystemAdminHomePage.aspx" />

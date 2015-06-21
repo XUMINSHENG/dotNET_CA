@@ -5,23 +5,26 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace CourseRegistrationSystem.Areas.CourseAdmin
 {
     public partial class Site1 : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            String username = HttpContext.Current.User.Identity.Name; 
+
             if (DateTime.Now.Hour < 12)
             {
-                SayHello.Text = "Good Morning, Mr X";
+                SayHello.Text = "Good Morning " + username;
             }
             else if (DateTime.Now.Hour < 17)
             {
-                SayHello.Text = "Good Afternoon, Mr X";
+                SayHello.Text = "Good Afternoon " + username;
             }
             else
             {
-                SayHello.Text = "Good Afternoon, Mr X";
+                SayHello.Text = "Good Afternoon " + username;
             }
         }
 

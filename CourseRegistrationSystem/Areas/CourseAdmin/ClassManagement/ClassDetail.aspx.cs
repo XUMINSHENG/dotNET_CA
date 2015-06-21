@@ -23,6 +23,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 ControlDisplayMode();
                 if (PageMode == WebFormHelper.C_New_Mode)
                 {
+                    lb_CourseCode.Text = ddt_Course.SelectedValue + "-";
                     tb_ClassID.Enabled = true;
                 }
                 else
@@ -158,7 +159,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             if (btn_Submit.Text == "Create")
             {
                 CourseClass courseClass = new CourseClass();
-                courseClass.ClassId = tb_ClassID.Text;
+                courseClass.ClassId = lb_CourseCode.Text + tb_ClassID.Text;
                 courseClass.StartDate = Start_Date.TodaysDate;
                 courseClass.EndDate = End_Date.TodaysDate;
                 courseClass.isOpenForRegister = System.Convert.ToBoolean(ddl_RegisterStatus.SelectedIndex);
@@ -192,6 +193,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void ddt_Course_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lb_CourseCode.Text = ((DropDownList)sender).SelectedValue + "-";
+
             setEndDate();
         }
     }

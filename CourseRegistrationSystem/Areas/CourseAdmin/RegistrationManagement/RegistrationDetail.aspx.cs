@@ -45,6 +45,21 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             }
         }
 
+        protected void BtnDelete_Click(object sender, EventArgs e)
+        {
+            String rId = this.TxtRegistrationId.Text;
+            try
+            {
+                Registration r = RegistrationBLL.Instance.getRegistrationById(Int32.Parse(rId));
+                RegistrationBLL.Instance.DeleteRegistration(r);
+                Server.Transfer("RegistrationList.aspx");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+            {
+                this.LblMessage.Text = string.Format(WebFormHelper.Err_Update_Concurrency, "registrition", rId);
+            }
+        }
+
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             Server.Transfer("RegistrationList.aspx");
