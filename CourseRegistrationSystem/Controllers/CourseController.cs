@@ -31,7 +31,7 @@ namespace CourseRegistrationSystem.Controllers
         {
             String s = Request.Form["Search"];
             List<Course> courses = CourseBLL.Instance.SearchCourse(s);
-            return PartialView(courses);
+            return PartialView("SearchResult",courses);
         }
 
         // GET: Course/Details/5
