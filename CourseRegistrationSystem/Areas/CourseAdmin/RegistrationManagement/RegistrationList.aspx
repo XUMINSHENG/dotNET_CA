@@ -135,11 +135,6 @@
                         <ItemStyle Width="200px" />
                     </asp:BoundField>
                     
-                    <asp:BoundField DataField="CourseClass.Course.CourseCode" HeaderText="CourseCode" ControlStyle-Width="100px" ItemStyle-Width="100px" >
-                        <ControlStyle Width="100px" />
-                        <ItemStyle Width="100px" />
-                    </asp:BoundField>
-                    
                     <asp:TemplateField HeaderStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             CourseTitle
@@ -151,6 +146,11 @@
                         <ItemStyle HorizontalAlign="Center" Width="120px" />
                     </asp:TemplateField>
                     
+                    <asp:BoundField DataField="CourseClass.ClassId" HeaderText="ClassId" ControlStyle-Width="100px" ItemStyle-Width="100px" >
+                        <ControlStyle Width="100px" />
+                        <ItemStyle Width="100px" />
+                    </asp:BoundField>
+
                     <asp:BoundField DataField="CourseClass.StartDate" HeaderText="StartDate" ControlStyle-Width="100px" ItemStyle-Width="100px" 
                         DataFormatString="{0:dd-MMM-yyyy}" >
                         <ControlStyle Width="100px" />
