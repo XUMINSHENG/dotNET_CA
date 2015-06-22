@@ -1,65 +1,55 @@
-﻿@using CourseRegistrationSystem.Models
+﻿
+@using CourseRegistrationSystem.Models
 @model LoginViewModel
-@{
-    ViewBag.Title = "Log in";
-    ViewBag.IndividualUser = CourseRegistration.BLL.Util.C_Role_IndividualUser;
-    ViewBag.CompanyHR = CourseRegistration.BLL.Util.C_Role_CompanyHR;
-    ViewBag.Staff = CourseRegistration.BLL.Util.C_Role_Staff;
-}
 
-<h2>@ViewBag.Title</h2>
-<hr/>
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.Label("Login As", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="radio-inline">
-                @Html.RadioButton("loginAs", (string)@ViewBag.IndividualUser, true,new { id = @ViewBag.IndividualUser, onclick = "showLoginResult(this)"}) @ViewBag.IndividualUser
-            </div>
-            <div class="radio-inline">
-                @Html.RadioButton("loginAs", (string)@ViewBag.CompanyHR, new { id = @ViewBag.CompanyHR, onclick = "showLoginResult(this)" }) @ViewBag.CompanyHR
-            </div>
-            <div class="radio-inline">
-                @Html.RadioButton("loginAs", (string)@ViewBag.Staff, new { id = @ViewBag.Staff, onclick = "showLoginResult(this)" }) @ViewBag.Staff
-            </div>
-            @Html.ValidationMessage("loginAs", new { htmlAttributes = new { @class = "text-danger" } })
-        </div>
-    </div>
-    <div class="form-group" id="LoginPage">
-        @Html.Partial("LoginIndividualUser")
-    </div>
-</div>
+    <div class="col-md-10">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
 
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <h4>Login</h4>
+                <hr />
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+            <div class="col-md-10">
+                <p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>
+             </div>
+                }
+</section>
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script type="text/javascript">
-    function showLoginResult(radio) {
-        var selected = radio.value;
-        var individualUser = '@ViewBag.IndividualUser';
-        var companyHR = '@ViewBag.CompanyHR';
-        var staff = '@ViewBag.Staff';
-        if (selected == individualUser) {
-            $url = "/Account/LoginIndividualUser/?returnUrl=".concat('@ViewBag.ReturnUrl');
-        }
-        else if (selected == companyHR) {
-            $url = "/Account/LoginCompanyHR/?returnUrl=".concat('@ViewBag.ReturnUrl');
-        }
-        else if (selected == staff) {
-            $url = "/Account/LoginStaff/?returnUrl=".concat('@ViewBag.ReturnUrl');
-        }
-
-        $.ajax({
-            url: $url,
-            dataType: 'html',
-            success: function (data) {
-                $('#LoginPage').html(data);
-                $('form').removeData('validator');
-                $('form').removeData('unobtrusiveValidation');
-                $.validator.unobtrusive.parse('form');
-            }
-        });
-    }
-        </script>
 }

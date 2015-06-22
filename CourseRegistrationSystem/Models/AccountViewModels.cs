@@ -50,33 +50,16 @@ namespace CourseRegistrationSystem.Models
     {
 
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-    }
-
-    public class IndividualUserLoginViewModel : LoginViewModel
-    {
-        [Required]
-        [Display(Name = "NRIC/PASSPORT")]
-        public string UserName { get; set; }
-    }
-    public class CompanyHrLoginViewModel : LoginViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string UserName { get; set; }
-
-    }
-    public class StaffLoginViewModel : LoginViewModel
-    {
-        [Required]
-        [Display(Name = "UserName")]
-        public string UserName { get; set; }
     }
     public class RegisterViewModel
     {

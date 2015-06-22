@@ -70,62 +70,11 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult LoginCompanyHR(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView();
-        }
-
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginCompanyHR(CompanyHrLoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            ApplicationUser user = CourseRegistration.BLL.UserBLL.Instance.GetAllUsers().FirstOrDefault(u => u.UserName == model.UserName);
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    if (user !=null && user.isSysGenPassword)
-                        return RedirectToAction("ChangePassword", "Manage");
-                    return Redirect(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
-
-//
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult LoginIndividualUser(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginIndividualUser(IndividualUserLoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -141,49 +90,8 @@ namespace CourseRegistrationSystem.Controllers
                 case SignInStatus.Success:
                     if (user != null && user.isSysGenPassword)
                         return RedirectToAction("ChangePassword", "Manage");
-                    return Redirect(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
-
-
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult LoginStaff(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginStaff(StaffLoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            ApplicationUser user = CourseRegistration.BLL.UserBLL.Instance.GetAllUsers().FirstOrDefault(u => u.UserName == model.UserName);
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    if (user != null && user.isSysGenPassword)
-                        return RedirectToAction("ChangePassword", "Manage");
+                    if(returnUrl == null)
+                        return View(model);
                     return Redirect(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
