@@ -89,11 +89,13 @@ namespace CourseRegistration.BLL
 
         public void MailUserCredentials(String userId,String userName,String password)
         {
-            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            if (uow.AppUserManager.EmailService == null) 
-                uow.AppUserManager.EmailService = new EmailService();
-            uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
-            uow.Save();
+            //IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            //if (uow.AppUserManager.EmailService == null) 
+            //    uow.AppUserManager.EmailService = new EmailService();
+            //uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+            //uow.Save();
+            Util.SendEmail("userId", "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+
         }
         public void MailUser(String userId, String subject,String msg)
         {
