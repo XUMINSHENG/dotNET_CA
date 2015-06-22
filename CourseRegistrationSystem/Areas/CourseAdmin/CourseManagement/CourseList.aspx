@@ -124,3 +124,6 @@
     </div>
    
 </asp:Content>
+<asp:Content ContentPlaceHolderID="subTitle" runat="server">
+    Course List
+</asp:Content>

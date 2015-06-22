@@ -1,12 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Areas/SystemAdmin/SystemAdmin.Master" AutoEventWireup="true" CodeBehind="UserManagement.aspx.cs" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.UserManagement" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="subTitle" runat="server">
+﻿<%@ Page Title="User Management" Language="C#" MasterPageFile="~/Areas/SystemAdmin/SystemAdmin.Master" AutoEventWireup="true" CodeBehind="UserManagement.aspx.cs" Inherits="CourseRegistrationSystem.Areas.SystemAdmin.UserManagement" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="subTitle" runat="server">User Management
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Path" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Search" runat="server">
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="Menu" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content5" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div>
     <style type="text/css">

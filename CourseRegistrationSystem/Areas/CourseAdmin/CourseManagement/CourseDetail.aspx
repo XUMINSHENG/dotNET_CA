@@ -112,3 +112,7 @@
     </div>
   
 </asp:Content>
+
+<asp:Content ContentPlaceHolderID="subTitle" runat="server">
+    Course Detail
+</asp:Content>

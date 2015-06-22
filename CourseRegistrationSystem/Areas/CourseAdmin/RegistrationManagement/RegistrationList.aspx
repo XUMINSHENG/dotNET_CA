@@ -199,3 +199,7 @@
     </div>
 
 </asp:Content>
+
+<asp:Content ContentPlaceHolderID="subTitle" runat ="server">
+    Registration List
+</asp:Content>

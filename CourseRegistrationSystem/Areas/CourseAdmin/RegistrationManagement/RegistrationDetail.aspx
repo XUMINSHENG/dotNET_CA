@@ -149,3 +149,6 @@
         </asp:Panel>
     </div>
 </asp:Content>
+<asp:Content ContentPlaceHolderID="subTitle" runat ="server">
+    Registration Detail
+</asp:Content>

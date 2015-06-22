@@ -5,13 +5,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>System Admin Master</title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style3 {
+            width: 196px;
+        }
+        .auto-style4 {
+            width: 40px;
+        }
+        .auto-style5 {
+            width: 349px;
+        }
+    </style>
 </head>
 <body>
    <form id="form1" runat="server" method="post">
 
     <div>
         <asp:Panel ID ="Title" runat="server" Font-Size="X-Large" Font-Name="Verdana">
-        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/logo128.png" />
+        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/logo128.png" OnClick="ImageButton1_Click" />
         <asp:ContentPlaceHolder ID="subTitle" runat="server">        
         Title
         </asp:ContentPlaceHolder>
@@ -49,9 +63,8 @@
                     <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
                     <StaticSelectedStyle BackColor="#507CD1" />
                     <Items>
-                        <asp:MenuItem Text="Class Management" Value="Class Management" NavigateUrl="~/Areas/CourseAdmin/ClassManagement/ClassList.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="Course Management" Value="Course Management" NavigateUrl="~/Areas/CourseAdmin/CourseManagement/CourseList.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="Registration Management" Value="Registration Management" NavigateUrl="~/Areas/CourseAdmin/RegistrationManagement/RegistrationList.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="User Management" Value="Course Management" NavigateUrl="~/Areas/SystemAdmin/UserManagement.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Role Management" Value="Class Management" NavigateUrl="~/Areas/SystemAdmin/RoleManagement.aspx"></asp:MenuItem>
                     </Items>
                 </asp:Menu>
                 </asp:ContentPlaceHolder>
