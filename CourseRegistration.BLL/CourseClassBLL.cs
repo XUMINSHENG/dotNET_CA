@@ -154,5 +154,39 @@ namespace CourseRegistration.BLL
             return false;
         }
 
+        public Boolean CancelClass(string classID)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            CourseClass courseClass = GetCourseClassById(classID);
+            courseClass.Status = ClassStatus.Cancel;
+            courseClass.isOpenForRegister = false;
+            List<CourseClass> courseClassList = GetClassesByConds(Util.C_String_All_Select, courseClass.Course.CourseCode);
+            CourseClass nextClass = null;
+
+            foreach (CourseClass x in courseClassList)
+            {
+                if (x.StartDate > DateTime.Today && x.StartDate > courseClass.StartDate && x.Status != ClassStatus.Cancel)
+                {
+                    if (nextClass == null)
+                        nextClass = x;
+                    else if (x.StartDate < nextClass.StartDate)
+                        nextClass = x;
+                }
+            }
+
+            List<Registration> Reg = courseClass.Registrations;
+            if (nextClass != null)
+            {
+                foreach (Registration r in Reg)
+                {
+                    r.CourseClass = nextClass;
+                }
+            }
+
+            uow.CourseClassRepository.Edit(courseClass);
+            uow.Save();
+            return true;
+        }
+
     }
 }

@@ -92,6 +92,12 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                     return false;
                 }  
             }
+            if(btn_Submit.Text=="Create")
+                if (CourseClassBLL.Instance.GetCourseClassById(lb_CourseCode.Text + tb_ClassID.Text) != null)
+                {
+                    L_ErrMsgID.Text = "This ID has been existed!";
+                    return false;
+                }
             L_ErrMsgDate.Text = "";
             return true;
         }
@@ -167,6 +173,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
             {
                 CourseClass courseClass = new CourseClass();
                 courseClass.ClassId = lb_CourseCode.Text + tb_ClassID.Text;
+                
                 courseClass.StartDate = Start_Date.TodaysDate;
                 courseClass.EndDate = End_Date.TodaysDate;
                 courseClass.isOpenForRegister = System.Convert.ToBoolean(ddl_RegisterStatus.SelectedIndex);
@@ -190,7 +197,9 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 {
                     case 0: { courseClass.Status = ClassStatus.Pending; break; }
                     case 1: { courseClass.Status = ClassStatus.Confirmed; break; }
-                    case 2: { courseClass.Status = ClassStatus.Cancel; break; }
+                    case 2: { courseClass.Status = ClassStatus.Cancel;
+                    CourseClassBLL.Instance.CancelClass(courseClass.ClassId);
+                        break; }
                 }
                 CourseClassBLL.Instance.UpdateCourseClass(courseClass);
                 return true;
