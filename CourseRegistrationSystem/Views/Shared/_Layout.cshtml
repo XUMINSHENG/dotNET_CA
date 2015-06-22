@@ -107,7 +107,12 @@
     @RenderSection("scripts", required: false)
     <script>
         function searchBegin() {
-
+            var content = $("#Search").val();
+            if (content == "" || content == null) {
+                alert("Please input something you want search.");
+                return false;
+            }
+            //$("#main-content").html("<div class='well'>Please wait for a moment. We are searching for you...<div>");
         }
 
         function searchComplete() {
