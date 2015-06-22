@@ -65,7 +65,7 @@ namespace CourseRegistration.Service
             {
                 return new Result(false, e.ToString());
             }
-            return new Result(true, "");
+            return new Result(true, "Attendance is successfull.It is updated in database");
         }
     }
 }

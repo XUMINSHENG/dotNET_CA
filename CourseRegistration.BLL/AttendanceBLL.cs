@@ -63,8 +63,8 @@ namespace CourseRegistration.BLL
                 }
 
                 // date check
-                if (attendance.CreateDate.CompareTo(cl.StartDate) < 0 ||
-                    attendance.CreateDate.CompareTo(cl.EndDate) > 0)
+                if (attendance.ClassDate.CompareTo(cl.StartDate) < 0 ||
+                    attendance.ClassDate.CompareTo(cl.EndDate) > 0)
                 {
                     throw new BusinessException("invalid Date");
                 }
