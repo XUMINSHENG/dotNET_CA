@@ -179,7 +179,7 @@ namespace CourseRegistration.BLL
             {
                 foreach (Registration r in Reg)
                 {
-                    Util.SendEmail(r.Participant.Email.ToString, "Very Sorry about you changed class!", EmailForTransfer(r, nextClass));
+                    Util.SendEmail(r.Participant.Email.ToString(), "Very Sorry about you changed class!", EmailForTransfer(r,nextClass));
                     r.CourseClass = nextClass;
                 }
             }
