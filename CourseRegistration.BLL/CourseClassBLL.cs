@@ -179,6 +179,7 @@ namespace CourseRegistration.BLL
             {
                 foreach (Registration r in Reg)
                 {
+                    Util.SendEmail(r.Participant.Email.ToString, "Very Sorry about you changed class!", EmailForTransfer(r, nextClass));
                     r.CourseClass = nextClass;
                 }
             }
@@ -202,7 +203,7 @@ namespace CourseRegistration.BLL
             List<Registration> Reg = courseClass.Registrations;
             foreach (Registration r in Reg)
             {
-                Util.SendEmail(r.Participant.Email.ToString(), "Your class has been confirmed!", EmailForCancel(r));
+                Util.SendEmail(r.Participant.Email.ToString(), "Your class has been confirmed!", EmailForConfirm(r));
             }
             courseClass.isOpenForRegister = false;
             uow.CourseClassRepository.Edit(courseClass);
@@ -232,11 +233,28 @@ namespace CourseRegistration.BLL
             context += "Here is the imformation about it:" + Environment.NewLine;
             context += "Course Title:" + r.CourseClass.Course.CourseTitle + Environment.NewLine;
             context += "Class ID:" + r.CourseClass.ClassId + Environment.NewLine;
-            context += "The class will start in" + r.CourseClass.StartDate.ToShortDateString() + " Don't be late!" + Environment.NewLine;
+            context += "The class will start on " + r.CourseClass.StartDate.ToShortDateString() + " Don't be late!" + Environment.NewLine;
             context += Environment.NewLine;
             context += "Thanks for you support!";
             return context;
         }
-
+        public String EmailForTransfer(Registration r,CourseClass newClass)
+        {
+            String context = "";
+            context += Environment.NewLine;
+            context += "Dear " + r.Participant.FullName + Environment.NewLine;
+            context += "I'm very sorry to tell you that the class you choosed has been canceled. And we have arranged the latest same class for you!" + Environment.NewLine;
+            context += "Here is the imformation about your old class:" + Environment.NewLine;
+            context += "Course Title:" + r.CourseClass.Course.CourseTitle + Environment.NewLine;
+            context += "Class ID:" + r.CourseClass.ClassId + Environment.NewLine;
+            context += Environment.NewLine;
+            context += "Here is the imformation about your new class:" + Environment.NewLine;
+            context += "Course Title:" + newClass.Course.CourseTitle + Environment.NewLine;
+            context += "Class ID:" + newClass.ClassId + Environment.NewLine;
+            context += "The class will start on " + newClass.StartDate.ToShortDateString() + " Don't be late!" + Environment.NewLine;
+            context += Environment.NewLine;
+            context += "Thanks for you support!";
+            return context;
+        }
     }
 }
