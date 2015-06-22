@@ -37,6 +37,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
             try
             {
                 SaveChanges(false);
+                Server.Transfer("RegistrationList.aspx");
 
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
@@ -96,7 +97,7 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
                 
                 this.TxtRegistrationId.Text = r.RegistrationId.ToString();
                 this.txtCategory.Text = r.CourseClass.Course.Category.CategoryName;
-                this.TxtCourseCode.Text = r.CourseClass.Course.CourseCode;
+                this.TxtClassId.Text = r.CourseClass.ClassId;
                 this.HidTimestamp.Value = System.Convert.ToBase64String(r.Timestamp);
                 this.TxtCourseTitle.Text = r.CourseClass.Course.CourseTitle;
 
@@ -140,9 +141,10 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement
                 foreach (CourseClass c in tmpList)
                 {
                     // only classes start later then current time can be selected
-                    if (DateTime.Compare(c.StartDate, DateTime.Now) > 0)
+                    // hide overdue or canceled classes
+                    if ((DateTime.Compare(c.StartDate, DateTime.Now) > 0) &&
+                        (c.Status != ClassStatus.Cancel))
                     {
-                        // hide overdue classes
                         classesList.Add(c);
                     }
                 }

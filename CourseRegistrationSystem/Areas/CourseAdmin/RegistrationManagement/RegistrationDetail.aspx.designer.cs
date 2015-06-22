@@ -76,15 +76,6 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement {
         protected global::System.Web.UI.WebControls.TextBox txtCategory;
         
         /// <summary>
-        /// TxtCourseCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtCourseCode;
-        
-        /// <summary>
         /// TxtCourseTitle control.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.RegistrationManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtCourseTitle;
+        
+        /// <summary>
+        /// TxtClassId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtClassId;
         
         /// <summary>
         /// DropDownClass control.

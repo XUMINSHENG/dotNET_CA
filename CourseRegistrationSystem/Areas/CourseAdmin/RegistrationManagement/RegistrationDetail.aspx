@@ -27,18 +27,18 @@
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell VerticalAlign="Top">
-                        <asp:label runat="server">CourseCode:</asp:label>
-                    </asp:TableCell>
-                    <asp:TableCell>
-                        <asp:TextBox ID="TxtCourseCode" runat="server" Width="250px" Enabled="false"></asp:TextBox>
-                    </asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow>
-                    <asp:TableCell VerticalAlign="Top">
                         <asp:label runat="server">CourseTitle:</asp:label>
                     </asp:TableCell>
                     <asp:TableCell>
                         <asp:TextBox ID="TxtCourseTitle" runat="server" Width="250px" Enabled="false"></asp:TextBox>
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell VerticalAlign="Top">
+                        <asp:label runat="server">ClassId:</asp:label>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:TextBox ID="TxtClassId" runat="server" Width="250px" Enabled="false"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
