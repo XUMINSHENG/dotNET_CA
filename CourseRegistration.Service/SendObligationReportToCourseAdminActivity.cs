@@ -53,30 +53,31 @@ namespace CourseRegistration.Service
                 string path = "D:\\ObligationReportMail.txt";
                 List<ApplicationUser> userList = UserBLL.Instance.GetUsersByRole(Util.C_Role_CourseAdmin);
                 foreach (ApplicationUser user in userList)
-                    header += user.Email + " , ";
-                header.Substring(0, header.Length - 1);
-                body += "List of students fulfilling the service obligation" + Environment.NewLine;
-                body += "Id" + "\t" + "NRIC/Passport" + "\t" + "FullName" + "\t" + "Gender" + "\t" + "Email" + "\t" + "Nationality" + "\t" + "ContactNumber" + Environment.NewLine;
+                    header += user.Email + ",";
+                header=header.Substring(0, header.Length - 1);
+                body += "Message:" + Environment.NewLine;
+                body += Environment.NewLine + "List of students fulfilling the service obligation" + Environment.NewLine + Environment.NewLine;
+                body += "Id" + "," + "NRIC/Passport" + "," + "ParticipantFullName" + "," + "Gender" + "," + "Email" + "," + "Nationality" + "," + "ContactNumber" + Environment.NewLine;
                 foreach (SvcStudent stud in filteredList)
                 {
-                    body += stud.ParticipantId + "\t";
-                    body += stud.IdNumber + "\t";
-                    body += stud.FullName + "\t";
-                    body += stud.Gender + "\t";
-                    body += stud.Email + "\t";
-                    body += stud.Nationality + "\t";
+                    body += stud.ParticipantId + ",";
+                    body += stud.IdNumber + ",";
+                    body += stud.FullName + ",";
+                    body += stud.Gender + ",";
+                    body += stud.Email + ",";
+                    body += stud.Nationality + ",";
                     body += stud.ContactNumber + Environment.NewLine;
                 }
-                body += "List of students NOT fulfilling the service obligation" + Environment.NewLine;
-                body += "Id" + "\t" + "NRIC/Passport" + "\t" + "FullName" + "\t" + "Gender" + "\t" + "Email" + "\t" + "Nationality" + "\t" + "ContactNumber" + Environment.NewLine;
+                body += Environment.NewLine + "List of students NOT fulfilling the service obligation" + Environment.NewLine + Environment.NewLine;
+                body += "Id" + "," + "NRIC/Passport" + "," + "ParticipantFullName" + "," + "Gender" + "," + "Email" + "," + "Nationality" + "," + "ContactNumber" + Environment.NewLine;
                 foreach (SvcStudent stud in obligationViolateList)
                 {
-                    body += stud.ParticipantId + "\t";
-                    body += stud.IdNumber + "\t";
-                    body += stud.FullName + "\t";
-                    body += stud.Gender + "\t";
-                    body += stud.Email + "\t";
-                    body += stud.Nationality + "\t";
+                    body += stud.ParticipantId + ",";
+                    body += stud.IdNumber + ",";
+                    body += stud.FullName + ",";
+                    body += stud.Gender + ",";
+                    body += stud.Email + ",";
+                    body += stud.Nationality + ",";
                     body += stud.ContactNumber + Environment.NewLine;
                 }
                 File.WriteAllText(path, header + Environment.NewLine + subject + Environment.NewLine + body + Environment.NewLine);
