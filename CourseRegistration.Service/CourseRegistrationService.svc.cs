@@ -35,7 +35,7 @@ namespace CourseRegistration.Service
                 regParticipant.EmploymentStatus = svcParticipant.EmploymentStatus;
                 regParticipant.JobTitle = svcParticipant.JobTitle;
                 regParticipant.Department = svcParticipant.Department;
-                regParticipant.FullName = svcParticipant.IdNumber;
+                regParticipant.FullName = svcParticipant.FullName;
                 regParticipant.Gender = (CourseRegistration.Models.Gender)svcParticipant.Gender;
                 regParticipant.Nationality = svcParticipant.Nationality;
                 regParticipant.DateOfBirth = svcParticipant.DateOfBirth;
