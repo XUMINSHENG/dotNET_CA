@@ -8,6 +8,7 @@ using CourseRegistration.BLL;
 using CourseRegistrationSystem.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace CourseRegistrationSystem.Controllers
 {
@@ -33,11 +34,11 @@ namespace CourseRegistrationSystem.Controllers
             {
                 if (User.IsInRole("IndividualUser"))
                 {
-                    return RedirectToAction("RegisterClassForIU");
+                    return RedirectToAction("RegisterClassForIU",new { id = classId });
                 }
                 if (User.IsInRole("CompanyHR"))
                 {
-                    return RedirectToAction("RegisterClassForHR");
+                    return RedirectToAction("RegisterClassForHR", new { id = classId });
                 }
             }
             Registration r = new Registration();
@@ -81,10 +82,10 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         [Authorize(Roles = "IndividualUser")]
-        public ActionResult RegisterClassForIU(String classId)
+        public ActionResult RegisterClassForIU(String id)
         {
             Registration r = new Registration();
-            r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(classId);
+            r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             
             String loginUserId = User.Identity.GetUserId();
             r.Participant = ParticipantBLL.Instance.GetParticipantByUserId(loginUserId);
@@ -109,7 +110,7 @@ namespace CourseRegistrationSystem.Controllers
         }
 
         [Authorize(Roles = "CompanyHR")]
-        public ActionResult RegisterClassForHR(String classId)
+        public ActionResult RegisterClassForHR(String id)
         {
             //int cmpId = GetCompanyId();
             String loginUserId = User.Identity.GetUserId();
@@ -118,7 +119,7 @@ namespace CourseRegistrationSystem.Controllers
             int cmpId = company.CompanyId;
 
             ViewBag.Participants = ParticipantBLL.Instance.GetAllParticipantsByCompanyId(cmpId);
-            ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(classId);
+            ViewBag.CourseClass  = CourseClassBLL.Instance.GetCourseClassById(id);
             ViewBag.Address = company.BillingAddress;
             ViewBag.PersonName = company.BillingPersonName;
             ViewBag.Country = company.BillingAddressCountry;
