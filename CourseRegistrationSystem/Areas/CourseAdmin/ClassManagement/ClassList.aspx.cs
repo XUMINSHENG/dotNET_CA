@@ -181,14 +181,40 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
 
         protected void BtnCheckRegNum_Click(object sender, EventArgs e)
         {
-            String ClassId = ((Button)sender).CommandArgument.ToString();
+            Button button = (Button)sender;
+            button.Visible = false;
             ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
+            String ClassId = ((Button)sender).CommandArgument.ToString();
             bool result = true;
             client.ConfirmClassId(ref ClassId, out result);
             if (result == true)
             {
-                client.ReceiveDecision(1,ClassId);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "message", "modalShow()", true);
+                lbl_confirmMsg.Text = "Class " + ClassId + " has "+ CourseClassBLL.Instance.getRegNum(ClassId)+" Registration";
+                hd_classid.Value = ClassId;
             }
+        }
+
+        protected void Confirm_Click(object sender, EventArgs e)
+        {
+            //hd_classid.Value
+            ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
+            client.ReceiveDecision(1, hd_classid.Value);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassList.aspx");
+        }
+
+        protected void Cancel_Click(object sender, EventArgs e)
+        {
+            ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
+            client.ReceiveDecision(2, hd_classid.Value);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassList.aspx");
+        }
+
+        protected void Close_Click(object sender, EventArgs e)
+        {
+            ServiceReference2.ServiceClient client = new ServiceReference2.ServiceClient();
+            client.ReceiveDecision(0, hd_classid.Value);
+            Response.Redirect("~/Areas/CourseAdmin/ClassManagement/ClassList.aspx");
         }
     }
 }

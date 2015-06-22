@@ -1,5 +1,43 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassList.aspx.cs" MasterPageFile="~/Areas/CourseAdmin/CourseAdmin.Master" Inherits="CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement.ClassList"  Title="Class List"%>
 <asp:Content ID="Content1" runat="server" contentPlaceHolderID="ContentPlaceHolder1">
+    
+    <script type="text/javascript">
+
+        var modalShow = function () {
+            $('#myModal').on('hide.bs.modal', function (e) {
+                var d1 = $("*[id$=Keep_Pending]").val();
+                var d2 = document.getElementById(d1);
+                console.log(d1);
+                d2.click();
+            })
+            $('#myModal').modal('show');
+            console.log("call already");
+        }
+
+    </script>
+
+    
+
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Confirm Class</h4>
+      </div>
+      <div class="modal-body">
+        <asp:Label runat="server" ID="lbl_confirmMsg"></asp:Label>
+        <p>Do you want to confirm the class?</p>
+      </div>
+      <asp:HiddenField ID="hd_classid" runat="server" />
+      <div class="modal-footer">
+         <asp:button ID="Confirm" runat="server" OnClick="Confirm_Click" Text="Confirm Class"></asp:button>
+         <asp:button ID="Cancel" runat="server" OnClick="Cancel_Click" Text="Cancel Class"></asp:button>
+         <asp:button ID="Keep_Pending" runat="server" OnClick="Close_Click" Text="Keep Pending"></asp:button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div>
     <asp:Panel ID="SelectPanel" runat="server" Width="1141px">
             <asp:Table ID="SelectTable" runat="server">
@@ -133,7 +171,7 @@
                                 Width="50px" />
 
                              <asp:Button ID="BtnCheckRegNum" runat="server" Font-Size="9" Text="Change Status"
-                                onClick="BtnCheckRegNum_Click"
+                                 OnClick="BtnCheckRegNum_Click"
                                  CommandArgument='<%# Bind("ClassId") %>' Width="108px" />
 
                         </ItemTemplate>

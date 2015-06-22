@@ -2,12 +2,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head runat="server">
     <title>Course Admin Master</title>
+    <script src="../../../Scripts/jquery-1.10.2.js"></script>
+    <script src="../../../Scripts/bootstrap.js"></script>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap-addition.css" rel="stylesheet" />
 </head>
 
-<body onunload="">
+<body>
 <form id="form1" runat="server" method="post">
 
     <div>
