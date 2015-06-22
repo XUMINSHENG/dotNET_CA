@@ -37,18 +37,6 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
-            //using (UnitOfWork uow = new UnitOfWork())
-            //{
-            //    IQueryable<Course> cl = uow.CourseRepository.GetAll().Where<Course>(x=>x.CourseTitle.Contains("Agile"));
-                
-            //    List<Course> c = cl.ToList<Course>();
-
-            //    Console.WriteLine("hh");
-            //}
-
-            CourseBLL.Instance.SearchCourse("NICF");
-
             return View();
         }
     }

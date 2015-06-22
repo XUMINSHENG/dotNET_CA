@@ -74,6 +74,9 @@ namespace CourseRegistration.BLL
             IQueryable<Course> descriptionQuery = uow.CourseRepository.GetAll().Where<Course>(x => x.CourseDescription.ToUpper().Contains(keyWord));
 
             result = titleQuery.Union(categoryQuery).Union(instructorQuery).Union(descriptionQuery);
+
+            //only enabled courses are showed
+            result = result.Where(x => x.enabled == true);
             return result.ToList();
         }
 
