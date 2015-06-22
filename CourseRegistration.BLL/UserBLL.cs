@@ -95,7 +95,7 @@ namespace CourseRegistration.BLL
             //    uow.AppUserManager.EmailService = new EmailService();
             //uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
             //uow.Save();
-            Util.SendEmail("userId", "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+            Util.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
 
         }
         public void MailUser(String userId, String subject,String msg)
