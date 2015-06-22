@@ -196,10 +196,8 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 switch (ddt_ClassStatus.SelectedIndex)
                 {
                     case 0: { courseClass.Status = ClassStatus.Pending; break; }
-                    case 1: { courseClass.Status = ClassStatus.Confirmed; break; }
-                    case 2: { courseClass.Status = ClassStatus.Cancel;
-                    CourseClassBLL.Instance.CancelClass(courseClass.ClassId);
-                        break; }
+                    case 1: { CourseClassBLL.Instance.ConfirmClass(courseClass.ClassId); break; }
+                    case 2: { CourseClassBLL.Instance.CancelClass(courseClass.ClassId); break; }
                 }
                 CourseClassBLL.Instance.UpdateCourseClass(courseClass);
                 return true;

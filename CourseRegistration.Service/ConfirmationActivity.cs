@@ -20,9 +20,7 @@ namespace CourseRegistration.Service
         {
             // Obtain the runtime value of the Text input argument
             string classID = context.GetValue(this.ClassId);
-            CourseClass courseclass = CourseClassBLL.Instance.GetCourseClassById(classID);
-            courseclass.Status = ClassStatus.Confirmed;
-            CourseClassBLL.Instance.UpdateCourseClass(courseclass);
+            CourseClassBLL.Instance.ConfirmClass(classID);
             Console.WriteLine("confirm");
             System.Diagnostics.Debug.WriteLine("confirm");
         }

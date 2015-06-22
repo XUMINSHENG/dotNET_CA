@@ -55,8 +55,8 @@
                     <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
                     <StaticSelectedStyle BackColor="#507CD1" />
                     <Items>
-                        <asp:MenuItem Text="Class Management" Value="Class Management" NavigateUrl="~/Areas/CourseAdmin/ClassManagement/ClassList.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="Course Management" Value="Course Management" NavigateUrl="~/Areas/CourseAdmin/CourseManagement/CourseList.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Class Management" Value="Class Management" NavigateUrl="~/Areas/CourseAdmin/ClassManagement/ClassList.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="Registration Management" Value="Registration Management" NavigateUrl="~/Areas/CourseAdmin/RegistrationManagement/RegistrationList.aspx"></asp:MenuItem>
                     </Items>
                 </asp:Menu>

@@ -182,10 +182,60 @@ namespace CourseRegistration.BLL
                     r.CourseClass = nextClass;
                 }
             }
+            else 
+            { 
+                foreach (Registration r in Reg)
+                {
+                    Util.SendEmail(r.Participant.Email.ToString(), "Very Sorry about you canceled class!", EmailForCancel(r));
+                }
+            }
 
             uow.CourseClassRepository.Edit(courseClass);
             uow.Save();
             return true;
+        }
+        public Boolean ConfirmClass(String classID)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            CourseClass courseClass = GetCourseClassById(classID);
+            courseClass.Status = ClassStatus.Confirmed;
+            List<Registration> Reg = courseClass.Registrations;
+            foreach (Registration r in Reg)
+            {
+                Util.SendEmail(r.Participant.Email.ToString(), "Your class has been confirmed!", EmailForCancel(r));
+            }
+            courseClass.isOpenForRegister = false;
+            uow.CourseClassRepository.Edit(courseClass);
+            uow.Save();
+            return true;
+        }
+        public String EmailForCancel(Registration r)
+        {
+            String context = "";
+            context += Environment.NewLine;
+            context += "Dear " + r.Participant.FullName + Environment.NewLine;
+            context += "I'm very sorry to tell you that the class you choosed has been canceled." + Environment.NewLine;
+            context += "Here is the imformation about it:"+Environment.NewLine;
+            context += "Course Title:"+ r.CourseClass.Course.CourseTitle+Environment.NewLine;
+            context += "Class ID:" +r.CourseClass.ClassId+ Environment.NewLine;
+            context += Environment.NewLine;
+            context += "Thanks for you support!";
+            return context;
+        }
+
+        public String EmailForConfirm(Registration r)
+        {
+            String context = "";
+            context += Environment.NewLine;
+            context += "Dear " + r.Participant.FullName + Environment.NewLine;
+            context += "Congratulations! The class you choosed has been confirmed" + Environment.NewLine;
+            context += "Here is the imformation about it:" + Environment.NewLine;
+            context += "Course Title:" + r.CourseClass.Course.CourseTitle + Environment.NewLine;
+            context += "Class ID:" + r.CourseClass.ClassId + Environment.NewLine;
+            context += "The class will start in" + r.CourseClass.StartDate.ToShortDateString() + " Don't be late!" + Environment.NewLine;
+            context += Environment.NewLine;
+            context += "Thanks for you support!";
+            return context;
         }
 
     }
