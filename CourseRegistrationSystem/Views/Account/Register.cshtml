@@ -14,7 +14,7 @@
             @Html.Label("Register As", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="radio-inline">
-                    @Html.RadioButton("registerAs", (string)@ViewBag.IndividualUser, new { id = @ViewBag.IndividualUser, onclick = "showRegisterResult(this)" }) @ViewBag.IndividualUser
+                    @Html.RadioButton("registerAs", (string)@ViewBag.IndividualUser,true, new { id = @ViewBag.IndividualUser, onclick = "showRegisterResult(this)" }) @ViewBag.IndividualUser
                 </div>
                 <div class="radio-inline">
                     @Html.RadioButton("registerAs", (string)@ViewBag.CompanyHR, new { id = @ViewBag.CompanyHR, onclick = "showRegisterResult(this)" }) @ViewBag.CompanyHR
@@ -23,6 +23,7 @@
             </div>
         </div>
         <div class="form-group" id="RegisterPage">
+            @Html.Partial("RegisterIndividualUser");
         </div>
     </div>
 
