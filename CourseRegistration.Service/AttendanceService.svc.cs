@@ -46,7 +46,11 @@ namespace CourseRegistration.Service
                 );
                 studentList.Add(newStud);
             }
-
+            //int i=studentList.Count();
+            if (studentList.Count() == 0)
+            {
+                throw new FaultException("No student registered for this class");
+            }
             return studentList;
         }
 

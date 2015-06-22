@@ -68,15 +68,22 @@ namespace CourseRegistration.Service
 
                 List<Registration> regList = new List<Registration>();
                 regList.Add(newReg);
-                RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
-
+                
+                
+                // RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
+                //List<Registration> failedList1 = RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
+                int size =RegistrationBLL.Instance.CreateForCompanyEmployee(regList).Count();
+                if(size!=0)
+                {
+                    return new Result(false,"The candidate is already registered.");
+                }
             }
             catch (Exception e)
             {
                 return new Result(false, e.ToString());
                
             }
-            return new Result(true,"");
+            return new Result(true,"We have successfully registered the candidate");
         }
     }
 }
