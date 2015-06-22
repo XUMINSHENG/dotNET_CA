@@ -42,11 +42,11 @@
         <td>
             @if (item.isOpenForRegister)
             {
-                <p class="text-danger">Closed</p>
+                @Html.ActionLink("Register", "RegisterClass", new { classId = item.ClassId });
             }
             else
             {
-                @Html.ActionLink("Register", "RegisterClass", new { classId = item.ClassId });
+                <p class="text-danger">Closed</p>
             }
             @*if (Request.IsAuthenticated)
             {
