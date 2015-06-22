@@ -41,13 +41,29 @@ namespace CourseRegistrationSystem
             msg.Subject = message.Subject;
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+            try
+            {
+                SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
+                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
+                smtpClient.Credentials = credentials;
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(msg);
+            }
+            catch
+            {
+                try
+                {
+                    SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"], Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                }
+                catch
+                {
 
-            SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"], Convert.ToInt32(587));
-            //SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
-            smtpClient.Credentials = credentials;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
+                }
+            }
         }
     }
 
