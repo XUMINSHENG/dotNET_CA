@@ -6,7 +6,7 @@
 }
 
 <div class="row" style="margin:auto;">
-    <div class="col-sm-3 col-md-2 col-lg-2 sidebar" style="position:absolute;top: auto;left:auto;overflow-y:hidden;bottom:auto;">
+    <div class="col-sm-3 col-md-2 col-lg-2 sidebar" style="position:absolute;top: auto;left:auto;overflow-y:hidden;bottom:auto;max-width:225px;">
         <ul class="nav nav-sidebar">
             <li class="active"><a>Category</a></li>
             <li>@Html.ActionLink("Introduction","Index","Course")</li>
@@ -20,13 +20,13 @@
 
         </ul>
         @*<hr style="border-color:#428bca;" />*@
-        <ul class="nav nav-sidebar">
+        @*<ul class="nav nav-sidebar">
             <li class="active"><a>Upcoming Class</a></li>
-            @*@foreach (CourseClass item in ViewBag.cList)
+            @foreach (CourseClass item in ViewBag.cList)
             {
                 <li>@Html.ActionLink(item.ClassId, "Details", "Class", new { id=item.ClassId}, new { })</li>
-            }*@
-        </ul>
+            }
+        </ul>*@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
         <div id="courselist">

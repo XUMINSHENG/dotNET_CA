@@ -76,6 +76,12 @@ namespace CourseRegistration.BLL
             return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == id).ToList().First();
         }
 
+        public Participant GetIUParticipantByIdNumber(String id)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            return uow.ParticipantRepository.GetAll().Where(x => x.IdNumber == id && x.Company == null).ToList().FirstOrDefault();
+        }
+
         public List<Participant> GetCmpParticipantByIdNumber(int cmpId, String idNumber)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();

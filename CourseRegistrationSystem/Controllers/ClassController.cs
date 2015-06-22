@@ -65,13 +65,19 @@ namespace CourseRegistrationSystem.Controllers
                 //verify if the user existed based on the information
                 //if not, register a new one as individual user and finish the class registration
                 //if yes, help them login and turn to iu action
+                r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(r.CourseClass.ClassId);
+                if (ParticipantBLL.Instance.GetIUParticipantByIdNumber(r.Participant.IdNumber)!=null)
+                {
+                    ViewBag.Alert = true;
+                    return View(r);
+                }
 
                 //var user = CourseRegistration.BLL.UserBLL.Instance.CreateIndividualUser(r.Participant);
                 //if (user != null)
                 //{
                     r.Sponsorship = Sponsorship.Self;
                     r.DietaryRequirement = r.Participant.DietaryRequirement;
-                    r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(r.CourseClass.ClassId);
+                    
                     if (RegistrationBLL.Instance.CreateForIndividualUser(r))
                     {
                         return View("RegisterClassForIUResult", r);
