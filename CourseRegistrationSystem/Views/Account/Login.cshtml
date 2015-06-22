@@ -15,7 +15,7 @@
         @Html.Label("Login As", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="radio-inline">
-                @Html.RadioButton("loginAs", (string)@ViewBag.IndividualUser, new { id = @ViewBag.IndividualUser, onclick = "showLoginResult(this)" }) @ViewBag.IndividualUser
+                @Html.RadioButton("loginAs", (string)@ViewBag.IndividualUser, true,new { id = @ViewBag.IndividualUser, onclick = "showLoginResult(this)"}) @ViewBag.IndividualUser
             </div>
             <div class="radio-inline">
                 @Html.RadioButton("loginAs", (string)@ViewBag.CompanyHR, new { id = @ViewBag.CompanyHR, onclick = "showLoginResult(this)" }) @ViewBag.CompanyHR
@@ -27,6 +27,7 @@
         </div>
     </div>
     <div class="form-group" id="LoginPage">
+        @Html.Partial("LoginIndividualUser")
     </div>
 </div>
 
@@ -40,13 +41,13 @@
         var companyHR = '@ViewBag.CompanyHR';
         var staff = '@ViewBag.Staff';
         if (selected == individualUser) {
-            $url = "/Account/LoginIndividualUser";
+            $url = "/Account/LoginIndividualUser/?returnUrl=".concat('@ViewBag.ReturnUrl');
         }
         else if (selected == companyHR) {
-            $url = "/Account/LoginCompanyHR";
+            $url = "/Account/LoginCompanyHR/?returnUrl=".concat('@ViewBag.ReturnUrl');
         }
         else if (selected == staff) {
-            $url = "/Account/LoginStaff";
+            $url = "/Account/LoginStaff/?returnUrl=".concat('@ViewBag.ReturnUrl');
         }
 
         $.ajax({
@@ -60,5 +61,5 @@
             }
         });
     }
-</script>
+        </script>
 }

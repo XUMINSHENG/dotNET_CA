@@ -63,6 +63,8 @@ namespace CourseRegistrationSystem.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (returnUrl == null && ControllerContext.HttpContext.Request.UrlReferrer != null)
+                returnUrl = ControllerContext.HttpContext.Request.UrlReferrer.ToString();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -97,7 +99,7 @@ namespace CourseRegistrationSystem.Controllers
                 case SignInStatus.Success:
                     if (user !=null && user.isSysGenPassword)
                         return RedirectToAction("ChangePassword", "Manage");
-                    return RedirectToLocal(returnUrl);
+                    return Redirect(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -132,11 +134,14 @@ namespace CourseRegistrationSystem.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            ApplicationUser user = CourseRegistration.BLL.UserBLL.Instance.GetAllUsers().FirstOrDefault(u => u.UserName == model.UserName);
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (user != null && user.isSysGenPassword)
+                        return RedirectToAction("ChangePassword", "Manage");
+                    return Redirect(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -172,11 +177,14 @@ namespace CourseRegistrationSystem.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            ApplicationUser user = CourseRegistration.BLL.UserBLL.Instance.GetAllUsers().FirstOrDefault(u => u.UserName == model.UserName);
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (user != null && user.isSysGenPassword)
+                        return RedirectToAction("ChangePassword", "Manage");
+                    return Redirect(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
