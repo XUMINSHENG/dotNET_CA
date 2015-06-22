@@ -46,7 +46,11 @@ namespace CourseRegistration.Service
                 );
                 studentList.Add(newStud);
             }
-
+            //int i=studentList.Count();
+            if (studentList.Count() == 0)
+            {
+                throw new FaultException("No student registered for this class");
+            }
             return studentList;
         }
 
@@ -65,7 +69,7 @@ namespace CourseRegistration.Service
             {
                 return new Result(false, e.ToString());
             }
-            return new Result(true, "");
+            return new Result(true, "Attendance is successfull.It is updated in database");
         }
     }
 }

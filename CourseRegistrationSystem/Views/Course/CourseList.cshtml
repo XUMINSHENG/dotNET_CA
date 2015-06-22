@@ -27,8 +27,10 @@
 <ul class="list-group">
     @foreach (var item in Model.Courses)
     {
-        
-        <li>@Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { @class = "list-group-item" })</li>        
+        if (item.enabled)
+        {
+            <li>@Html.ActionLink(item.CourseTitle, "Details", "Course", new { code = item.CourseCode }, new { @class = "list-group-item" })</li>
+        }
     }
 </ul>
 

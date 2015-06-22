@@ -46,6 +46,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = userName,
                 Email = email,
+                EmailConfirmed = true,
                 PhoneNumber = contactNumber,
                 isSysGenPassword = true
             };
@@ -89,11 +90,13 @@ namespace CourseRegistration.BLL
 
         public void MailUserCredentials(String userId,String userName,String password)
         {
-            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
-            if (uow.AppUserManager.EmailService == null) 
-                uow.AppUserManager.EmailService = new EmailService();
-            uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
-            uow.Save();
+            //IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            //if (uow.AppUserManager.EmailService == null) 
+            //    uow.AppUserManager.EmailService = new EmailService();
+            //uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+            //uow.Save();
+            Util.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+
         }
         public void MailUser(String userId, String subject,String msg)
         {
@@ -114,6 +117,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = p.IdNumber,
                 Email = p.Email,
+                EmailConfirmed = true,
                 PhoneNumber = p.ContactNumber,
                 isSysGenPassword = true
             };
@@ -143,6 +147,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = HR.Email,
                 Email = HR.Email,
+                EmailConfirmed = true,
                 PhoneNumber = HR.ContactNumber,
                 isSysGenPassword = true
             };
@@ -170,6 +175,7 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             ApplicationUser user = new ApplicationUser();
+            user.EmailConfirmed = true;
             // Create New User
             var userRole = uow.AppRoleManager.FindByName(Util.C_Role_CourseAdmin);
             user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });

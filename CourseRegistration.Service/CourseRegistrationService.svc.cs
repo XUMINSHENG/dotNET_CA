@@ -6,6 +6,8 @@ using System.ServiceModel;
 using System.Text;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
+using Microsoft.AspNet.Identity;
+
 
 namespace CourseRegistration.Service
 {
@@ -18,8 +20,10 @@ namespace CourseRegistration.Service
 
             try
             {
-                String userId = "3a9ca100-be8e-40b1-be81-cdcea18e2e50";
-                CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(userId);
+                String userName = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+                ApplicationUser user = UserBLL.Instance.GetUserByName(userName);
+
+                CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(user.Id);
                 Company company = loginHR.Company;
 
                 // setting value
@@ -64,15 +68,22 @@ namespace CourseRegistration.Service
 
                 List<Registration> regList = new List<Registration>();
                 regList.Add(newReg);
-                RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
-
+                
+                
+                // RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
+                //List<Registration> failedList1 = RegistrationBLL.Instance.CreateForCompanyEmployee(regList);
+                int size =RegistrationBLL.Instance.CreateForCompanyEmployee(regList).Count();
+                if(size!=0)
+                {
+                    return new Result(false,"The candidate is already registered.");
+                }
             }
             catch (Exception e)
             {
                 return new Result(false, e.ToString());
                
             }
-            return new Result(true,"");
+            return new Result(true,"We have successfully registered the candidate");
         }
     }
 }
