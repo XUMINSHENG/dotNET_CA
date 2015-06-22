@@ -6,6 +6,8 @@ using System.ServiceModel;
 using System.Text;
 using CourseRegistration.Models;
 using CourseRegistration.BLL;
+using Microsoft.AspNet.Identity;
+
 
 namespace CourseRegistration.Service
 {
@@ -18,8 +20,10 @@ namespace CourseRegistration.Service
 
             try
             {
-                String userId = "3a9ca100-be8e-40b1-be81-cdcea18e2e50";
-                CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(userId);
+                String userName = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+                ApplicationUser user = UserBLL.Instance.GetUserByName(userName);
+
+                CompanyHR loginHR = CompanyHRBLL.Instance.GetCompanyHRByUserId(user.Id);
                 Company company = loginHR.Company;
 
                 // setting value
