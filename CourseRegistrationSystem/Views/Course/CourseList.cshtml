@@ -22,10 +22,10 @@
 </p>
 <hr />
 
-<h3>COURSES LIST <small>@Model.Courses.Count() courses</small></h3>
+<h3>Available Courses <small>@ViewBag.Courses.Count courses</small></h3>
 
 <ul class="list-group">
-    @foreach (var item in Model.Courses)
+    @foreach (CourseRegistration.Models.Course item in ViewBag.Courses)
     {
         if (item.enabled)
         {

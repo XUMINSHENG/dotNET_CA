@@ -59,6 +59,14 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult CourseList(int categoryId)
         {
             Category category = CategoryBLL.Instance.GetCategoryById(categoryId);
+            ViewBag.Courses = new List<Course>();
+            foreach (var item in category.Courses)
+            {
+                if (item.enabled)
+                {
+                    ViewBag.Courses.Add(item);
+                }
+            }
             return PartialView(category);
         }
     }

@@ -13,27 +13,8 @@
 
 <div>
     <p>@Model.CourseDescription</p>
-    
-    <dl class="dl-horizontal">
-       
+    <p><strong>@Html.DisplayNameFor(model => model.Fee): @Html.DisplayFor(model => model.Fee) | Duration: @Html.DisplayFor(model => model.NumberOfDays)</strong></p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fee)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fee)
-        </dd>
-
-        <dt>
-            @("Duration")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfDays)
-        </dd>
-
-    </dl>
     <hr />
     <h2>Available Classes <small>@ViewBag.Classes.Count class</small></h2>
     <ul>
