@@ -32,10 +32,13 @@ namespace CourseRegistrationSystem.Areas.SystemAdmin
 
         public void CreateUser(String Id, String UserName, String PasswordHash, String Email, String PhoneNumber)
         {
-            CourseRegistration.BLL.UserBLL.Instance.CreateAppUser(Email, Email, PhoneNumber, Session["SysAdmin_UserMgmt_Cre_User_SelRole"].ToString());
+            if (Session["SysAdmin_UserMgmt_Cre_User_SelRole"] != null)
+                CourseRegistration.BLL.UserBLL.Instance.CreateAppUser(Email, Email, PhoneNumber, Session["SysAdmin_UserMgmt_Cre_User_SelRole"].ToString());
         }
         public void UpdateUser(String Id, String UserName, String PasswordHash, String Email, String PhoneNumber)
         {
+            if (Session["SysAdmin_UserMgmt_Upd_User_isDisabled"] == null)
+                Session["SysAdmin_UserMgmt_Upd_User_isDisabled"] = false;
             CourseRegistration.BLL.UserBLL.Instance.UpdateAppUser(Id, UserName, Email, PhoneNumber, bool.Parse(Session["SysAdmin_UserMgmt_Upd_User_isDisabled"].ToString()));
         }
 

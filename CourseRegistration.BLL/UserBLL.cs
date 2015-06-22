@@ -73,7 +73,7 @@ namespace CourseRegistration.BLL
             // Update User Details
             var user = uow.AppUserManager.FindById(userId);
             user.UserName = userName;
-            user.Email = user.Email;
+            user.Email = email;
             user.PhoneNumber = contactNumber;
             if(DisableAccount)
             {
@@ -95,7 +95,9 @@ namespace CourseRegistration.BLL
             //    uow.AppUserManager.EmailService = new EmailService();
             //uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
             //uow.Save();
-            Util.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            var user = uow.AppUserManager.FindById(userId);
+            Util.SendEmail(user.Email, "Account Credentials", "Your Login Credentials are <br/> UserName:" + userName + "<br/> Password:" + password);
 
         }
         public void MailUser(String userId, String subject,String msg)
