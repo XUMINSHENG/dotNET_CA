@@ -46,6 +46,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = userName,
                 Email = email,
+                EmailConfirmed = true,
                 PhoneNumber = contactNumber,
                 isSysGenPassword = true
             };
@@ -116,6 +117,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = p.IdNumber,
                 Email = p.Email,
+                EmailConfirmed = true,
                 PhoneNumber = p.ContactNumber,
                 isSysGenPassword = true
             };
@@ -145,6 +147,7 @@ namespace CourseRegistration.BLL
                 Id = Guid.NewGuid().ToString(),
                 UserName = HR.Email,
                 Email = HR.Email,
+                EmailConfirmed = true,
                 PhoneNumber = HR.ContactNumber,
                 isSysGenPassword = true
             };
@@ -172,6 +175,7 @@ namespace CourseRegistration.BLL
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
             ApplicationUser user = new ApplicationUser();
+            user.EmailConfirmed = true;
             // Create New User
             var userRole = uow.AppRoleManager.FindByName(Util.C_Role_CourseAdmin);
             user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
