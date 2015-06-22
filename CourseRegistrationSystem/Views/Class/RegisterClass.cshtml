@@ -35,6 +35,13 @@
         </div>
         <div class="collapse in" id="collapse1">
             <div class="panel-body">
+                @if (ViewBag.Alert==true)
+                {
+                    <div class="alert alert-danger">
+                        There is an account for @Html.Encode(Model.Participant.IdNumber). You can @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) or @Html.ActionLink("Reset your password", "ForgotPassword", "Account"). If any mistake, welcome to contact us.
+                    </div>
+                }
+                
 
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

@@ -14,7 +14,7 @@ namespace CourseRegistrationSystem.Controllers
         public ActionResult Index()
         {
             List<Category> categories = CategoryBLL.Instance.GetAllCategories();
-            ViewBag.cList = CourseClassBLL.Instance.GetUpcomingClass();
+            //ViewBag.cList = CourseClassBLL.Instance.GetUpcomingClass();
             return View(categories);
         }
         public ActionResult Search(String content)

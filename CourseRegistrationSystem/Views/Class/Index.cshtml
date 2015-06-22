@@ -44,11 +44,11 @@
             {
                 if (User.IsInRole("CompanyHR"))
                 {                    
-                    @Html.ActionLink("Register", "RegisterClassForHR", new { classId = item.ClassId })
+                    @Html.ActionLink("Register", "RegisterClassForHR", new { id = item.ClassId })
                 }
                 else
                 {
-                    @Html.ActionLink("Register", "RegisterClassForIU", new { classId = item.ClassId })
+                    @Html.ActionLink("Register", "RegisterClassForIU", new { id = item.ClassId })
                 }
             }
             else
