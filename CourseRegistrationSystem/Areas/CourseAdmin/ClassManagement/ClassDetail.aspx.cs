@@ -62,6 +62,11 @@ namespace CourseRegistrationSystem.Areas.CourseAdmin.ClassManagement
                 if (saveClass() == true)
                 {
                     L_ErrMsgID.Text = "Opertion Succeed!";
+                    ddt_ClassStatus.Enabled = false;
+                    ddl_RegisterStatus.Enabled = false;
+                    ddt_Course.Enabled = false;
+                    Start_Date.Enabled = false;
+                    End_Date.Enabled = false;
                     btn_Submit.Visible=false;
                     btn_Cancel.Text = "Back to Class List";
                 }
