@@ -60,8 +60,7 @@ namespace CourseRegistration.BLL
 
             IQueryable<CourseClass> query =
                 from courseClass in uow.CourseClassRepository.GetAll()
-                where courseClass.isOpenForRegister &&
-                    DateTime.Now < courseClass.StartDate && 
+                where DateTime.Now < courseClass.StartDate && 
                     courseClass.Status != ClassStatus.Cancel
                 select courseClass;
 

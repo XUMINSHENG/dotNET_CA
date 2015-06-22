@@ -90,11 +90,17 @@ namespace CourseRegistrationSystem.Controllers
         [Authorize(Roles = "IndividualUser")]
         public ActionResult RegisterClassForIU(String id)
         {
+            
             Registration r = new Registration();
             r.CourseClass = CourseClassBLL.Instance.GetCourseClassById(id);
             
             String loginUserId = User.Identity.GetUserId();
             r.Participant = ParticipantBLL.Instance.GetParticipantByUserId(loginUserId);
+            ViewBag.Alert = false;
+            if (RegistrationBLL.Instance.validateIfRegistered(r.CourseClass.ClassId,r.Participant.ParticipantId))
+            {
+                ViewBag.Alert = true;
+            }
 
             return View(r);
         }

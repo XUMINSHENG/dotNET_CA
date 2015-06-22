@@ -40,10 +40,18 @@
             @item.EndDate.ToString("yyyy-MM-dd")
         </td>
         <td>
-            @if(Request.IsAuthenticated)
+            @if (item.isOpenForRegister)
+            {
+                <p class="text-danger">Closed</p>
+            }
+            else
+            {
+                @Html.ActionLink("Register", "RegisterClass", new { classId = item.ClassId });
+            }
+            @*if (Request.IsAuthenticated)
             {
                 if (User.IsInRole("CompanyHR"))
-                {                    
+                {
                     @Html.ActionLink("Register", "RegisterClassForHR", new { id = item.ClassId })
                 }
                 else
@@ -54,9 +62,12 @@
             else
             {
                 @Html.ActionLink("Register", "RegisterClass", new { classId = item.ClassId })
-                @*@Html.ActionLink("Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@
-            }
                 
+            }*@
+
+
+
+           
         </td>
     </tr>
     

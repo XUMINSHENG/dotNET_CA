@@ -126,6 +126,17 @@ namespace CourseRegistration.BLL
             return failedList;    
         }
 
+        public Boolean validateIfRegistered(string classId, int pId)
+        {
+            IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
+            Registration r = uow.RegistrationRepository.GetAll().Where(x => x.CourseClass.ClassId == classId && x.Participant.ParticipantId == pId).FirstOrDefault();
+            if (r != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Registration getRegistrationById(int id)
         {
             IUnitOfWork uow = UnitOfWorkHelper.GetUnitOfWork();
