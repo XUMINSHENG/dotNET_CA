@@ -49,7 +49,7 @@ namespace CourseRegistrationSystem
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
             }
-            catch
+            catch (Exception e)
             {
                 try
                 {
@@ -59,7 +59,7 @@ namespace CourseRegistrationSystem
                     smtpClient.EnableSsl = true;
                     smtpClient.Send(msg);
                 }
-                catch
+                catch (Exception ex)
                 {
 
                 }

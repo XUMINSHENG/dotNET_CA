@@ -31,8 +31,10 @@ namespace CourseRegistration.BLL
             String pwd = Util.GeneratePassword();
             user.isSysGenPassword = true;
             var result = await setPasswordAsync(user.Id, pwd,true);
+            if (uow.AppUserManager.EmailService == null) 
+                uow.AppUserManager.EmailService = new EmailService();
+            uow.AppUserManager.SendEmail(userId, "Account Credentials", "Your Login Credentials are <br/> UserName:" + user.UserName + "<br/> Password:" + pwd);
             uow.Save();
-            MailUserCredentials(user.Id, user.UserName, pwd);
             return result;
         }
 
